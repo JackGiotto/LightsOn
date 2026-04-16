@@ -1,0 +1,59 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    width: 14rem;
+    height: 40rem;
+    padding: 2rem;
+    border-radius: 1.5rem;
+    box-shadow: 4px 4px 8px rgb(0, 0 ,0, 0.25);
+    background-color: #FEFEFE;
+    align-items: center;
+}
+
+.sidebarList {
+    list-style: none;
+    text-align: center;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.sidebarList li {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-family: Inter;
+    font-size: medium;
+    height: 12px;
+    width: auto;
+    color: black;
+    border-radius: 2rem;
+    padding: 1.5rem;
+    width: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.sidebarList a {
+    text-decoration: none;
+}
+
+.sidebarList li:hover {
+    background-color: #F5F5F5;
+
+}
+
+.title {
+    text-align: center;
+    font-family: Inter;
+    height: 14x;
+
+}
+
+footer {
+    font-family: Inter;
+    font-size: 12px;
+    text-align: center;
+}
