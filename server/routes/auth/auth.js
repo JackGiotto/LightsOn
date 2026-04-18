@@ -1,7 +1,9 @@
 const express = require('express');
 const router = express.Router();
+const crypto = require("crypto");
 const User = require('../../models/User');
 const { createHashed, checkPassword } = require('../../utils/cipher');
+const jwt = require("jsonwebtoken");
 
 router.post('/signup', async (req, res) => {
     try {
@@ -19,6 +21,23 @@ router.post('/signup', async (req, res) => {
             authMethods: { hasPassword: true }
         });
         await newUser.save();
+
+        const token = jwt.sign(
+          {
+            userID: newUser._id.toString(),
+            jti: crypto.randomUUID()
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: "1d" }
+        );
+
+        res.cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: 24 * 60 * 60 * 1000
+        });
+
         res.status(201).json({ msg: "Utente creato con successo" });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -34,7 +53,24 @@ router.post('/login', async (req, res) => {
         if (!user) return res.status(400).json({ msg: "Username o password errati" });
         const checked = await checkPassword(password, user.passwordHash);
         if (!checked) return res.status(400).json({ msg: "Username o password errati" });
-        res.status(200).json({ msg: "Login effettuato con successo" });
+
+        const token = jwt.sign(
+          {
+            userID: user._id.toString(),
+            jti: crypto.randomUUID()
+          },
+          process.env.JWT_SECRET,
+          { expiresIn: "1d" }
+        );
+
+        res.cookie("access_token", token, {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === "production",
+          sameSite: "lax",
+          maxAge: 24 * 60 * 60 * 1000
+        });
+
+        return res.status(200).json({ msg: "Login effettuato con successo" });
 
     } catch (err) {
         res.status(500).json({ error: err.message });
