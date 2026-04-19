@@ -12,3 +12,10 @@
     backdrop-filter: blur(2px);
     border: 2px solid #FFFFFF;
 }
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 80%;
+    }
+}

@@ -9,7 +9,15 @@
     box-shadow: 4px 4px 8px rgb(0, 0 ,0, 0.25);
     background-color: #FEFEFE;
     align-items: center;
+    position: fixed;
+    z-index: 10;
+    top: 20px;
 }
+
+.logo {
+    margin-top: 5px;
+}
+
 
 .navbarList {
     list-style: none;
@@ -34,4 +42,68 @@
 
 .navElement:hover {
     font-weight: bold;
+}
+
+.hamburger {
+    display: none;
+}
+
+.accordion {
+    display: none;
+}
+
+
+@media (max-width: 768px) {
+
+
+    .navbarList {
+        display: none;
+    }
+
+    .hamburger {
+        display: inline;
+    }
+
+
+
+    .accordion {
+        display: inline;
+        height: 0rem;
+        background-color: #FEFEFE;
+        width: 80%;
+        position: fixed;
+        top: 4rem;
+        z-index: 9;
+        border-radius: 1.5rem;
+        box-shadow: 4px 4px 8px rgb(0, 0 ,0, 0.25);
+        transition: height 0.2s ease-out;
+        overflow: hidden;
+        padding-right: 2rem;
+        padding-left: 2rem;
+    }
+
+    .accordion.open {
+        height: 30rem;
+        padding: 2rem;
+    }
+
+    .accordion ul {
+        list-style: none;
+    }
+
+    .category {
+        font-family: Inter;
+        font-size: large;
+    }
+
+    .subcategory {
+        font-family: Inter;
+        margin-left: 1rem;
+        margin-bottom: 5px;
+    }
+
+    .accordion a {
+        text-decoration: none;
+        color: black;
+    }
 }
