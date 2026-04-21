@@ -1,12 +1,13 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "../pages/Login/Login";
+import MapPage from "../pages/map/map";
 
 function AppRouter() {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Login />} />
-        {/* qui aggiungerai altre pagine più avanti */}
+        <Route path="/map" element={<MapPage />} />
       </Routes>
     </BrowserRouter>
   );
