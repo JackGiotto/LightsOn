@@ -6,11 +6,10 @@ export const Imp1 = () => {
             <div className={styles.container}>
             <h1 className={styles.title}>Impostazioni Account</h1>
                 <ul>
-                    <li>Email registrata: ciao@pippo.com</li>
-                    <button>Cambia mail</button>
-                    <li>Cambia Password</li>
+                    <li>Email registrata: ciao@pippo.com<button>Cambia mail</button></li>
+                    <li>Password: *******<button>Cambia Password</button></li>
                     <li><button>Logout</button></li>
-                    <li><button>Elimina Account</button></li>
+                    <li><button className={styles.deleteAccount}>Elimina Account</button></li>
                 </ul>
             </div>
     )

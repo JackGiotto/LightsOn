@@ -37,13 +37,13 @@ export const NavBar = () => {
                     <ul>
                             <Link to="/dashboard"><li className={styles.category}><h3>Dashboard</h3></li></Link>
 
-                        <li className={styles.subcategory}>Consumi</li>
-                        <li className={styles.subcategory}>Consumi</li>
-                        <li className={styles.subcategory}>Consumi</li>
-                        <li className={styles.subcategory}>Consumi</li>
-                        <li className={styles.subcategory}>Consumi</li>
-                        <li className={styles.subcategory}>Consumi</li>
-                        <li className={styles.subcategory}>Consumi</li>
+                        <Link to="/dashboard/settimane"><li className={styles.subcategory}>Analizza Settimane</li></Link>
+                        <Link to="/dashboard/stagioni"><li className={styles.subcategory}>Analizza Stagioni</li></Link>
+                        <li className={styles.subcategory}>Stato lampioni</li>
+                        <li className={styles.subcategory}>Età Media</li>
+                        <li className={styles.subcategory}>Simulazione Consumi</li>
+                        <li className={styles.subcategory}>Analizza dalla Mappa</li>
+                        <li className={styles.subcategory}>Controllo Segnalazioni</li>
 
                         <Link to="/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}><h3>Impostazioni</h3></li></Link>
                         

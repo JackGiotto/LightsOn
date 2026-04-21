@@ -1,7 +1,10 @@
 import React from "react";
+import { Link } from "react-router";
 
 export const Logo = () => {
     return (
-        <img src="/Logo.png"></img>
+        <Link to="/settings">
+            <img src="/Logo.png"></img>
+        </Link>
     );
 }

@@ -1,9 +1,10 @@
 import React from "react";
+import styles from "../../Style/settimane.module.css";
 
 export const Settimane = () => {
     return (
         <>
-            <h1>Content of Imp 2</h1>
+            <h1 className={styles.title}>Analisi delle Settimane</h1>
         </>
     )
 }
