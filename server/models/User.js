@@ -26,7 +26,9 @@ const UserSchema = new mongoose.Schema({
 
     isVerified: { type: Boolean, default: false },
 
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+
+    role: { type: String, enum: ['user', 'admin'], default: 'user' }
 });
 
 module.exports = mongoose.model('User', UserSchema);

@@ -7,16 +7,33 @@ export default function Login() {
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
 
-    const handleSignup = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log('Signup:', { email, password });
-        
-        // Validazione semplice
-        if (email === 'test@test.com' && password === 'password123') {
-        alert('Login effettuato con successo!');
-        // Qui poi farai il redirect alla dashboard
-        } else {
-            alert('Credenziali errate!');
+
+        try {
+          const apiUrl = import.meta.env.VITE_API_URL;
+          const response = await fetch(`${apiUrl}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Login failed');
+          } else {
+            const data = await response.json();
+            console.log('Login successful:', data);
+            if (data.role === 'user') {
+              // TODO: Handle user role specific logic
+            } else if (data.role === 'admin') {
+              // TODO: Handle admin role specific logic
+            }
+          }
+        } catch (error) {
+          console.error(error);
         }
     };
 
@@ -29,7 +46,7 @@ export default function Login() {
           <h1 className="logo">LightsOn</h1>
         </div>
 
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleLogin}>
             <div className="login-contatiner">
                 <div className="input-container">
                     <input
@@ -45,6 +62,7 @@ export default function Login() {
                     <div className="password-wrapper">
                         <input 
                         type={showPassword ? "text" : "password"}
+                        name="password"
                         className="input-field" 
                         placeholder="Password"
                         value={password}

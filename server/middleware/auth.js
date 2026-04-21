@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
 function requireAuth(req, res, next) {
-  const token = req.cookies?.access_token;
+  const token = req.cookies?.lo_access_token;
 
   if (!token) {
     return res.status(401).json({ code:"USER_NEED_LOGIN", msg: "Non autenticato" });
