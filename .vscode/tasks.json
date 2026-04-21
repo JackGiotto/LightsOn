@@ -1,0 +1,71 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🚀 Docker: Start Dev (All)",
+            "type": "shell",
+            "command": "cd client && npm install && npm audit fix; cd ../server && npm install && npm audit fix; cd .. && docker compose --profile dev up",
+            "group": "build",
+            "windows": {
+                "command": "cd client; npm install; npm audit fix; cd ../server; npm install; npm audit fix; cd ..; docker compose --profile dev up"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "💻 Docker: Start Client Only",
+            "type": "shell",
+            "command": "cd client && npm install && npm audit fix; cd .. && docker compose --profile dev-client up",
+            "group": "build",
+            "windows": {
+                "command": "cd client; npm install; npm audit fix; cd ..; docker compose --profile dev-client up"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "⚡ Docker: Start Server Only",
+            "type": "shell",
+            "command": "cd server && npm install && npm audit fix; cd .. && docker compose --profile dev-server up",
+            "group": "build",
+            "windows": {
+                "command": "cd server; npm install; npm audit fix; cd ..; docker compose --profile dev-server up"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "🛑 Docker: Stop All",
+            "type": "shell",
+            "command": "docker compose --profile dev down",
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        },
+        {
+            "label": "🧹 Docker: Deep Clean (Keep Data & Modules)",
+            "type": "shell",
+            "command": "docker compose --profile dev down --rmi all",
+            "group": "build"
+        },
+        {
+            "label": "🗑️ Clean: Remove Client & Server node_modules",
+            "type": "shell",
+            "command": "sudo rm -rf client/node_modules server/node_modules",
+            "windows": {
+                "command": "Remove-Item -Recurse -Force client/node_modules, server/node_modules"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "shared"
+            }
+        }
+    ]
+}
