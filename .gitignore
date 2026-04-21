@@ -2,6 +2,8 @@
 
 /client/dist/
 
+/mongodb_data/*
+
 .env
 .env.*
 !.env.example

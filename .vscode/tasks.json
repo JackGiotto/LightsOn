@@ -66,6 +66,33 @@
                 "reveal": "always",
                 "panel": "shared"
             }
+        },
+        {
+            "label": "📜 Docker: Logs Backend",
+            "type": "shell",
+            "command": "docker compose --profile dev logs -f backend-dev",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "📜 Docker: Logs MongoDB",
+            "type": "shell",
+            "command": "docker compose --profile dev logs -f mongodb-dev",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "📄 Docker: Backend Last 200 Lines",
+            "type": "shell",
+            "command": "docker compose --profile dev logs --tail=200 backend-dev",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
         }
     ]
 }
