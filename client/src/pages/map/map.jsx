@@ -8,7 +8,7 @@ import LightDetails from '../../components/map/LightDetails';
 function MapEvents({ setCorners }) {
   const map = useMapEvents({
     moveend: () => {
-      const bounds = map.Bounds();
+      const bounds = map.getBounds();
       setCorners({
         topLeft: bounds.getNorthWest(),
         bottomRight: bounds.getSouthEast(),
