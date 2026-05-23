@@ -11,7 +11,9 @@ import { Segnalazioni } from "../pages/dashboard/Segnalazioni.jsx";
 import { Lampioni } from "../pages/dashboard/Lampioni.jsx";
 import { DashboardLayout } from "../pages/dashboard/DashboardLayout.jsx";
 import { Contatti } from "../pages/Contatti.jsx";
-import MapPage from "../pages/map/map.jsx";
+import { MapPage } from "../pages/map/map.jsx";
+import { HomeCitizen } from "../pages/cittadino/HomeCitizen.jsx";
+import { Report } from "../pages/cittadino/Report.jsx";
 
 function AppRouter() {
   return (
@@ -35,6 +37,10 @@ function AppRouter() {
 
         <Route path='/contatti' element={<Contatti />}></Route>
         <Route path='/map' element={<MapPage />}></Route>
+
+        <Route path="/cittadino" element={<HomeCitizen />}>
+        </Route>
+        <Route path="/segnala" element={<Report></Report>}></Route>
       </Routes>
     </BrowserRouter>
   );

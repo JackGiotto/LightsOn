@@ -19,12 +19,16 @@ function MapEvents({ setCorners }) {
   return null;
 }
 
-const MapPage = () => {
+export const MapPage = () => {
   const [isNightMode, setIsNightMode] = useState(true); // Default to dark mode
   const position = [46.067069, 11.150347];
   const bulb = { id: 2001, position: [46.0672, 11.1506] };
   const [, setCorners] = useState(null);
   const [selectedLight, setSelectedLight] = useState(null);
+
+  const changeNightMode = () => {
+    setIsNightMode(!isNightMode)
+  }
 
   const handleReport = (lightId) => {
     console.log(`Report button clicked for light: ${lightId}`);
@@ -61,5 +65,3 @@ const MapPage = () => {
     </div>
   );
 };
-
-export default MapPage;

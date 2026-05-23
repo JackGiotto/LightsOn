@@ -15,7 +15,7 @@ export const DashboardSideBar = () => {
                 <Link to="/dashboard/"><li><h3>Stato Lampioni</h3></li></Link>
                 <Link to="/dashboard/"><li><h3>Età Media</h3></li></Link>
                 <Link to="/dashboard/"><li><h3>Simulazione Consumi</h3></li></Link>
-                <Link to="/dashboard/"><li><h3>Analizza dalla Mappa</h3></li></Link>
+                <Link to="/dashboard/mappa"><li><h3>Analizza dalla Mappa</h3></li></Link>
                 <Link to="/dashboard/"><li><h3>Controllo Segnalazioni</h3></li></Link>
             </ul>
             <footer>

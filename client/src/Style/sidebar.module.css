@@ -3,8 +3,9 @@
     flex-direction: column;
     justify-content: space-around;
     min-width: 18rem;
-    width: 14vw;
-    min-height: 75vh auto;
+    width: 18vw;
+    height: 85vh;
+
 
     padding: 2rem;
     border-radius: 40px;
@@ -14,6 +15,7 @@
     align-items: center;
     backdrop-filter: blur(15px);
     border: 2px solid #FFFFFF;
+    box-sizing: border-box;
 }
 
 .sidebarList {

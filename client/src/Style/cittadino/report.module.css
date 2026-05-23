@@ -1,0 +1,35 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: #F5F5F5;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    font-family: 'Inter', 'sans-serif';
+}
+
+.arrow {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+}
+
+.list {
+    list-style: none;
+}
+
+.list li {
+    width: 10vw;
+    height: 20px;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: aquamarine;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}

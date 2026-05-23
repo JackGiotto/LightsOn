@@ -3,7 +3,7 @@ import React from "react";
 export const Segnalazioni = () => {
     return (
         <>
-            <h1>Content of Imp 2</h1>
+            <h1>Controllo Segnalazioni</h1>
         </>
     )
 }
