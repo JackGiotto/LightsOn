@@ -1,11 +1,13 @@
 import React from "react";
 import styles from "../../Style/cittadino/report.module.css";
+import styles1 from "../../Style/cittadino/citizen.module.css";
+import { Link } from "react-router-dom";
 
 export const Report = () => {
 
     return (
         <div className={styles.container}>
-            <p className={styles.arrow}>una bella freccia per tornare INDIETRO</p>
+            <Link className={styles.arrow} to="/cittadino"><img src="/left-chevron.png" width={20}></img></Link>
             <h1>Segnala</h1>
             
             <h3>Seleziona il tipo di malfunzionamento</h3>
@@ -19,7 +21,8 @@ export const Report = () => {
                 <label>Se vuoi aggiungere una descrizione o una foto</label>
                 <input placeholder="Descrizione..." type="text"></input>
             </form>
-            <button>Segnala</button>
+            
+                <button className={styles1.alertButton}>Segnala</button>
         </div>
     );
 }

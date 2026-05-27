@@ -3,33 +3,102 @@
     height: 100vh;
     position: fixed;
     top: 0;
-    background-color: #F5F5F5;
+    background-color: #171D1B;
     display: flex;
     align-items: center;
     flex-direction: column;
     justify-content: space-around;
     font-family: 'Inter', 'sans-serif';
+    color: #FFF;
 }
+
+h3 {
+    text-align: center;
+}
+
 
 .arrow {
     position: absolute;
     top: 50px;
     left: 50px;
+    cursor: pointer;
 }
 
 .list {
     list-style: none;
+    padding: 0;
 }
 
 .list li {
-    width: 10vw;
-    height: 20px;
+    min-width: 200px;
+    width: 15vw;
+    height: 30px;
     padding: 10px;
     border-radius: 10px;
-    background-color: aquamarine;
+    background-color: #2E2E2E;
     margin-top: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    width: 30vw;
+    align-items: center;
+    justify-content: space-around;
+    margin-bottom: 20vh;
+}
+
+form label {
+    width: 50vw;
+    text-align: center;
+}
+
+form input {
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px rgb(0,0,0,0.5);
+    border: none;
+    padding: 1rem;
+    width: 300px;
+    margin-top: 1rem;
+}
+
+form input:focus {
+    outline: none;
+
+}
+
+@media (max-width: 1000px)  {
+
+    h3 {
+        width: 80vw;
+    }
+
+    .list {
+        align-items: center;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100vw;
+    }
+
+    .list li {
+        width: 70vw;
+        align-self: center;
+    }
+
+
+    form {
+        width: 90vw;
+        height: 15vh;
+    }
+
+    form input {
+        width: 70vw;
+    }
 }
