@@ -33,15 +33,23 @@ export default function WeekDropdown() {
           cursor: "pointer", 
           fontWeight: "bold",
           userSelect: "none",
+          width: "100%",
+          display: "flex",
+          justifyContent: "space-around",
+          alignItems: "center"
         }}
       >
-        <p style={{fontFamily: "Inter, sans-serif"}}>{selectedWeek.date}  ▼</p>
+        <p style={{fontFamily: "Inter, sans-serif"}}>{selectedWeek.date}</p>
+        <p>▼</p>
       </span>
 
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={handleClose}
+        style={{
+          marginLeft: "25px"
+        }}
       >
         {availableWeeks.map((week) => (
           <MenuItem
