@@ -1,0 +1,85 @@
+.container {
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+    font-family: 'Inter', 'sans-serif';
+}
+
+.container h1 {
+    margin: 0;
+    text-align: center;
+}
+
+.reportList {
+    list-style: none;
+    max-height: 60vh;
+    overflow-y: auto;
+    padding: 0;
+    margin: 0;
+}
+
+.reportList li {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 30vw;
+    background-color: #FFFFFF;
+    border: 1px solid #F4C50B   ;
+    border-radius: 15px;
+    padding: 1.5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    min-height: 8rem;
+}
+
+.section {
+    display: flex;
+    flex-direction: column; 
+    align-items: center; 
+    text-align: center;
+    justify-content: space-around;
+    margin: 0;
+    height: 8rem;
+}
+
+.section p {
+    margin: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 120px;
+}
+
+.contactButton {
+    width: 120px;
+    height: 50px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    outline: none;
+    border: 2px solid #F4C50B;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    cursor: pointer;
+}
+
+@media (max-width: 1000px) {
+
+    .container h1 {
+        font-size: 24px;
+    }
+
+    .reportList {
+        max-height: 70vh;
+    }
+    .reportList li {
+        width: 70vw;
+        font-size: 14px;
+    }
+
+
+}
