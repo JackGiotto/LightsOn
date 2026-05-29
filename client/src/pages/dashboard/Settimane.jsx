@@ -5,7 +5,7 @@ import WeekDropdown from './Menu';
 import { useState, useEffect } from "react";
 
 
-function Overview({showOverview, setShowOverview})  {
+function Overview({showOverview, setShowOverview, overviewData})  {
   if(!showOverview) {
     return null
   }
@@ -14,24 +14,36 @@ function Overview({showOverview, setShowOverview})  {
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
             <ul className={styles.overviewElements}>
               <li className={styles.overviewElement}>
-                <h3>346 Wh</h3>
+                <h3>{overviewData.totalConsumption} kWh</h3>
                 <p>Consumo totale</p>
               </li>
               <li className={styles.overviewElement}>
-                <h3>346 Wh</h3>
+                <h3>{overviewData.higherDay} kWh</h3>
                 <p>Giorno con consumo maggiore</p>
               </li>
               <li className={styles.overviewElement}>
-                <h3>346 Wh</h3>
+                <h3>{overviewData.lowestDay} kWh</h3>
                 <p>Giorno con consumo minore:</p>
               </li>
               <li className={styles.overviewElement}>
-                <h3>346 Wh</h3>
-                <p>Consumo totale:</p>
+                <h3>{overviewData.lampConsumption} kWh</h3>
+                <p>Consumo medio lampione</p>
               </li>
               <li className={styles.overviewElement}>
-                <h3>346 Wh</h3>
-                <p>Consumo totale</p>
+                  <h3>{overviewData.expectedCost} €</h3>
+                <p>Costo Stimato</p>
+              </li>
+              <li className={styles.overviewElement}>
+                <h3>346</h3>
+                <p>Ore totali accensione</p>
+              </li>
+              <li className={styles.overviewElement}>
+                <h3>4</h3>
+                <p>Numero Segnalazioni</p>
+              </li>
+              <li className={styles.overviewElement}>
+                <h3>35 kWh</h3>
+                <p>Differenza Settimana Precedente</p>
               </li>
             </ul>
           </div>
@@ -39,13 +51,11 @@ function Overview({showOverview, setShowOverview})  {
 }
 
 export const Settimane = () => {
-
   
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [showOverview, setOverview] = useState(false);
-
     
-  const uData = [4000, 3000, 2000, 2780, 1890, 2390, 3490];
+  const uData = [33000, 33100, 29500, 34800, 35000, 38090, 34970];
   const xLabels = [
     'Lunedi',
     'Martedi',
@@ -56,6 +66,15 @@ export const Settimane = () => {
     'Domenica',
   ];
 
+  const overviewData = {
+    higherDay: Math.max(...uData),
+    lowestDay : Math.min(...uData),
+    totalConsumption : uData.reduce((a, b) => a + b),
+    lampConsumption: (uData.reduce((a, b) => a + b) / (7 * 18000)).toPrecision(2),
+    expectedCost: (uData.reduce((a, b) => a + b) * 0.15)
+  };
+  console.log(overviewData);
+
   useEffect(() => {
     const handleResize = () => {setIsSmallScreen(window.innerWidth < 1300);};
     handleResize();
@@ -65,13 +84,13 @@ export const Settimane = () => {
     };
   }, []);
 
-    if (isSmallScreen) {
-      return (
-        <div className={styles.container}>
-          <p className={styles.info}>Please view the dashboard on Desktop or Laptop.</p>
-        </div>
-      );
-    }
+  if (isSmallScreen) {
+    return (
+      <div className={styles.container}>
+        <p className={styles.info}>Please view the dashboard on Desktop or Laptop.</p>
+      </div>
+    );
+  }
 
     return (
         <div className={styles.container}>
@@ -105,10 +124,10 @@ export const Settimane = () => {
               },
             }}
           />
-          <Overview showOverview={showOverview} setShowOverview={setOverview}></Overview>
+
+          <Overview showOverview={showOverview} setShowOverview={setOverview} overviewData={overviewData}></Overview>
 
 
-          
         </div>
     );
 }

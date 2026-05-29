@@ -60,10 +60,10 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    border: 1px solid #F4C50B;
+    border: 2px solid #F4C50B;
     background-color: #FFFFFF;
-    width: 800px;
-    height: 500px;
+    width: 900px;
+    height: 700px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -75,7 +75,7 @@
 .close {
     position: absolute;
     top: 30px;
-    left: 30px;
+    right: 30px;
     cursor: pointer;
 }
 
@@ -94,9 +94,11 @@
 }
 
 .overviewElement {
-    width: 200px;
-    height: 150px;
-    background-color: #F4C50B;
+    width: 230px;
+    height: 200px;
+    background-color: rgb(244, 197, 11, 0.5);
+    box-shadow: 3px 3px 4px #F4C50B;
+    backdrop-filter: blur(25px);
     border-radius: 20px;
     margin: 10px;
     display: flex;

@@ -1,9 +1,10 @@
 import React from "react";
+import styles from "../../Style/dashboard/stagioni.module.css";
 
 export const Stagioni = () => {
     return (
-        <>
-            <h1>Content of Imp 2</h1>
-        </>
+            <div className={styles.container}>
+                <h1 className={styles.title}>Analisi delle Stagioni</h1>
+            </div>
     )
 }
