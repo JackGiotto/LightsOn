@@ -11,6 +11,10 @@
 .container h1 {
     margin: 0;
     text-align: center;
+    display: flex;
+    align-items: center;
+    width: 40%;
+    justify-content: space-around;
 }
 
 .reportList {
@@ -21,7 +25,7 @@
     margin: 0;
 }
 
-.reportList li {
+.reportElement{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -32,8 +36,8 @@
     border-radius: 15px;
     padding: 1.5rem;
     margin-top: 1rem;
-    cursor: pointer;
-    min-height: 8rem;
+    min-height: 10rem;
+    font-size: 18px;
 }
 
 .section {
@@ -43,7 +47,8 @@
     text-align: center;
     justify-content: space-around;
     margin: 0;
-    height: 8rem;
+    min-height: 12rem;
+    font-weight: 500;
 }
 
 .section p {
@@ -67,10 +72,74 @@
     cursor: pointer;
 }
 
+
+.overview {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 4px 4px 8px rgb(0, 0 ,0, 0.1);
+    background-color: rgb(255, 255, 255);
+    border: 2px solid #F5F5F5;
+    backdrop-filter: blur(25px);
+    width: 80%;
+    height: 60%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    border-radius: 35px;
+    font-family: 'Inter', 'sans-serif';
+}
+
+.close {
+    position: absolute;
+    top: 30px;
+    left: 30px;
+    cursor: pointer;
+}
+
+
+.overviewElements {
+    list-style: none;
+    display: flex;
+    align-content: space-around;
+    width: 90%;
+    max-height: 80%;
+    align-items: center;
+    flex-direction: column;
+    padding: 0;
+    margin: 0;
+    overflow-y: auto;
+}
+
+.overviewElement {
+    width: 70%;
+    min-height: 100px auto;
+    border-radius: 20px;
+    margin: 10px;
+    box-sizing: border-box;
+    padding: 25px;
+    text-align: justify;
+    border: 1px solid #F4C50B;
+    gap: 10px;
+}
+
+
+
+
+.overviewElement p {
+    margin: 0;
+}
+
+
+
+
 @media (max-width: 1000px) {
 
     .container h1 {
         font-size: 24px;
+        width: 80%;
     }
 
     .reportList {
@@ -78,7 +147,12 @@
     }
     .reportList li {
         width: 70vw;
-        font-size: 14px;
+        font-size: 16px;
+    }
+
+    .overview {
+        width: 90vw;
+        height: 80vh;
     }
 
 
