@@ -10,11 +10,11 @@ export const DashboardSideBar = () => {
         <div className={styles.container}>
             <h1 className={styles.title}>Opzioni</h1>
             <ul className={styles.sidebarList}>
+                <Link to="/dashboard/lampioni"><li><h3>Stato Lampioni</h3></li></Link>
                 <Link to="/dashboard/settimane"><li><h3>Analizza Settimane</h3></li></Link>
                 <Link to="/dashboard/stagioni"><li><h3>Analizza Stagioni</h3></li></Link>
-                <Link to="/dashboard/"><li><h3>Stato Lampioni</h3></li></Link>
-                <Link to="/dashboard/"><li><h3>Età Media</h3></li></Link>
-                <Link to="/dashboard/"><li><h3>Simulazione Consumi</h3></li></Link>
+                <Link to="/dashboard/consumi"><li><h3>Simulazione Consumi</h3></li></Link>
+                <Link to="/dashboard/eta-media"><li><h3>Età Media</h3></li></Link>
                 <Link to="/dashboard/mappa"><li><h3>Analizza dalla Mappa</h3></li></Link>
                 <Link to="/dashboard/segnalazioni"><li><h3>Controllo Segnalazioni</h3></li></Link>
             </ul>

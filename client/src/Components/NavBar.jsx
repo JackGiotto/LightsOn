@@ -35,24 +35,23 @@ export const NavBar = () => {
             <div className={`${styles.accordion} ${isOpen ? styles.open : ''}`}>
                             
                     <ul>
-                            <Link to="/dashboard"><li className={styles.category}><h3>Dashboard</h3></li></Link>
+                            <Link to="/dashboard" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Dashboard</li></Link>
 
-                        <Link to="/dashboard/settimane"><li className={styles.subcategory}>Analizza Settimane</li></Link>
-                        <Link to="/dashboard/stagioni"><li className={styles.subcategory}>Analizza Stagioni</li></Link>
-                        <li className={styles.subcategory}>Stato lampioni</li>
-                        <li className={styles.subcategory}>Età Media</li>
-                        <li className={styles.subcategory}>Simulazione Consumi</li>
-                        <li className={styles.subcategory}>Analizza dalla Mappa</li>
-                        <li className={styles.subcategory}>Controllo Segnalazioni</li>
+                        <Link to="/dashboard/lampioni" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Stato lampioni</li></Link>
+                        <Link to="/dashboard/settimane" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza Settimane</li></Link>
+                        <Link to="/dashboard/stagioni" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza Stagioni</li></Link>
+                        <Link to="/dashboard/eta-media" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Età Media</li></Link>
+                        <Link to="/dashboard/consumi" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Simulazione Consumi</li></Link>
+                        <Link to="/dashboard/mappa" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza dalla Mappa</li></Link>
+                        <Link to="/dashboard/segnalazioni" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Controllo Segnalazioni</li></Link>
 
-                        <Link to="/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}><h3>Impostazioni</h3></li></Link>
+                        <Link to="/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Impostazioni</li></Link>
                         
                         <Link to="/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Impostazioni Account</li></Link>
                         <Link to="/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
 
-                        <Link to="/contatti"><li className={styles.category}><h3>Contatti</h3></li></Link>
+                        <Link to="/contatti" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Contatti</li></Link>
 
-                        <li className={styles.subcategory}>Sottocategoria Contatti</li>
                     </ul>
                         
                 </div>
