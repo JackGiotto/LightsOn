@@ -49,6 +49,62 @@
 
 }
 
+.overview {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 2px solid #F4C50B;
+    background-color: #FFFFFF;
+    width: 30vw;
+    height: 50vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    border-radius: 25px;
+    font-family: 'Inter', 'sans-serif';
+}
+
+.overview h3 {
+    font-size: 24px;
+    margin-top: 5rem;
+    width: 60%;
+}
+
+.close {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    cursor: pointer;
+}
+
+.changeForm {
+    min-height: 50%;
+}
+
+.confirmationButton {
+    width: 150px;
+    height: 50px;
+    background-color: #F4C50B;
+    color: white;
+    border-radius: 15px;
+    outline: none;
+    border: none;
+    font-weight: bold;
+    font-size: 14px;
+    box-shadow: 4px 4px 4px  #F4C50B;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-size: 18px;
+}
+
+.deleteButton {
+    background-color: #F40B0B;
+    box-shadow: 4px 4px 4px  #F40B0B;
+}
+
+
 
 @media (max-width: 1000px) {
 
@@ -65,6 +121,11 @@
         font-size: 28px;
         width: 70vw;
         margin-top: 3rem;
+    }
+
+    .overview {
+        width: 90vw;
+        height: 30vh;
     }
 
 

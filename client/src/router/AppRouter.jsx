@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "../Components/Layout.jsx";
 import { Imp1 } from "../pages/Imp1.jsx";
 import { Imp2 } from "../pages/Imp2.jsx";
@@ -21,11 +21,13 @@ function AppRouter() {
       <Routes>
 
         <Route path='/settings' element={<Layout />}>
+          <Route index element={<Navigate to="settings1" replace/>} />
           <Route path='settings1' element={<Imp1 />}></Route>
           <Route path='settings2' element={<Imp2 />}></Route>
         </Route>
 
         <Route path='/dashboard' element={<DashboardLayout />}>
+          <Route index element={<Navigate to="lampioni" replace/>} />
           <Route path='settimane' element={<Settimane />}></Route>
           <Route path='stagioni' element={<Stagioni />}></Route>
           <Route path='lampioni' element={<Lampioni />}></Route>
@@ -38,9 +40,8 @@ function AppRouter() {
         <Route path='/contatti' element={<Contatti />}></Route>
         <Route path='/map' element={<MapPage />}></Route>
 
-        <Route path="/cittadino" element={<HomeCitizen />}>
-        </Route>
-        <Route path="/segnala" element={<Report></Report>}></Route>
+        <Route path="/cittadino" element={<HomeCitizen />}></Route>
+        <Route path="/cittadino/segnala" element={<Report></Report>}></Route>
       </Routes>
     </BrowserRouter>
   );
