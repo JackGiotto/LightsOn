@@ -23,7 +23,7 @@ function Overview({showOverview, setShowOverview, overviewData})  {
               </li>
               <li className={styles.overviewElement}>
                 <h3>{overviewData.lowestDay} kWh</h3>
-                <p>Giorno con consumo minore:</p>
+                <p>Giorno con consumo minore</p>
               </li>
               <li className={styles.overviewElement}>
                 <h3>{overviewData.lampConsumption} kWh</h3>
@@ -31,7 +31,7 @@ function Overview({showOverview, setShowOverview, overviewData})  {
               </li>
               <li className={styles.overviewElement}>
                   <h3>{overviewData.expectedCost} €</h3>
-                <p>Costo Stimato</p>
+                <p>Costo Stimato Settimana</p>
               </li>
               <li className={styles.overviewElement}>
                 <h3>346</h3>
@@ -66,15 +66,50 @@ export const Settimane = () => {
     'Domenica',
   ];
 
-  const overviewData = {
+  //  Capire se è meglio mettere l'inizializzazione nel useEffect
+  const [overviewData, setOverviewData] = useState({
     higherDay: Math.max(...uData),
     lowestDay : Math.min(...uData),
     totalConsumption : uData.reduce((a, b) => a + b),
-    lampConsumption: (uData.reduce((a, b) => a + b) / (7 * 18000)).toPrecision(2),
-    expectedCost: (uData.reduce((a, b) => a + b) * 0.15)
-  };
-  console.log(overviewData);
+    lampConsumption: (uData.reduce((a, b) => a + b) / (7 * 18000)).toPrecision(2)
+  });
 
+
+  useEffect(() => {
+    const fetchPrices = async () => {
+      try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/energy-prices`);
+      
+
+      if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        //console.log(data);
+        const medPrice = (data.hours.reduce((sum, currentHour) => sum + currentHour.price, 0) / 24.0).toFixed(2);
+        //console.log(medPrice);
+        setOverviewData(prev => ({
+          ...prev,
+          expectedCost: (uData.reduce((a, b) => a + b) * (medPrice / 1000)).toFixed(2)}
+        ));
+
+        
+      } catch (err) {
+        //setError(err.message);
+        console.error(err);
+      } finally {
+        // volendo si può impostare un caricamento e poi quando è finito qua cambiare uno stato con il testo del caricamento
+      }
+    }
+
+    fetchPrices();
+    
+  }, []);
+
+
+
+  
   useEffect(() => {
     const handleResize = () => {setIsSmallScreen(window.innerWidth < 1300);};
     handleResize();

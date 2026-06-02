@@ -1,8 +1,15 @@
-const express = require("express");
+require('dotenv').config();
+const express = require('express');
+const cors = require('cors'); 
+
 const app = express();
+const { getEnergyPrice } = require("./energyPrice");
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
+console.log("My API Token is:", process.env.ENERGY_API_TOKEN);
 
-app.listen(5000, () => console.log("Server running on port 5000"));
+app.use(cors({ origin: 'http://localhost:5173' })); 
+
+app.get('/api/energy-prices', getEnergyPrice);
+
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
