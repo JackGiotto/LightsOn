@@ -4,6 +4,8 @@ import { useNavigate } from "react-router-dom"
 import "./SignUp.css";
 
 export default function SignUp() {
+    const [fname, setFname] = useState('');
+    const [lname, setLname] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [passwordConf, setPasswordConf] = useState('');
@@ -12,6 +14,15 @@ export default function SignUp() {
     const [FirstName, setFirstName] = useState('');
     const [LastName, setLastName] = useState('');
     const navigate = useNavigate();
+
+    const checksPwd = {
+      length:  password.length >= 8,
+      upperCase:  /[A-Z]/.test(password),
+      numbr:     /[0-9]/.test(password),
+      special:   /[!@#$%^&*(),.?":{}|<>]/.test(password),
+    };
+    const passwordValida = Object.values(checksPwd).every(Boolean);
+    const passwordCombacia = passwordConf.length > 0 && password === passwordConf;
 
     const handleSignup = async (e) => {
       e.preventDefault();
@@ -57,6 +68,26 @@ export default function SignUp() {
                     type="text"
                     id="fname"
                     name="fname"
+                    placeholder="Nome"
+                    value={fname}
+                    onChange={(e) => setFname(e.target.value)}
+                    required
+                    />
+                    <input
+                    className="input-field"
+                    type="text"
+                    id="lname"
+                    name="lname"
+                    placeholder="Cognome"
+                    value={lname}
+                    onChange={(e) => setLname(e.target.value)}
+                    required
+                    />
+                    <input
+                    className="input-field"
+                    type="text"
+                    id="email"
+                    name="email"
                     placeholder="Email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
@@ -80,24 +111,41 @@ export default function SignUp() {
                       {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                       </button>
                     </div>
-                    <div className="password-wrapper">
-                      <input
-                      type={showPasswordConf ? "text" : "password"}
-                      className="input-field" 
-                      placeholder="Confirm password"
-                      value={passwordConf}
-                      onChange={(e) => setPasswordConf(e.target.value)}
-                      required
-                      />
-                      <button 
-                      type="button"
-                      className="toggle-password"
-                      onClick={() => setShowPasswordConf(!showPasswordConf)}
-                      aria-label="Mostra/Nascondi password"
-                      >
-                      {showPasswordConf ? <EyeOff size={20} /> : <Eye size={20} />}  
-                      </button>
-                    </div>
+                    {password.length > 0 && (
+                      <ul className="list-requi">
+                        <li className={`requirements ${checksPwd.length ? 'input-valid' : 'input-invalid'}`}>
+                          Almeno 8 caratteri
+                        </li>
+                        <li className={`requirements ${checksPwd.upperCase ? 'input-valid' : 'input-invalid'}`}>
+                           Almeno una lettera maiuscola
+                        </li>
+                        <li className={`requirements ${checksPwd.numbr ? 'input-valid' : 'input-invalid'}`}>
+                          Almeno un numero
+                        </li>
+                        <li className={`requirements ${checksPwd.special ? 'input-valid' : 'input-invalid'}`}>
+                          Almeno un carattere speciali (!@#$...)
+                        </li>
+                      </ul>
+                    )}
+
+                  <div className="password-wrapper">
+                    <input
+                    type={showPasswordConf ? "text" : "password"}
+                    className={`input-field ${checksPwd.length > 0 ? (passwordCombacia ? 'border-input-valid' : 'border-input-invalid') : ''}`} 
+                    placeholder="Confirm password"
+                    value={passwordConf}
+                    onChange={(e) => setPasswordConf(e.target.value)}
+                    required
+                    />
+                    <button 
+                    type="button"
+                    className="toggle-password"
+                    onClick={() => setShowPasswordConf(!showPasswordConf)}
+                    aria-label="Mostra/Nascondi password"
+                    >
+                    {showPasswordConf ? <EyeOff size={20} /> : <Eye size={20} />}  
+                    </button>
+                  </div>
                 </div>
 
                 <button className="btn btn-login">Sign Up</button>

@@ -25,6 +25,7 @@ body {
 }
 
 .container {
+  align-items: flex-start;
   position: fixed;
   top: 0;
   left: 0;
@@ -34,7 +35,7 @@ body {
   min-height: 100vh;
   background: linear-gradient(180deg, #ca8a04 0%, #a16207 40%, #1f2937 100%);
   display: flex;
-  align-items: center;
+  /*align-items: center;*/
   justify-content: center;
   padding: 1rem;
   overflow-y: auto;
@@ -43,12 +44,12 @@ body {
 .card {
   width: 100%;
   max-width: 400px;
-  padding: 2rem 1.5rem;
+  padding: 0 1.5rem;
 }
 
 .header {
   text-align: center;
-  margin-bottom: 3rem;
+  margin-bottom: 0.5rem;
 }
 
 .device-label {
@@ -58,7 +59,7 @@ body {
 }
 
 .logo {
-    margin-top: 1.5rem;
+  margin-top: -2rem;
   font-size: 3rem;
   font-weight: bold;
   color: #facc15;
@@ -292,4 +293,32 @@ body {
   .btn:active {
     transform: translateY(0) scale(0.98);
   }
+}
+
+.list-requi {
+  list-style-type: none;
+  padding: '0 0.25rem';
+  display: 'flex';
+  flex-direction: 'column'; 
+  gap: '0.3rem';
+}
+
+.requirements{
+  font-size: '0.8rem';
+}
+
+.input-valid {
+  color: rgba(74, 222, 128, 0.7);
+}
+
+.input-invalid {
+  color: rgba(248, 113, 113, 0.7);
+}
+
+.border-input-valid, .border-input-valid:focus {
+  border-color: rgba(74, 222, 128, 0.7);
+}
+
+.border-input-invalid, .border-input-invalid:focus {
+  border-color: rgba(248, 113, 113, 0.7);
 }
