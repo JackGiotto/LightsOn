@@ -9,20 +9,36 @@ export default function SignUp() {
     const [passwordConf, setPasswordConf] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConf, setShowPasswordConf] = useState(false);
+    const [FirstName, setFirstName] = useState('');
+    const [LastName, setLastName] = useState('');
     const navigate = useNavigate();
 
-    const handleSignup = (e) => {
-        e.preventDefault();
-        console.log('Signin:', { email, password });
-        
-        // Validazione semplice
-        if (email === 'test@test.com' && password === 'password123') {
-        alert('Login effettuato con successo!');
-        // Qui poi farai il redirect alla dashboard
+    const handleSignup = async (e) => {
+      e.preventDefault();
+
+      try {
+        const apiUrl = import.meta.env.VITE_API_URL;
+        const response = await fetch(`${apiUrl}/auth/signup`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          credentials: "include",
+          body: JSON.stringify({ email, password, FirstName, LastName }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Signup failed');
         } else {
-            alert('Credenziali errate!');
+          const data = await response.json();
+          console.log('Signup successful:', data);
+          return data;
         }
-    };
+      } catch (error) {
+        console.error(error);
+        return null;
+      }
+  };
 
     return (
     <div className="container">
