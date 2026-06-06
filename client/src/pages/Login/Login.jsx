@@ -1,22 +1,41 @@
 import React, {useState} from "react";
 import { Info, CreditCard, Eye, EyeOff } from 'lucide-react';
+import { useNavigate } from "react-router-dom"
 import "./Login.css";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const navigate = useNavigate();
 
-    const handleSignup = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        console.log('Signup:', { email, password });
-        
-        // Validazione semplice
-        if (email === 'test@test.com' && password === 'password123') {
-        alert('Login effettuato con successo!');
-        // Qui poi farai il redirect alla dashboard
-        } else {
-            alert('Credenziali errate!');
+
+        try {
+          const apiUrl = import.meta.env.VITE_API_URL;
+          const response = await fetch(`${apiUrl}/auth/login`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: "include",
+            body: JSON.stringify({ email, password }),
+          });
+
+          if (!response.ok) {
+            throw new Error('Login failed');
+          } else {
+            const data = await response.json();
+            console.log('Login successful:', data);
+            if (data.role === 'user') {
+              // TODO: Handle user role specific logic
+            } else if (data.role === 'admin') {
+              // TODO: Handle admin role specific logic
+            }
+          }
+        } catch (error) {
+          console.error(error);
         }
     };
 
@@ -29,22 +48,23 @@ export default function Login() {
           <h1 className="logo">LightsOn</h1>
         </div>
 
-        <form onSubmit={handleSignup}>
+        <form onSubmit={handleLogin}>
             <div className="login-contatiner">
                 <div className="input-container">
                     <input
-                    className="input-field"
-                    type="text"
-                    id="fname"
-                    name="fname"
-                    placeholder="Email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
+                      className="input-field"
+                      type="text"
+                      id="fname"
+                      name="fname"
+                      placeholder="Email"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
                     />
                     <div className="password-wrapper">
                         <input 
                         type={showPassword ? "text" : "password"}
+                        name="password"
                         className="input-field" 
                         placeholder="Password"
                         value={password}
@@ -52,17 +72,17 @@ export default function Login() {
                         required
                         />
                         <button 
-                        type="button"
-                        className="toggle-password"
-                        onClick={() => setShowPassword(!showPassword)}
-                        aria-label="Mostra/Nascondi password"
+                          type="button"
+                          className="toggle-password"
+                          onClick={() => setShowPassword(!showPassword)}
+                          aria-label="Mostra/Nascondi password"
                         >
-                        {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
+                          {showPassword ? <EyeOff size={20} /> : <Eye size={20} />}
                         </button>
                     </div>
                 </div>
 
-                <button className="btn btn-login">Login</button>
+                <button type="submit" className="btn btn-login">Login</button>
             </div>
         </form>
         {/* Buttons */}
@@ -83,9 +103,9 @@ export default function Login() {
             Entra con CIE
           </button>
 
-          {/* Login Link */}
+          {/* Sign up button */}
           <div className="signup-link-container">
-            <button className="signup-link" onClick={() => alert('sign up in Arrivo!!')}>Sign up</button>
+            <button className="signup-link" onClick={() => navigate("/SignUp")}>Sign up</button>
           </div>
         </div>
 
