@@ -11,8 +11,6 @@ export default function SignUp() {
     const [passwordConf, setPasswordConf] = useState('');
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConf, setShowPasswordConf] = useState(false);
-    const [FirstName, setFirstName] = useState('');
-    const [LastName, setLastName] = useState('');
     const navigate = useNavigate();
 
     const checksPwd = {
@@ -35,7 +33,12 @@ export default function SignUp() {
             'Content-Type': 'application/json',
           },
           credentials: "include",
-          body: JSON.stringify({ email, password, FirstName, LastName }),
+          body: JSON.stringify({
+            email,
+            password,
+            firstName: fname,
+            lastName: lname
+          }),
         });
 
         if (!response.ok) {
