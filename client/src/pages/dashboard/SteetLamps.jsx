@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../../Style/dashboard/lampioni.module.css";
+import styles from "../../style/dashboard/streetLamps.module.css";
 
-export const Lampioni = () => {
+export const StreetLamps = () => {
     return (
         <div className={styles.container}>
             <h1>Stato dei Lampioni</h1>

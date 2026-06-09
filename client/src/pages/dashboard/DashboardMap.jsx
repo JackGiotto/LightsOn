@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../Style/dashboard/mappa.module.css";
+import styles from "../../style/dashboard/dashboardMap.module.css";
 import { MapContainer, TileLayer } from 'react-leaflet'
 import Light from "../../components/map/Light";
 import LightDetails from "../../components/map/LightDetails";
@@ -9,7 +9,7 @@ import lampsData from "./lamps.json";
 
 
 
-export const Mappa = () => {
+export const DashboardMap = () => {
 
     
   const position = [46.067069, 11.150347];

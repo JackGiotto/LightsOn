@@ -1,5 +1,5 @@
 import React, { Activity } from "react";
-import styles from "../Style/imp1.module.css";
+import styles from "../style/settings1.module.css";
 import { useState } from "react";
 
 function ChangePassword({setShowOverview})  {
@@ -40,7 +40,7 @@ function DeleteAccount({setShowOverview})  {
   )
 }
 
-export const Imp1 = () => {
+export const Settings1 = () => {
 
 
     const [showPasswordPage, setPasswordPage] = useState(false);
@@ -49,12 +49,12 @@ export const Imp1 = () => {
 
     return (
             <div className={styles.container}>
-                <h1 className={styles.title}>Ciao Mario</h1>
+                <h1 className={styles.title}>Hello Mario</h1>
                 <ul>
-                    <li>Email registrata: ciao@pippo.com<button onClick={() => setEmailPage(!showEmailPage)}>Cambia mail</button></li>
-                    <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Cambia Password</button></li>
-                    <li><button>Logout</button></li>
-                    <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Elimina Account</button></li>
+                  <li>Registered email: ciao@pippo.com<button onClick={() => setEmailPage(!showEmailPage)}>Change email</button></li>
+                  <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Change password</button></li>
+                  <li><button>Log out</button></li>
+                  <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Delete account</button></li>
                 </ul>
                 
                 <Activity mode={showPasswordPage ? "visible": "hidden"}>

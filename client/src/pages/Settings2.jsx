@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import styles from "../Style/imp2.module.css";
+import styles from "../style/settings2.module.css";
 
-export const Imp2 = () => {
+export const Settings2 = () => {
 
     const [darkMode, setDarkMode] = useState(false);
 
@@ -12,9 +12,9 @@ export const Imp2 = () => {
 
     return (
         <div className={styles.container}>
-                    <h1 className={styles.title}>Preferenze</h1>
+                    <h1 className={styles.title}>Preferences</h1>
                         <ul>
-                            <li>Modalità colore:   {darkMode ? "  Dark" : "  Light"}<button onClick={changeMode}>Cambia</button></li>
+                            <li>Color mode:   {darkMode ? "  Dark" : "  Light"}<button onClick={changeMode}>Change</button></li>
                         </ul>
                     </div>
     )

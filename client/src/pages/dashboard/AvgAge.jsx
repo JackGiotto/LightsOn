@@ -1,7 +1,7 @@
 import React from "react";
-import styles from "../../Style/dashboard/etamedia.module.css";
+import styles from "../../style/dashboard/avgage.module.css";
 
-export const EtaMedia = () => {
+export const AvgAge = () => {
     return (
         <div className={styles.container}>
             <h1 className={styles.title}>Età media lampioni</h1>

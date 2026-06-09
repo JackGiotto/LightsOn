@@ -1,5 +1,5 @@
 import React from "react";
-import styles from"../../Style/dashboard/segnalazioni.module.css";
+import styles from"../../style/dashboard/reports.module.css";
 import { useState } from "react";
 
 
@@ -73,7 +73,7 @@ const Report = ({report}) => {
 
 
 
-export const Segnalazioni = () => {
+export const Reports = () => {
 
 
     const reports = [{
@@ -133,7 +133,7 @@ export const Segnalazioni = () => {
 
     return (
         <div className={styles.container}>
-            <h1>Controllo Segnalazioni  <img src="/upvote.png" width={50}height={50}></img></h1>
+            <h1>Segnalazioni  <img src="/upvote.png" width={50}height={50}></img></h1>
 
             <ul className={styles.reportList}>
                 {

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Info, CreditCard, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from "react-router-dom"
-import "./SignUp.css";
+import "../../style/auth/SignUp.css";
 
 export default function SignUp() {
     const [fname, setFname] = useState('');
@@ -151,7 +151,7 @@ export default function SignUp() {
                   </div>
                 </div>
 
-                <button className="btn btn-login">Sign Up</button>
+                <button className="btn btn-login">Registrati</button>
             </div>
         </form>
         {/* Buttons */}
@@ -174,7 +174,7 @@ export default function SignUp() {
 
           {/* Login Link */}
           <div className="signup-link-container">
-            <button className="signup-link" onClick={() => navigate("/Login")}>Return to login</button>
+            <button className="signup-link" onClick={() => navigate("/login")}>Torna al login</button>
           </div>
         </div>
 

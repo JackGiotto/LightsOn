@@ -1,15 +1,15 @@
 import React from "react";
-import { SideBar } from "./SideBar";
 import { MainContent } from "./MainContent";
-import styles from "../Style/page.module.css"
+import styles from "../style/page.module.css"
 import { Outlet } from "react-router";
+import { DashboardSideBar } from "./DashboardSideBar";
 
 
-export const Page = () => {
+export const DashboardPage = () => {
 
     return (
         <div className={styles.container}>
-            <SideBar></SideBar>
+            <DashboardSideBar></DashboardSideBar>
             <MainContent>
                 <Outlet></Outlet>
             </MainContent>

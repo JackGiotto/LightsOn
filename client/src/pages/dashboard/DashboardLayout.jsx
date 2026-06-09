@@ -1,8 +1,8 @@
 
 import { Outlet } from "react-router";
-import { NavBar } from "../../Components/NavBar";
-import styles from "../../Style/layout.module.css";
-import { DashboardPage } from "../../Components/DashboardPage";
+import { NavBar } from "../../components/NavBar";
+import styles from "../../style/layout.module.css";
+import { DashboardPage } from "../../components/DashboardPage";
 
 
 

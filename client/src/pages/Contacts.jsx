@@ -1,9 +1,9 @@
-import { NavBar } from "../Components/NavBar";
-import styles from "../Style/layout.module.css";
+import { NavBar } from "../components/NavBar";
+import styles from "../style/layout.module.css";
 
 
 
-export const Contatti = () => {
+export const Contacts = () => {
 
     return (
             <div className={styles.container}>
@@ -11,7 +11,7 @@ export const Contatti = () => {
                     <NavBar></NavBar>
                 </div>
                 <div className={styles.second}>
-                    Contatti
+                    Contacts
                 </div>
             </div>
     );

@@ -1,11 +1,11 @@
 import React from "react";
-import styles from "../../Style/navbar.module.css"
-import {Logo} from "../../Components/Logo"
+import styles from "../../style/navbar.module.css"
+import {Logo} from "../../components/Logo"
 import { Link } from "react-router";
 import { Squash as Hamburger } from 'hamburger-react'
 import { useState } from "react";
 
-export const NavBarCitizen = () => {
+export const CitizenNavBar = () => {
 
     const [isOpen, setOpen] = useState(false)
 
@@ -20,7 +20,7 @@ export const NavBarCitizen = () => {
                 </div>
                 <ul className={styles.navbarList}>
                     <Link to="/settings"><li className={styles.navElement}><a>Impostazioni</a></li></Link>
-                    <Link to="/contatti"><li className={styles.navElement}><a>Contatti</a></li></Link>
+                    <Link to="/contacts"><li className={styles.navElement}><a>Contatti</a></li></Link>
                 </ul>
             
                 <div  className={styles.hamburger}>
@@ -37,12 +37,12 @@ export const NavBarCitizen = () => {
 
                         <Link to="/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}><h3>Impostazioni</h3></li></Link>
                         
-                        <Link to="/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Impostazioni Account</li></Link>
+                        <Link to="/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Account</li></Link>
                         <Link to="/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
 
-                        <Link to="/contatti"><li className={styles.category}><h3>Contatti</h3></li></Link>
+                        <Link to="/contacts"><li className={styles.category}><h3>Contatti</h3></li></Link>
 
-                        <li className={styles.subcategory}>Sottocategoria Contatti</li>
+                        <li className={styles.subcategory}>Sottocategoria contatti</li>
                     </ul>
                         
                 </div>

@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "../../Style/settimane.module.css";
+import styles from "../../style/weeks.module.css";
 import { LineChart, lineElementClasses } from '@mui/x-charts/LineChart';
 import WeekDropdown from './Menu';
 import { useState, useEffect } from "react";
@@ -31,7 +31,7 @@ function Overview({showOverview, setShowOverview, overviewData})  {
               </li>
               <li className={styles.overviewElement}>
                   <h3>{overviewData.expectedCost} €</h3>
-                <p>Costo Stimato Settimana</p>
+                <p>Costo stimato settimana</p>
               </li>
               <li className={styles.overviewElement}>
                 <h3>346</h3>
@@ -39,29 +39,29 @@ function Overview({showOverview, setShowOverview, overviewData})  {
               </li>
               <li className={styles.overviewElement}>
                 <h3>4</h3>
-                <p>Numero Segnalazioni</p>
+                <p>Numero segnalazioni</p>
               </li>
               <li className={styles.overviewElement}>
                 <h3>35 kWh</h3>
-                <p>Differenza Settimana Precedente</p>
+                <p>Differenza settimana precedente</p>
               </li>
             </ul>
           </div>
   )
 }
 
-export const Settimane = () => {
+export const Weeks = () => {
   
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [showOverview, setOverview] = useState(false);
     
   const uData = [33000, 33100, 29500, 34800, 35000, 38090, 34970];
   const xLabels = [
-    'Lunedi',
-    'Martedi',
-    'Mercoledi',
-    'Giovedi',
-    'Venerdi',
+    'Lunedì',
+    'Martedì',
+    'Mercoledì',
+    'Giovedì',
+    'Venerdì',
     'Sabato',
     'Domenica',
   ];
@@ -122,7 +122,7 @@ export const Settimane = () => {
   if (isSmallScreen) {
     return (
       <div className={styles.container}>
-        <p className={styles.info}>Please view the dashboard on Desktop or Laptop.</p>
+        <p className={styles.info}>Visualizza la dashboard da desktop o laptop.</p>
       </div>
     );
   }
@@ -130,9 +130,9 @@ export const Settimane = () => {
     return (
         <div className={styles.container}>
           <div className={styles.top}>
-            <h1 className={styles.title}>Highlights</h1>
+            <h1 className={styles.title}>Highlights settimanali</h1>
             <div className={styles.top1}>
-              <h2 className={styles.info}>+13% rispetto alla media questo Mercoledì</h2>
+              <h2 className={styles.info}>+13% rispetto alla media questo mercoledì</h2>
               <div className={styles.dateButton}>
                 <WeekDropdown></WeekDropdown>
               </div>

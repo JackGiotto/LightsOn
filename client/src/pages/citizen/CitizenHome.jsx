@@ -1,8 +1,8 @@
-import { NavBarCitizen } from "../../Components/cittadino/NavBarCitizen";
-import { Page } from "../../Components/Page";
+import { CitizenNavBar } from "../../components/citizen/CitizenNavBar.jsx";
+import { Page } from "../../components/Page";
 import { Link, Outlet } from "react-router";
 import { MapContainer, TileLayer, ZoomControl} from 'react-leaflet'
-import styles from "../../Style/cittadino/citizen.module.css";
+import styles from "../../style/citizen/citizen.module.css";
 import lampsData from "../dashboard/lamps.json";
 import Light from "../../components/map/Light";
 
@@ -20,14 +20,14 @@ import Light from "../../components/map/Light";
   </MapContainer>
   */
 
-export const HomeCitizen = () => {
+export const CitizenHome = () => {
     
   const position = [46.067069, 11.150347];
 
     return (
         <div className={styles.container}>
             <div className={styles.first}>
-            <NavBarCitizen></NavBarCitizen>
+            <CitizenNavBar></CitizenNavBar>
             </div>
             
                 
@@ -56,8 +56,8 @@ export const HomeCitizen = () => {
         
   </MapContainer>
   
-  <Link className={styles.buttonContainer} to="/segnala">
-    <button className={styles.alertButton}>Segnala</button>
+  <Link className={styles.buttonContainer} to="/citizen/report">
+    <button className={styles.alertButton}>Report</button>
 
   </Link>
         </div>
