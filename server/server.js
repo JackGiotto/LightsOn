@@ -1,8 +1,27 @@
 require('dotenv').config();
-const express = require('express');
-const cors = require('cors'); 
+const express = require("express");
+const mongoose = require("mongoose");
+const cookieParser = require("cookie-parser");
+const cors = require("cors");
 
 const app = express();
+const authRoutes = require("./routes/auth/auth");
+
+const PORT = process.env.PORT
+const MONGODB_URI = process.env.MONGODB_URI;
+
+mongoose.connect(MONGODB_URI)
+  .then(() => console.log("Connected to MongoDB"))
+  .catch(err => console.error("MongoDB connection error:", err));
+
+app.use(cors({
+  origin: true,       // TODO(#6): Temporary we will replace it with an allowlist of approved frontend URL(s).
+  credentials: true
+}));
+app.use(cookieParser());
+app.use(express.json());
+
+app.use("/auth", authRoutes);
 const { getEnergyPrice } = require("./energyPrice");
 
 console.log("My API Token is:", process.env.ENERGY_API_TOKEN);
