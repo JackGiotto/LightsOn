@@ -31,6 +31,7 @@ services:
       - "5173:5173"
     volumes:
       - ./client:/app
+      - /app/node_modules
     environment:
       VITE_PORT: 5173
       VITE_API_URL: ${API_URL_DEV}

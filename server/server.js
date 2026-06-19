@@ -22,9 +22,12 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+const { getEnergyPrice } = require("./energyPrice");
 
-app.get("/api", (req, res) => {
-  res.json({ message: "Hello from server!" });
-});
+console.log("My API Token is:", process.env.ENERGY_API_TOKEN);
+
+app.use(cors({ origin: 'http://localhost:5173' })); 
+
+app.get('/api/energy-prices', getEnergyPrice);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
