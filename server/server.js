@@ -30,5 +30,4 @@ app.use(cors({ origin: 'http://localhost:5173' }));
 
 app.get('/api/energy-prices', getEnergyPrice);
 
-const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
