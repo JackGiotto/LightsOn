@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Info, CreditCard, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from "react-router-dom"
-import "../../style/auth/SignUp.css";
+import styles from "../../style/auth/SignUp.module.css";
 
 export default function SignUp() {
     const [fname, setFname] = useState('');
@@ -55,19 +55,16 @@ export default function SignUp() {
   };
 
     return (
-    <div className="container">
-      <div className="card">
+    <div className={styles.container}>
         {/* Header */}
-        <div className="header">
+        <div className={styles.header}>
           {/* Logo */}
-          <h1 className="logo">LightsOn</h1>
+          <h1 className={styles.logo}>LightsOn</h1>
         </div>
 
-        <form onSubmit={handleSignup}>
-            <div className="login-contatiner">
-                <div className="input-container">
+        <form onSubmit={handleSignup} className={styles.formContainer}>
                     <input
-                    className="input-field"
+                    className={styles.inputField}
                     type="text"
                     id="fname"
                     name="fname"
@@ -77,7 +74,7 @@ export default function SignUp() {
                     required
                     />
                     <input
-                    className="input-field"
+                    className={styles.inputField}
                     type="text"
                     id="lname"
                     name="lname"
@@ -87,7 +84,7 @@ export default function SignUp() {
                     required
                     />
                     <input
-                    className="input-field"
+                    className={styles.inputField}
                     type="text"
                     id="email"
                     name="email"
@@ -96,10 +93,10 @@ export default function SignUp() {
                     onChange={(e) => setEmail(e.target.value)}
                     required
                     />
-                    <div className="password-wrapper">
+                    <div className={styles.passwordWrapper}>
                       <input 
                       type={showPassword ? "text" : "password"}
-                      className="input-field" 
+                      className={styles.inputField}
                       placeholder="Password"
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
@@ -107,7 +104,7 @@ export default function SignUp() {
                       />
                       <button 
                       type="button"
-                      className="toggle-password"
+                      className={styles.togglePassword}
                       onClick={() => setShowPassword(!showPassword)}
                       aria-label="Mostra/Nascondi password"
                       >
@@ -115,26 +112,26 @@ export default function SignUp() {
                       </button>
                     </div>
                     {password.length > 0 && (
-                      <ul className="list-requi">
-                        <li className={`requirements ${checksPwd.length ? 'input-valid' : 'input-invalid'}`}>
+                      <ul className={styles.listRequi}>
+                        <li className={`${styles.requirements} ${checksPwd.length ? styles.borderInputValid : styles.inputInvalid}`}>
                           Almeno 8 caratteri
                         </li>
-                        <li className={`requirements ${checksPwd.upperCase ? 'input-valid' : 'input-invalid'}`}>
+                        <li className={`${styles.requirements} ${checksPwd.upperCase ? styles.borderInputValid : styles.inputInvalid}`}>
                            Almeno una lettera maiuscola
                         </li>
-                        <li className={`requirements ${checksPwd.numbr ? 'input-valid' : 'input-invalid'}`}>
+                        <li className={`${styles.requirements} ${checksPwd.numbr ? styles.borderInputValid : styles.inputInvalid}`}>
                           Almeno un numero
                         </li>
-                        <li className={`requirements ${checksPwd.special ? 'input-valid' : 'input-invalid'}`}>
+                        <li className={`${styles.requirements} ${checksPwd.special ? styles.borderInputValid : styles.inputInvalid}`}>
                           Almeno un carattere speciali (!@#$...)
                         </li>
                       </ul>
                     )}
 
-                  <div className="password-wrapper">
+                  <div className={styles.passwordWrapper}>
                     <input
                     type={showPasswordConf ? "text" : "password"}
-                    className={`input-field ${checksPwd.length > 0 ? (passwordCombacia ? 'border-input-valid' : 'border-input-invalid') : ''}`} 
+                    className={`${styles.inputField} ${checksPwd.length > 0 ? (passwordCombacia ? 'styles.borderInputValid' : 'styles.borderInputInvalid') : ''}`} 
                     placeholder="Confirm password"
                     value={passwordConf}
                     onChange={(e) => setPasswordConf(e.target.value)}
@@ -142,48 +139,45 @@ export default function SignUp() {
                     />
                     <button 
                     type="button"
-                    className="toggle-password"
+                    className={styles.togglePassword}
                     onClick={() => setShowPasswordConf(!showPasswordConf)}
                     aria-label="Mostra/Nascondi password"
                     >
                     {showPasswordConf ? <EyeOff size={20} /> : <Eye size={20} />}  
                     </button>
                   </div>
-                </div>
 
-                <button className="btn btn-login">Registrati</button>
-            </div>
+                <button className={`${styles.btn} ${styles.btnLogin}`}>Registrati</button>
         </form>
         {/* Buttons */}
-        <div className="button-container">
+        <div className={styles.buttonContainer}>
           {/* SPID Button */}
-          <button className="btn btn-spid" onClick={() => alert('SPID in Arrivo!!')}>
-            <div className="icon-circle">
+          <button className={`${styles.btn} ${styles.btnSpid}`} onClick={() => alert('SPID in Arrivo!!')}>
+            <div className={styles.iconCircle}>
               <Info size={16} color="#2563eb" />
             </div>
             Entra con SPID
           </button>
 
           {/* CIE Button */}
-          <button className="btn btn-cie" onClick={() => alert('Cie in Arrivo!!')}>
-            <div className="icon-circle">
+          <button className={`${styles.btn} ${styles.btnCie}`} onClick={() => alert('Cie in Arrivo!!')}>
+            <div className={styles.iconCircle}>
               <CreditCard size={16} color="#3b82f6" />
             </div>
             Entra con CIE
           </button>
 
           {/* Login Link */}
-          <div className="signup-link-container">
-            <button className="signup-link" onClick={() => navigate("/login")}>Torna al login</button>
+          <div className={styles.signupLinkContainer}>
+            <button className={styles.signupLink} onClick={() => navigate("/login")}>Torna al login</button>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="footer">
+        <div className={styles.footer}>
           <p>Comune di Trento</p>
           <p>LightsOn® - 2025</p>
         </div>
       </div>
-    </div>
   );
 }

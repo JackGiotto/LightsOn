@@ -33,7 +33,7 @@ h3 {
     min-width: 200px;
     width: 15vw;
     height: 30px;
-    padding: 10px;
+    padding: 25px;
     border-radius: 10px;
     background-color: #2E2E2E;
     margin-top: 20px;
@@ -43,7 +43,7 @@ h3 {
     cursor: pointer;
 }
 
-form {
+.formContainer {
     display: flex;
     flex-direction: column;
     height: 10vh;
@@ -53,12 +53,12 @@ form {
     margin-bottom: 20vh;
 }
 
-form label {
+.formContainer label {
     width: 50vw;
     text-align: center;
 }
 
-form input {
+.formContainer input {
     border-radius: 15px;
     box-shadow: 4px 4px 8px rgb(0,0,0,0.5);
     border: none;
@@ -67,7 +67,7 @@ form input {
     margin-top: 1rem;
 }
 
-form input:focus {
+.formContainer input:focus {
     outline: none;
 
 }

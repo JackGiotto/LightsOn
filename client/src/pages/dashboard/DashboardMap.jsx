@@ -38,6 +38,7 @@ export const DashboardMap = () => {
                     bulb.geometry.coordinates[0]
                   ]}
                 />
+                
               ))
             }
         

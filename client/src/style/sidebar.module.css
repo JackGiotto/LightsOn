@@ -36,14 +36,15 @@
     font-family: Inter;
     font-size: medium;
     height: 14px;
-    width: 24vh;
+    width: 16vw;
     color: black;
     border-radius: 2rem;
-    padding: 1.5rem;
+    padding: 2rem;
     display: flex;
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    box-sizing: border-box;
 }
 
 .sidebarList a {

@@ -12,17 +12,17 @@ export const CitizenReport = () => {
             
             <h3>Select the malfunction type</h3>
             <ul className={styles.list}>
-                <li>Malfunction</li>
-                <li>Breakage</li>
-                <li>Flashing</li>
-                <li>Other</li>
+                <li>Malfunzionamento</li>
+                <li>Rottura</li>
+                <li>Lampeggiante</li>
+                <li>Altro</li>
             </ul>
-            <form>
-                <label>If you want to add a description or a photo</label>
-                <input placeholder="Description..." type="text"></input>
+            <form className={styles.formContainer}>
+                <label>Se vuoi aggiungere una descrizione o una foto</label>
+                <input placeholder="Descrizione..." type="text"></input>
             </form>
             
-                <button className={styles1.alertButton}>Send report</button>
+                <button className={styles1.alertButton}>Segnala</button>
         </div>
     );
 }

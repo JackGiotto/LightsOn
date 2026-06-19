@@ -81,7 +81,11 @@
 
 .changeForm {
     min-height: 50%;
+    display: flex;
+    flex-direction: column;
 }
+
+
 
 .confirmationButton {
     width: 150px;

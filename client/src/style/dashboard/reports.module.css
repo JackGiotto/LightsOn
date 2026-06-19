@@ -147,7 +147,6 @@
         max-height: 70vh;
     }
     .reportList li {
-        width: 70vw;
         font-size: 16px;
     }
 
@@ -156,5 +155,9 @@
         height: 80vh;
     }
 
+
+    .reportElement {
+        width: 80vw;
+    }
 
 }

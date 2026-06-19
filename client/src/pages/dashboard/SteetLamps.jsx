@@ -12,12 +12,11 @@ export const StreetLamps = () => {
                 <div className={ `${styles.overviewElement} ${styles.inactive}`}>
                     <p>Lampioni inattivi: 4</p>
                 </div>
-                <div className={styles.overviewElement} id="active">
-                    <p>Lampioni attivi: 432 (verde)</p>
+                <div className={ `${styles.overviewElement} ${styles.actual}`}>
+                    <p>Consumo Attuale</p>
                 </div>
+
             </div>
-            <p>Statistiche</p>
-            <p>Povo</p>
 
         </div>
     )

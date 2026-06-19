@@ -15,7 +15,7 @@ export const DashboardSideBar = () => {
                 <Link to="/dashboard/seasons"><li><h3>Analisi stagioni</h3></li></Link>
                 <Link to="/dashboard/consumes"><li><h3>Consumi</h3></li></Link>
                 <Link to="/dashboard/avg-age"><li><h3>Età media</h3></li></Link>
-                <Link to="/dashboard/dashboardMap"><li><h3>Analisi da mappa</h3></li></Link>
+                <Link to="/dashboard/dashboardMap"><li><h3>Analizza mappa</h3></li></Link>
                 <Link to="/dashboard/reports"><li><h3>Segnalazioni</h3></li></Link>
             </ul>
             <footer>

@@ -57,7 +57,7 @@ export const CitizenHome = () => {
   </MapContainer>
   
   <Link className={styles.buttonContainer} to="/citizen/report">
-    <button className={styles.alertButton}>Report</button>
+    <button className={styles.alertButton}>Segnala</button>
 
   </Link>
         </div>

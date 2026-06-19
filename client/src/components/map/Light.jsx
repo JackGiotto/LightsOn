@@ -1,5 +1,5 @@
 import React from 'react';
-import { Marker, Circle } from 'react-leaflet';
+import { Marker, Circle, Popup } from 'react-leaflet';
 import L from 'leaflet';
 
 function Light({
@@ -36,7 +36,9 @@ function Light({
             fillOpacity: 1,  /* Must be 1 so the gradient's own opacity works */
             stroke: false    /* Optional: removes the solid border line */
           }} 
-        />
+        > <Popup>
+          Questo è il lampione {id}
+        </Popup></Circle>
   </>;
 
  

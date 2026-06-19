@@ -51,10 +51,10 @@ export const Settings1 = () => {
             <div className={styles.container}>
                 <h1 className={styles.title}>Hello Mario</h1>
                 <ul>
-                  <li>Registered email: ciao@pippo.com<button onClick={() => setEmailPage(!showEmailPage)}>Change email</button></li>
-                  <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Change password</button></li>
+                  <li>Registered email: ciao@pippo.com<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
+                  <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Cambia password</button></li>
                   <li><button>Log out</button></li>
-                  <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Delete account</button></li>
+                  <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Elimina Account</button></li>
                 </ul>
                 
                 <Activity mode={showPasswordPage ? "visible": "hidden"}>
