@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import { Info, CreditCard, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from "react-router-dom"
-import "../../style/auth/Login.css";
+import styles from "../../style/auth/Login.module.css";
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -40,19 +40,17 @@ export default function Login() {
     };
 
     return (
-    <div className="container">
-      <div className="card">
+    <div className={styles.container}>
         {/* Header */}
-        <div className="header">
+        <div className={styles.header}>
           {/* Logo */}
-          <h1 className="logo">LightsOn</h1>
+          <h1 className={styles.logo}>LightsOn</h1>
         </div>
 
-        <form onSubmit={handleLogin}>
-            <div className="login-contatiner">
-                <div className="input-container">
+        <form onSubmit={handleLogin} className={styles.formContainer}>
+                <div className={styles.inputContainer}>
                     <input
-                      className="input-field"
+                      className={styles.inputField}
                       type="text"
                       id="fname"
                       name="fname"
@@ -61,11 +59,11 @@ export default function Login() {
                       onChange={(e) => setEmail(e.target.value)}
                       required
                     />
-                    <div className="password-wrapper">
+                    <div className={styles.passwordWrapper}>
                         <input 
                         type={showPassword ? "text" : "password"}
                         name="password"
-                        className="input-field" 
+                        className={styles.inputField}
                         placeholder="Password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +71,7 @@ export default function Login() {
                         />
                         <button 
                           type="button"
-                          className="toggle-password"
+                          className={styles.togglePassword}
                           onClick={() => setShowPassword(!showPassword)}
                           aria-label="Mostra/Nascondi password"
                         >
@@ -82,39 +80,38 @@ export default function Login() {
                     </div>
                 </div>
 
-                <button type="submit" className="btn btn-login">Accedi</button>
-            </div>
+                <button type="submit" className={`${styles.btn} ${styles.btnLogin}`}>Accedi</button>
         </form>
         {/* Buttons */}
-        <div className="button-container">
+        <div className={styles.buttonContainer}>
           {/* SPID Button */}
-          <button className="btn btn-spid" onClick={() => alert('SPID in Arrivo!!')}>
-            <div className="icon-circle">
+          <button className={`${styles.btn} ${styles.btnSpid}`} onClick={() => alert('SPID in Arrivo!!')}>
+            <div className={styles.iconCircle}>
               <Info size={16} color="#2563eb" />
             </div>
             Entra con SPID
           </button>
 
           {/* CIE Button */}
-          <button className="btn btn-cie" onClick={() => alert('Cie in Arrivo!!')}>
-            <div className="icon-circle">
+          <button className={`${styles.btn} ${styles.btnCie}`} onClick={() => alert('Cie in Arrivo!!')}>
+            <div className={styles.iconCircle}>
               <CreditCard size={16} color="#3b82f6" />
             </div>
             Entra con CIE
           </button>
 
           {/* Sign up button */}
-          <div className="signup-link-container">
-            <button className="signup-link" onClick={() => navigate("/signup")}>Registrati</button>
-          </div>
         </div>
+        
+          <div className={styles.signupLinkContainer}>
+            <button className={styles.signupLink} onClick={() => navigate("/signup")}>Registrati</button>
+          </div>
 
         {/* Footer */}
-        <div className="footer">
+        <div className={styles.footer}>
           <p>Comune di Trento</p>
-          <p>LightsOn® - 2025</p>
+          <p>LightsOn® - 2026</p>
         </div>
-      </div>
     </div>
   );
 }
