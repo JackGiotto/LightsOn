@@ -23,11 +23,15 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 const { getEnergyPrice } = require("./energyPrice");
+const { getWeather } = require('./weather');
 
 console.log("My API Token is:", process.env.ENERGY_API_TOKEN);
 
 app.use(cors({ origin: 'http://localhost:5173' })); 
 
 app.get('/api/energy-prices', getEnergyPrice);
+
+
+app.get('/api/weather', getWeather);
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
