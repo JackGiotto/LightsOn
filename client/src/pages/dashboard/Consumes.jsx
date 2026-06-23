@@ -1,9 +1,10 @@
 import React from "react";
+import styles from "../../style/dashboard/seasons.module.css";
 
 export const Consumes = () => {
     return (
-        <>
-            <h1>Simulazione consumi</h1>
-        </>
+        <div className={styles.container}>
+            <h1 className={styles.title}>Simulazione Consumi</h1>
+        </div>
     )
 }
