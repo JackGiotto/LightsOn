@@ -4,10 +4,10 @@
         {
             "label": "🚀 Docker: Start Dev (All)",
             "type": "shell",
-            "command": "cd client && npm install && npm audit fix; cd ../server && npm install && npm audit fix; cd .. && docker compose --profile dev up",
+            "command": "cd client && npm install --legacy-peer-deps; cd ../server && npm install; cd .. && docker compose --profile dev up --build",
             "group": "build",
             "windows": {
-                "command": "cd client; npm install; npm audit fix; cd ../server; npm install; npm audit fix; cd ..; docker compose --profile dev up"
+                "command": "cd client; npm install --legacy-peer-deps; cd ../server; npm install; cd ..; docker compose --profile dev up --build"
             },
             "presentation": {
                 "reveal": "always",
@@ -17,10 +17,10 @@
         {
             "label": "💻 Docker: Start Client Only",
             "type": "shell",
-            "command": "cd client && npm install && npm audit fix; cd .. && docker compose --profile dev-client up",
+            "command": "cd client && npm install --legacy-peer-deps; cd .. && docker compose --profile dev-client up --build",
             "group": "build",
             "windows": {
-                "command": "cd client; npm install; npm audit fix; cd ..; docker compose --profile dev-client up"
+                "command": "cd client; npm install --legacy-peer-deps; cd ..; docker compose --profile dev-client up --build"
             },
             "presentation": {
                 "reveal": "always",
@@ -30,10 +30,10 @@
         {
             "label": "⚡ Docker: Start Server Only",
             "type": "shell",
-            "command": "cd server && npm install && npm audit fix; cd .. && docker compose --profile dev-server up",
+            "command": "cd server && npm install; cd .. && docker compose --profile dev-server up --build",
             "group": "build",
             "windows": {
-                "command": "cd server; npm install; npm audit fix; cd ..; docker compose --profile dev-server up"
+                "command": "cd server; npm install; cd ..; docker compose --profile dev-server up --build"
             },
             "presentation": {
                 "reveal": "always",
@@ -46,31 +46,24 @@
             "command": "docker compose --profile dev down",
             "presentation": {
                 "reveal": "always",
-                "panel": "shared"
+                "panel": "new"
             }
         },
         {
-            "label": "🧹 Docker: Deep Clean (Keep Data & Modules)",
+            "label": "🧼 Docker: Safe Clean Frontend Cache (Keep Mongo Data)",
             "type": "shell",
-            "command": "docker compose --profile dev down --rmi all",
-            "group": "build"
-        },
-        {
-            "label": "🗑️ Clean: Remove Client & Server node_modules",
-            "type": "shell",
-            "command": "sudo rm -rf client/node_modules server/node_modules",
-            "windows": {
-                "command": "Remove-Item -Recurse -Force client/node_modules, server/node_modules"
-            },
+            "command": "docker compose --profile dev down -v && sudo chown -R $(id -u):$(id -g) . && rm -rf client/node_modules server/node_modules",
+            "group": "build",
             "presentation": {
                 "reveal": "always",
-                "panel": "shared"
+                "panel": "new"
             }
         },
         {
             "label": "📜 Docker: Logs Backend",
             "type": "shell",
             "command": "docker compose --profile dev logs -f backend-dev",
+            "group": "test",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
@@ -79,7 +72,8 @@
         {
             "label": "📜 Docker: Logs MongoDB",
             "type": "shell",
-            "command": "docker compose --profile dev logs -f mongodb-dev",
+            "command": "docker compose --profilpe dev logs -f mongodb-dev",
+            "group": "test",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
@@ -89,6 +83,17 @@
             "label": "📄 Docker: Backend Last 200 Lines",
             "type": "shell",
             "command": "docker compose --profile dev logs --tail=200 backend-dev",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "💥 RISK: Wipe All Docker Containers & Images",
+            "type": "shell",
+            "command": "docker compose down --rmi all --volumes --remove-orphans && docker system prune -a --volumes -f",
+            "group": "none",
             "presentation": {
                 "reveal": "always",
                 "panel": "new"
