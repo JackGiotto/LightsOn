@@ -20,6 +20,7 @@ services:
       PORT: 5000
       NODE_ENV: ${NODE_ENV_DEV}
       MONGODB_URI: ${MONGO_URI_DEV}
+      ENERGY_API_TOKEN: ${ENERGY_API_TOKEN_ENV}
       JWT_SECRET: ${JWT_SECRET_DEV}
 
   frontend-dev:
@@ -31,11 +32,12 @@ services:
       - "5173:5173"
     volumes:
       - ./client:/app
+      - /app/node_modules
     environment:
       VITE_PORT: 5173
       VITE_API_URL: ${API_URL_DEV}
 
-  # --- DEPLOYMENT SERVICES ---
+  # --- DEPLOYMENT SERVICES NOT USED AT THE MOMENT ---
   backend-dep:
     build: ./server
     profiles: ["dep"]

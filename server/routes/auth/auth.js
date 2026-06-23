@@ -7,12 +7,25 @@ const jwt = require("jsonwebtoken");
 
 router.post('/signup', async (req, res) => {
     try {
-        const { email, password, firstName, lastName } = req.body;
-        
+    const {
+      email,
+      password,
+      firstName: rawFirstName,
+      lastName: rawLastName,
+      FirstName,
+      LastName
+    } = req.body;
+    const firstName = rawFirstName ?? FirstName;
+    const lastName = rawLastName ?? LastName;
+
+    if (!email || !password || !firstName || !lastName) {
+      return res.status(400).json({ msg: "Campi obbligatori mancanti" });
+    }
+
         const existingUser = await
             User.findOne({ email });
         if (existingUser) return res.status(400).json({ msg: "Esiste già un utente con questa email" });
-        
+
         const hashedPassword = await createHashed(password);
         const newUser = new User({
             email,
@@ -48,7 +61,7 @@ router.post('/signup', async (req, res) => {
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
-        
+
         const user = await
             User.findOne({ email });
         if (!user) return res.status(400).json({ msg: "Username o password errati" });
