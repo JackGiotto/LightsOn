@@ -39,6 +39,8 @@ router.get('/lights', async (req, res) => {
             };
         }
 
+        // console.log("Fetching lights for viewId:", viewId, "step:", step, "with query:", JSON.stringify(query));
+
         const lights = await Light.find(query)
             .select('location activeReport.approvedCounts')
             .lean();

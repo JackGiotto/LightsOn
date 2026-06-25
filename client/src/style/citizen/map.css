@@ -1,14 +1,13 @@
 .map-page-wrapper {
   width: 100vw;
   height: 100vh;
-  overflow: hidden; /* Prevents scrollbars when panel is outside */
+  overflow: hidden;
   position: relative;
 }
 
 .map-container {
-    height: 100%; /* Make map fill the wrapper */
+    height: 100%;
     width: 100%;
-    /* The margin and border-radius are removed to make it full screen */
     background: #1a1a1a;
 }
 
@@ -22,22 +21,14 @@
     z-index: 1000;
 }
 
-/* This targets the specific layer where tiles are rendered */
 .leaflet-tile-pane {
     filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
 }
 
-/* Update the filter to be conditional */
 .night-mode .leaflet-tile-pane {
     filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3) brightness(0.7);
 }
 
-/* We must un-invert the images (like the OpenStreetMap logo) if any */
-.leaflet-container img.leaflet-tile {
-    /* Filters applied here */
-}
-
-/* Base background for the container when dark */
 .map-container.night-mode {
     background: #1a1a1a;
 }
