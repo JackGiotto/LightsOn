@@ -14,6 +14,7 @@ services:
     profiles: ["dev", "dev-server"]
     ports:
       - "5000:5000"
+    tty: true
     volumes:
       - ./server:/server
     environment:
