@@ -88,7 +88,8 @@ export const Reports = () => {
         descriptions: [
             "Buongiorno, desidero segnalare che il lampione situato in Via Roma, di fronte al civico 42, è completamente spento da almeno tre sere. La strada rimane in una zona d'ombra pericolosa per i pedoni. Chiedo un intervento di ripristino il prima possibile. Grazie.",
             "Buongiorno, vi scrivo per segnalare che in Via Verdi il lampione all'altezza dell'incrocio con Via Dante appare visibilmente inclinato e con la base del palo arrugginita/danneggiata. Temo possa essere un pericolo in caso di forte vento. Sarebbe opportuno un sopralluogo tecnico di sicurezza. Grazie per l'attenzione."
-        ]
+        ],
+        lightId: "node/12833912385"
     },
     {
         date: Date.now(),
@@ -101,7 +102,8 @@ export const Reports = () => {
         upvoteCount: 0,
         descriptions: [
             "Buongiorno, desidero segnalare che il lampione situato in Via Roma, di fronte al civico 42, è completamente spento da almeno tre sere. La strada rimane in una zona d'ombra pericolosa per i pedoni. Chiedo un intervento di ripristino il prima possibile. Grazie.",
-        ]
+        ],
+        lightId: "node/12833912385"
     },
     {
         date: Date.now(),
@@ -112,7 +114,8 @@ export const Reports = () => {
         },
         problemType: "Lampeggiante",
         upvoteCount: 2,
-        descriptions: []
+        descriptions: [],
+        lightId: "node/12833912385"
     },
     {
         date: Date.now(),
@@ -127,7 +130,8 @@ export const Reports = () => {
             "Salve, scrivo per segnalare un guasto diffuso lungo tutta Via Torino. Dall'incrocio con Via Milano fino al civico 100, circa metà dei lampioni risulta spenta. La via è molto buia e questo crea disagio a residenti e automobilisti. Spero in un intervento risolutivo a breve.",
             "Buongiorno, vorrei far notare che l'area del parchetto in Via dei Mille risulta quasi completamente al buio. Diversi punti luce sono fuori uso e la situazione rende l'area poco sicura per chi rientra a casa la sera. Sarebbe fondamentale ripristinare l'illuminazione per garantire maggiore sicurezza al quartiere.",
             "Salve, scrivo per segnalare un guasto diffuso lungo tutta Via Torino. Dall'incrocio con Via Milano fino al civico 100, circa metà dei lampioni risulta spenta. La via è molto buia e questo crea disagio a residenti e automobilisti. Spero in un intervento risolutivo a breve."
-        ]
+        ],
+        lightId: "node/12833912385"
     },
     ];
 

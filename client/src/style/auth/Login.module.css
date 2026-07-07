@@ -229,6 +229,27 @@
   font-family: sans-serif;
 }
 
+@media (max-width: 1000px) {
+  .formContainer {
+    width: 100vw;
+    align-items: center;
+    height: 50vh;
+  }
+  
+  .buttonContainer {
+    width: 80vw;
+  }
+
+  .btn {
+    width: 80vw;
+  }
+
+  .input-field {
+    width: 80vw;
+    padding: 0;
+  }
+}
+
 /* Responsive styles */
 @media (max-width: 640px) {
   .card {

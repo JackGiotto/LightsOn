@@ -16,9 +16,16 @@ import { CitizenHome } from "../pages/citizen/CitizenHome.jsx";
 import { CitizenReport } from "../pages/citizen/CitizenReport.jsx";
 import Login from "../pages/auth/Login.jsx";
 import SignUp from "../pages/auth/SignUp.jsx";
+import { ReportContext } from "../pages/citizen/reportContext.jsx";
+import { useState } from "react";
 
 function AppRouter() {
+  const [reportLamp, setReportLamp] = useState(null);
+  console.log(reportLamp);
+
   return (
+    <ReportContext value={{reportLamp, setReportLamp}}>
+      
     <BrowserRouter>
       <Routes>
 
@@ -51,6 +58,7 @@ function AppRouter() {
         <Route path="/citizen/report" element={<CitizenReport></CitizenReport>}></Route>
       </Routes>
     </BrowserRouter>
+    </ReportContext>
   );
 }
 
