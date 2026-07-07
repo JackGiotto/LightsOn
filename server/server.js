@@ -6,6 +6,7 @@ const cors = require("cors");
 
 const app = express();
 const authRoutes = require("./routes/auth/auth");
+const mapRoutes = require("./routes/map/map");
 
 const PORT = process.env.PORT
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -22,12 +23,13 @@ app.use(cookieParser());
 app.use(express.json());
 
 app.use("/auth", authRoutes);
+app.use("/map", mapRoutes);
+
 const { getEnergyPrice } = require("./energyPrice");
 const { getWeather } = require('./weather');
 
 console.log("My API Token is:", process.env.ENERGY_API_TOKEN);
 
-app.use(cors({ origin: 'http://localhost:5173' })); 
 
 app.get('/api/energy-prices', getEnergyPrice);
 

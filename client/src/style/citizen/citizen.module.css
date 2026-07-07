@@ -1,9 +1,12 @@
 .container {
     width: 100vw;
     height: 100vh;
+    height: 100dvh;
     margin: 0;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
 }
-
 
 .first {
   height: 15vh;
@@ -15,31 +18,27 @@
   top: 0;
   left: 0;
   width: 100vw;
+  pointer-events: none;
 }
 
-.alertButton {
-    width: 300px;
-    height: 80px;
-    position: fixed;
-    z-index: 1100;
-    background-color: #F40B0B;
-    bottom: 50px;
-    border-radius: 30px;
-    border: none;
-    box-shadow: 8px 8px 8px black;
-    box-shadow:inset -8px -8px 8px rgb(0, 0, 0, 0.5);
-    font-family: Inter;
-    font-weight: bolder;
-    font-size: 30px;
-    color: #FFFFFF;
-    text-shadow: 2px 2px 4px black;
-    cursor: pointer;
+.first > * {
+  pointer-events: auto;
 }
 
-
-.buttonContainer {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
+.mapLoadingIndicator {
+  position: absolute;
+  top: 15vh;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: rgba(30, 30, 30, 0.9);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: 25px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  z-index: 1000; /* Layered directly between map tiles (400) and your navbar (1100) */
+  pointer-events: none;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
+

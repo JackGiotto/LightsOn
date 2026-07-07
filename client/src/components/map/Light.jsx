@@ -6,7 +6,7 @@ function Light({
   key,
   id,
   position,
-  radius=20}) {
+  radius=10}) {
 
   return <>
       <svg style={{ width: 0, height: 0, position: 'absolute' }}>
@@ -27,21 +27,21 @@ function Light({
         </defs>
       </svg>
 
-      <Circle 
+      <Circle
           key={key}
-          center={position} 
-          radius={radius} 
-          pathOptions={{ 
-            fillColor: 'url(#yellowFade)', 
+          center={position}
+          radius={radius}
+          pathOptions={{
+            fillColor: 'url(#yellowFade)',
             fillOpacity: 1,  /* Must be 1 so the gradient's own opacity works */
             stroke: false    /* Optional: removes the solid border line */
-          }} 
+          }}
         > <Popup>
           Questo è il lampione {id}
         </Popup></Circle>
   </>;
 
- 
+
 }
 
 export default Light;

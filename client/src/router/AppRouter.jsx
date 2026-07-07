@@ -11,7 +11,7 @@ import { Reports } from "../pages/dashboard/Reports.jsx";
 import { StreetLamps } from "../pages/dashboard/SteetLamps.jsx";
 import { DashboardLayout } from "../pages/dashboard/DashboardLayout.jsx";
 import { Contacts } from "../pages/Contacts.jsx";
-import { MapPage } from "../pages/base_map/base_map.jsx";
+// import { MapPage } from "../pages/base_map/base_map.jsx";
 import { CitizenHome } from "../pages/citizen/CitizenHome.jsx";
 import { CitizenReport } from "../pages/citizen/CitizenReport.jsx";
 import Login from "../pages/auth/Login.jsx";
@@ -40,7 +40,7 @@ function AppRouter() {
         </Route>
 
         <Route path='/contacts' element={<Contacts />}></Route>
-        <Route path='/map' element={<MapPage />}></Route>
+        {/* <Route path='/map' element={<MapPage />}></Route> */}
 
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
