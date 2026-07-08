@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../../style/dashboard/avgage.module.css";
+import lampsData from "../dashboard/lamps.json";
 
 export const AvgAge = () => {
     return (
@@ -19,26 +20,12 @@ export const AvgAge = () => {
                             <h3>Lampioni da Cambiare</h3>
                             
                         <ul className={styles.oldLampsList}>
-                            <li><p>Lampione 1</p><p></p></li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
+                            {
+              lampsData.features.map((bulb) => (
+                <li><p>Lampione {bulb.id.slice(5)}</p> <p>{Math.round(Math.random() * (22 - 0), 2)} Anni</p></li>
+                
+              ))
+            }
                         </ul>
                     
                     </div>
