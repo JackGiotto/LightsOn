@@ -10,6 +10,7 @@ import { useState, Activity } from "react";
 import { useNavigate } from "react-router";
 import { ReportContext } from "./reportContext.jsx";
 import styles1 from "../../style/citizen/upvote.module.css";
+import { useContext } from "react";
 
 
 const UpvoteComponent = ({data, setUpvotePage}) => {
@@ -46,7 +47,7 @@ const UpvoteComponent = ({data, setUpvotePage}) => {
 
 export const CitizenHome = () => {
 
-  //const {reportLamp} = useContext(ReportContext);
+  const {reportLamp} = useContext(ReportContext);
   const [lampSelected, setLampSelected] = useState(false);
   const position = [46.067069, 11.150347];
   const navigate = useNavigate();
@@ -66,12 +67,23 @@ export const CitizenHome = () => {
     return null;
   }
 
+  function checkReport(data) {
+    console.log(reportLamp);
+    for (const report in data) {
+      if (report.lightId == reportLamp) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   const handleConditionalNavigation = async () => {
     try {
-      //const response = await fetch(`/report/light/${reportLamp}`);
-      //const data = await response.json();
-      const isAlreadyReported = true;
-      const data = {
+      const response = await fetch(`/report/light/${reportLamp}`);
+      const data = await response.json();
+
+      const isAlreadyReported = checkReport(data);
+      /*const data = {
         date: Date.now(),
         id: 42,
         producer: {
@@ -85,7 +97,7 @@ export const CitizenHome = () => {
             "Buongiorno, vi scrivo per segnalare che in Via Verdi il lampione all'altezza dell'incrocio con Via Dante appare visibilmente inclinato e con la base del palo arrugginita/danneggiata. Temo possa essere un pericolo in caso di forte vento. Sarebbe opportuno un sopralluogo tecnico di sicurezza. Grazie per l'attenzione."
         ],
         lightId: "node/12833912385"
-    };
+    };*/
 
       if (isAlreadyReported) {
         setUpvotePage(true);
