@@ -25,12 +25,12 @@ const ReportSchema = new mongoose.Schema({
             ref: 'User'
         }],
     },
-    data: {
-        status: {
+    status: {
             type: String,
             enum: ['pending', 'working on', 'resolved'],
             default: 'pending'
         },
+    data: {
         createdAt: {
             type: Date,
             default: Date.now

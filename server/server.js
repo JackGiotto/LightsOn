@@ -7,6 +7,7 @@ const cors = require("cors");
 const app = express();
 const authRoutes = require("./routes/auth/auth");
 const mapRoutes = require("./routes/map/map");
+const reportRoutes = require("./routes/report/report");
 
 const PORT = process.env.PORT
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -24,6 +25,7 @@ app.use(express.json());
 
 app.use("/auth", authRoutes);
 app.use("/map", mapRoutes);
+app.use("/report", reportRoutes);
 
 const { getEnergyPrice } = require("./energyPrice");
 const { getWeather } = require('./weather');
