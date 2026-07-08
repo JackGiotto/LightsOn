@@ -18,6 +18,7 @@ import Login from "../pages/auth/Login.jsx";
 import SignUp from "../pages/auth/SignUp.jsx";
 import { ReportContext } from "../pages/citizen/reportContext.jsx";
 import { useState } from "react";
+import { CitizenSettings } from "../pages/citizen/CitizenSettings.jsx";
 
 function AppRouter() {
   const [reportLamp, setReportLamp] = useState(null);
@@ -56,6 +57,7 @@ function AppRouter() {
 
         <Route path="/citizen" element={<CitizenHome />}></Route>
         <Route path="/citizen/report" element={<CitizenReport></CitizenReport>}></Route>
+        <Route path="/citizen/settings" element={<CitizenSettings></CitizenSettings>}></Route>
       </Routes>
     </BrowserRouter>
     </ReportContext>
