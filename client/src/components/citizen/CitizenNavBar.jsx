@@ -16,11 +16,11 @@ export const CitizenNavBar = () => {
            
             <header className={styles.container}>
                 <div className={styles.logo}>
-                    <Logo />
+                    <Logo userType={"/citizen"} />
                 </div>
                 <ul className={styles.navbarList}>
-                    <Link to="/settings"><li className={styles.navElement}><a>Impostazioni</a></li></Link>
-                    <Link to="/contacts"><li className={styles.navElement}><a>Contatti</a></li></Link>
+                    <Link to="/citizen/settings"><li className={styles.navElement}><a>Impostazioni</a></li></Link>
+                    <Link to="/citizen/contacts"><li className={styles.navElement}><a>Contatti</a></li></Link>
                 </ul>
             
                 <div  className={styles.hamburger}>
@@ -35,10 +35,10 @@ export const CitizenNavBar = () => {
                             
                     <ul>
 
-                        <Link to="/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}><h3>Impostazioni</h3></li></Link>
+                        <Link to="/citizen/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}><h3>Impostazioni</h3></li></Link>
                         
-                        <Link to="/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Account</li></Link>
-                        <Link to="/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
+                        <Link to="/citizen/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Account</li></Link>
+                        <Link to="/citizen/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
 
                         <Link to="/contacts"><li className={styles.category}><h3>Contatti</h3></li></Link>
 

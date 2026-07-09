@@ -1,3 +1,5 @@
+//  Imports of the components
+
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "../components/Layout.jsx";
 import { Settings1 } from "../pages/Settings1.jsx";
@@ -18,7 +20,13 @@ import Login from "../pages/auth/Login.jsx";
 import SignUp from "../pages/auth/SignUp.jsx";
 import { ReportContext } from "../pages/citizen/reportContext.jsx";
 import { useState } from "react";
-import { CitizenSettings } from "../pages/citizen/CitizenSettings.jsx";
+import { CitizenSettingsLayout } from "../pages/citizen/CitizenSettingsLayout.jsx";
+import { CitizenSettings1 } from "../pages/citizen/CitizenSettings1.jsx";
+import { CitizenSettings2 } from "../pages/citizen/CitizenSettings2.jsx";
+import { CitizenContacts } from "../components/citizen/CitizenContacts.jsx";
+
+
+//  Routing component
 
 function AppRouter() {
   const [reportLamp, setReportLamp] = useState(null);
@@ -55,9 +63,17 @@ function AppRouter() {
         <Route path="/Login" element={<Navigate to="/login" replace />}></Route>
         <Route path="/SignUp" element={<Navigate to="/signup" replace />}></Route>
 
+        /* Citizen Routing */
+
         <Route path="/citizen" element={<CitizenHome />}></Route>
         <Route path="/citizen/report" element={<CitizenReport></CitizenReport>}></Route>
-        <Route path="/citizen/settings" element={<CitizenSettings></CitizenSettings>}></Route>
+        
+        <Route path='/citizen/settings' element={<CitizenSettingsLayout />}>
+          <Route index element={<Navigate to="/citizen/settings/settings1" replace/>} />
+          <Route path='settings1' element={<CitizenSettings1 />}></Route>
+          <Route path='settings2' element={<Settings2 />}></Route>
+        </Route>
+        <Route path="/citizen/contacts" element={<CitizenContacts></CitizenContacts>}></Route>
       </Routes>
     </BrowserRouter>
     </ReportContext>

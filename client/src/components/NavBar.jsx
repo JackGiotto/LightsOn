@@ -16,7 +16,7 @@ export const NavBar = () => {
            
             <header className={styles.container}>
                 <div className={styles.logo}>
-                    <Logo />
+                    <Logo userType=""/>
                 </div>
                 <ul className={styles.navbarList}>
                     <Link to="/dashboard"><li className={styles.navElement}><a>Dashboard</a></li></Link>

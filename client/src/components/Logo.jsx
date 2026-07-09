@@ -1,9 +1,9 @@
 import React from "react";
 import { Link } from "react-router";
 
-export const Logo = () => {
+export const Logo = ({userType}) => {
     return (
-        <Link to="/settings">
+        <Link to={`${userType}/settings`}>
             <img src="/Logo.png"></img>
         </Link>
     );

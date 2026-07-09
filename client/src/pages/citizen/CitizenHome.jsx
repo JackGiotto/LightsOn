@@ -70,6 +70,8 @@ export const CitizenHome = () => {
   function checkReport(data) {
     console.log(reportLamp);
     for (const report in data) {
+      console.log(report.lightId);
+      console.log(reportLamp);
       if (report.lightId == reportLamp) {
         return true;
       }
@@ -83,6 +85,7 @@ export const CitizenHome = () => {
       const data = await response.json();
 
       const isAlreadyReported = checkReport(data);
+      console.log(isAlreadyReported)
       /*const data = {
         date: Date.now(),
         id: 42,
