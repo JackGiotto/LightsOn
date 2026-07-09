@@ -6,6 +6,7 @@ export const StreetLamps = () => {
 
     const [uptime, setUptime] = useState({sunrise: null ,sunset: null});
     const [weather, setWeather] = useState(null);
+    const [consumption, setConsumption] = useState(345.0);
 
 
     useEffect(() => {
@@ -20,6 +21,8 @@ export const StreetLamps = () => {
     
             const data = await response.json();
             console.log(data.sys.sunrise);
+            console.log(data.weather[0].main)
+            setWeather(data.weather[0].main);
 
             setUptime({
                 sunrise: new Date(data.sys.sunrise* 1000).toLocaleTimeString('en-US', {
@@ -43,6 +46,19 @@ export const StreetLamps = () => {
         
       }, []);
 
+    useEffect(() => {
+        const maxVariation = 2.5;
+        const intervalId = setInterval(() => {
+        setConsumption(() => {
+            const variation = (Math.random() * (maxVariation * 2)) - maxVariation;
+            const newValue = 345.0 + variation; 
+        
+            return parseFloat(newValue.toFixed(1));
+        });
+        }, 3000);
+        return () => clearInterval(intervalId);
+    }, []);
+
 
     return (
         <div className={styles.container}>
@@ -55,8 +71,8 @@ export const StreetLamps = () => {
                     <p>Lampioni inattivi: 4</p>
                 </div>
                 <div className={ `${styles.overviewElement} ${styles.actual}`}>
-                    <p>Consumo Attuale
-                    345kWh</p>
+                    <p>Consumo Attuale</p>
+                    <p>{consumption} kWh</p>
                 </div>
 
                 <div className={ `${styles.overviewElement} ${styles.worksContainer}`}>
@@ -93,6 +109,7 @@ export const StreetLamps = () => {
                     </div>
                     <div className={ `${styles.overviewElement} ${styles.weather}`}>
                         <p>Meteo</p>
+                        <p>{weather}</p>
                     </div>
                 </div>
 
