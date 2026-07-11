@@ -34,12 +34,13 @@ export const CitizenNavBar = () => {
                             
                     <ul>
 
-                        <Link to="/citizen/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}><h3>Impostazioni</h3></li></Link>
+                        <Link to="/citizen/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Impostazioni</li></Link>
                         
                         <Link to="/citizen/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Account</li></Link>
                         <Link to="/citizen/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
 
-                        <Link to="/contacts"><li className={styles.category}><h3>Contatti</h3></li></Link>
+                        <Link to="/contacts"><li className={styles.category}>Contatti</li></Link>
+                        <Link to=""><li className={styles.category}>Help Center</li></Link>
 
                     </ul>
                         

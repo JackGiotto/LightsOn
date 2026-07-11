@@ -107,9 +107,9 @@ export const Settings1 = () => {
 
     return (
             <div className={styles.container}>
-                <h1 className={styles.title}>Hello {name}</h1>
+                <h1 className={styles.title}>Ciao Mario</h1> 
                 <ul>
-                  <li>Registered email: {email}<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
+                  <li>Registered email: mario.rossi@gmail.com<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
                   <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Cambia password</button></li>
                   <li><button>Log out</button></li>
                   <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Elimina Account</button></li>

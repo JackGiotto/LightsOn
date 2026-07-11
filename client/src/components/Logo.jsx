@@ -10,7 +10,7 @@ export const Logo = ({userType}) => {
                         <img src="/Logo.png"></img>
                     </Link>
                 ) : (
-                    <Link to="/settings">
+                    <Link to="/dashboard">
                         <img src="/Logo.png"></img>
                     </Link>
                 )
