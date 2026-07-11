@@ -124,7 +124,8 @@ export const CitizenHome = () => {
 
       <MapContainer style={{ height: "100%", width: "100%" }}
                 center={position}
-                zoom={16}>
+                zoom={16}
+                zoomControl={false}>
             <TileLayer
                 attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -144,6 +145,7 @@ export const CitizenHome = () => {
               ))
             }
         <MapEventsListener setLampSelected={setLampSelected} />
+        <ZoomControl position="bottomleft" />
   </MapContainer>
   
   {lampSelected &&(
