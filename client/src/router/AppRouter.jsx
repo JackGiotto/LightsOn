@@ -18,7 +18,7 @@ import { CitizenHome } from "../pages/citizen/CitizenHome.jsx";
 import { CitizenReport } from "../pages/citizen/CitizenReport.jsx";
 import Login from "../pages/auth/Login.jsx";
 import SignUp from "../pages/auth/SignUp.jsx";
-import { ReportContext } from "../pages/citizen/reportContext.jsx";
+import { ReportContext } from "../pages/citizen/ReportContext.jsx";
 import { useState } from "react";
 import { CitizenSettingsLayout } from "../pages/citizen/CitizenSettingsLayout.jsx";
 import { CitizenSettings1 } from "../pages/citizen/CitizenSettings1.jsx";
@@ -33,10 +33,9 @@ function AppRouter() {
   console.log(reportLamp);
 
   return (
-    <ReportContext value={{reportLamp, setReportLamp}}>
-      
-    <BrowserRouter>
-      <Routes>
+    <ReportContext.Provider value={{ reportLamp, setReportLamp }}>
+      <BrowserRouter>
+        <Routes>
 
         <Route path='/settings' element={<Layout />}>
           <Route index element={<Navigate to="settings1" replace/>} />
@@ -74,9 +73,9 @@ function AppRouter() {
           <Route path='settings2' element={<Settings2 />}></Route>
         </Route>
         <Route path="/citizen/contacts" element={<CitizenContacts></CitizenContacts>}></Route>
-      </Routes>
-    </BrowserRouter>
-    </ReportContext>
+        </Routes>
+      </BrowserRouter>
+    </ReportContext.Provider>
   );
 }
 

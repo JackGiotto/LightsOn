@@ -1,11 +1,10 @@
 import React from 'react';
 import { Marker, Circle, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { ReportContext } from '../../pages/citizen/reportContext';
+import { ReportContext } from '../../pages/citizen/ReportContext.jsx';
 import { useContext } from 'react';
 
 function Light({
-  key,
   id,
   position,
   radius=15
@@ -38,20 +37,19 @@ function Light({
 
       <Circle 
       eventHandlers={{
-          click: reportHandler, // Attach your function to the 'click' event
+          click: reportHandler,
         }}
-          key={key}
           center={position}
           radius={radius}
           pathOptions={{
             fillColor: 'url(#yellowFade)',
-            fillOpacity: 1,  /* Must be 1 so the gradient's own opacity works */
-            stroke: false    /* Optional: removes the solid border line */
+            fillOpacity: 1,
+            stroke: false
           }}
           lam
         > <Popup>
           Segnala il lampione {id.slice(5)}
-          
+
         </Popup></Circle>
   </>;
 

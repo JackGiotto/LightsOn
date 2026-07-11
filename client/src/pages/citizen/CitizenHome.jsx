@@ -11,7 +11,7 @@ import lampsData from "../dashboard/lamps.json";
 import Light from "../../components/map/Light";
 import { Activity } from "react";
 import { useNavigate } from "react-router";
-import { ReportContext } from "./reportContext.jsx";
+import { ReportContext } from "./ReportContext.jsx";
 import styles1 from "../../style/citizen/upvote.module.css";
 import { useContext } from "react";
 

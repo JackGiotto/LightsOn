@@ -3,7 +3,7 @@ import styles from "../../style/citizen/report.module.css";
 import styles1 from "../../style/citizen/citizen.module.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
-import { ReportContext } from "./reportContext";
+import { ReportContext } from "./ReportContext";
 import { useNavigate } from "react-router-dom";
 
 export const CitizenReport = () => {
