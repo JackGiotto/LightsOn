@@ -6,6 +6,8 @@ export const StreetLamps = () => {
 
     const [uptime, setUptime] = useState({sunrise: null ,sunset: null});
     const [weather, setWeather] = useState(null);
+    const [consumption, setConsumption] = useState(345.0);
+    const [streetLamps, setStreetLamps] = useState([]);
 
 
     useEffect(() => {
@@ -20,6 +22,8 @@ export const StreetLamps = () => {
     
             const data = await response.json();
             console.log(data.sys.sunrise);
+            console.log(data.weather[0].main)
+            setWeather(data.weather[0].main);
 
             setUptime({
                 sunrise: new Date(data.sys.sunrise* 1000).toLocaleTimeString('en-US', {
@@ -43,6 +47,40 @@ export const StreetLamps = () => {
         
       }, []);
 
+    useEffect(() => {
+        const maxVariation = 2.5;
+        const intervalId = setInterval(() => {
+        setConsumption(() => {
+            const variation = (Math.random() * (maxVariation * 2)) - maxVariation;
+            const newValue = 345.0 + variation; 
+        
+            return parseFloat(newValue.toFixed(1));
+        });
+        }, 3000);
+        return () => clearInterval(intervalId);
+    }, []);
+
+    useEffect(() => {
+        const fetchStreetLamps = async () => {
+          try {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/report/light/`);      
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+                setStreetLamps(data);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+    
+        fetchStreetLamps();
+
+    }, [])
+
+
 
     return (
         <div className={styles.container}>
@@ -55,33 +93,20 @@ export const StreetLamps = () => {
                     <p>Lampioni inattivi: 4</p>
                 </div>
                 <div className={ `${styles.overviewElement} ${styles.actual}`}>
-                    <p>Consumo Attuale
-                    345kWh</p>
+                    <p>Consumo Attuale</p>
+                    <p>{consumption} kWh</p>
                 </div>
 
                 <div className={ `${styles.overviewElement} ${styles.worksContainer}`}>
                     <h3>Stato Interventi</h3>
                     <ul className={styles.oldLampsList}>
-                        <li><p>Lampione 1</p><p></p></li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
+                        <li><p>Lampione 12833898282</p><p className={styles.workDescription}>in corso</p></li>
+                        <li><p>Lampione 12833912385</p><p className={styles.workDescription}>in corso</p></li>
+                        <li><p>Lampione 13002153672</p><p className={styles.workDescription}>in corso</p></li>
+                        <li><p>Lampione 13159720838</p><p className={styles.workDescription}>in corso</p></li>
+                        {streetLamps.map((streetLamp) => {
+                            <li>Lampione {streetLamp.lightId} in corso</li>
+                        })}
                     </ul>
                 </div>
 
@@ -93,6 +118,7 @@ export const StreetLamps = () => {
                     </div>
                     <div className={ `${styles.overviewElement} ${styles.weather}`}>
                         <p>Meteo</p>
+                        <p>{weather}</p>
                     </div>
                 </div>
 

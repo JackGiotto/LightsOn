@@ -43,6 +43,10 @@ h3 {
     cursor: pointer;
 }
 
+.list li.selected {
+    background-color: black;
+}
+
 .formContainer {
     display: flex;
     flex-direction: column;

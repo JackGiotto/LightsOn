@@ -81,7 +81,7 @@ h1 {
 }
 
 .oldLampsList li {
-    width: 80%;
+    width: 90%;
     background-color: aliceblue;
     border-radius: 12px;
     text-align: center;
@@ -91,7 +91,11 @@ h1 {
     min-height: 80px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
+}
+
+.workDescription {
+  font-style: italic;
 }
 
 .uptime {

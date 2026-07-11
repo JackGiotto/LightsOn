@@ -1,89 +1,121 @@
+
+import React, { useState, useRef, useEffect } from 'react';
 import "../../style/citizen/map.css";
 import 'leaflet/dist/leaflet.css';
-import React, { useState, useRef, useEffect } from 'react';
 import { CitizenNavBar } from "../../components/citizen/CitizenNavBar.jsx";
-import { MapContainer, TileLayer, useMapEvents } from 'react-leaflet';
+import { Page } from "../../components/Page";
+import { Link, Outlet } from "react-router";
+import { MapContainer, TileLayer, ZoomControl, useMapEvents} from 'react-leaflet'
 import styles from "../../style/citizen/citizen.module.css";
+import lampsData from "../dashboard/lamps.json";
 import Light from "../../components/map/Light";
+import { Activity } from "react";
+import { useNavigate } from "react-router";
+import { ReportContext } from "./reportContext.jsx";
+import styles1 from "../../style/citizen/upvote.module.css";
+import { useContext } from "react";
 
-const MapEventsHandler = ({ onLoad }) => {
-  const map = useMapEvents({
-    moveend: () => {
-      const targetBounds = map.getBounds();
-      onLoad({
-        minLat: targetBounds.getSouth(),
-        maxLat: targetBounds.getNorth(),
-        minLng: targetBounds.getWest(),
-        maxLng: targetBounds.getEast()
+
+const UpvoteComponent = ({data, setUpvotePage}) => {
+
+  const handleUpvoteRequest = async () => {
+    try {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/report/approve/", {
+        method: "POST",
+        body: JSON.stringify(data.id),
       });
-    }
-  });
 
-  useEffect(() => {
-    if (map) {
-      const targetBounds = map.getBounds();
-      onLoad({
-        minLat: targetBounds.getSouth(),
-        maxLat: targetBounds.getNorth(),
-        minLng: targetBounds.getWest(),
-        maxLng: targetBounds.getEast()
-      });
-    }
-  }, []);
-
-  return null;
-};
-
-export const CitizenHome = () => {
-  const position = [46.067069, 11.150347];
-  const [liveLights, setLiveLights] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const currentViewIdRef = useRef(0);
-
-  const loadViewportProgressively = async (bounds) => {
-    setLoading(true);
-    setLiveLights([]);
-
-    const myViewId = Date.now().toString();
-    currentViewIdRef.current = myViewId;
-    const apiUrl = import.meta.env.VITE_API_URL;
-
-    for (let currentStep = 1; currentStep <= 3; currentStep++) {
-      if (currentViewIdRef.current !== myViewId) break;
-
-      try {
-        const queryParams = new URLSearchParams({
-          minLat: bounds.minLat.toString(),
-          maxLat: bounds.maxLat.toString(),
-          minLng: bounds.minLng.toString(),
-          maxLng: bounds.maxLng.toString(),
-          step: currentStep.toString(),
-          viewId: myViewId
-        });
-
-        const response = await fetch(`${apiUrl}/map/lights?${queryParams.toString()}`, {
-          method: 'GET',
-          headers: { 'Content-Type': 'application/json' },
-          credentials: "include"
-        });
-
-        if (!response.ok) throw new Error(`Failed step ${currentStep}`);
-        const data = await response.json();
-
-        if (currentViewIdRef.current === myViewId) {
-          setLiveLights((prev) => [...prev, ...data.lights]);
-        }
-      } catch (error) {
-        console.error(`Error loading step ${currentStep}:`, error);
+      if(response.ok) {
+        setUpvotePage(false)
       }
 
-      await new Promise(resolve => setTimeout(resolve, 0));
+    } catch(error) {
+      console.error(error)
     }
+  }
 
-    if (currentViewIdRef.current === myViewId) {
-      setLoading(false);
+      return (
+          <div className={styles1.overview}>
+              <img className={styles1.close} src="/close.png" width={15} onClick={() => setUpvotePage(false)}></img>
+                <h1 className={styles1.title}>E' già stata eseguita una segnalazione per questo lampione</h1>
+              <div className={styles1.container}>
+              <p>Tipo di problema: {data.problemType}</p>
+              <p>Voti: {data.upvoteCount}</p>
+              <p></p>
+              </div>
+              <button onClick={handleUpvoteRequest} className={styles1.upvoteButton}>Aggiungi voto</button>
+          </div>
+      )
+  }
+
+export const CitizenHome = () => {
+
+  const {reportLamp} = useContext(ReportContext);
+  const [lampSelected, setLampSelected] = useState(false);
+  const position = [46.067069, 11.150347];
+  const navigate = useNavigate();
+  const [upvotePage, setUpvotePage] = useState(false);
+  const [reportedLampData, setReportedLampData] = useState({});
+  const loading = false;
+
+  function MapEventsListener({ setLampSelected }) {
+    useMapEvents({
+      popupopen: () => {
+      setLampSelected(true);
+    },
+      popupclose: () => {
+        setLampSelected(false);
+      },
+    });
+
+    return null;
+  }
+
+  function checkReport(data) {
+    console.log(reportLamp);
+    for (const report in data) {
+      console.log(report.lightId);
+      console.log(reportLamp);
+      if (report.lightId == reportLamp) {
+        return true;
+      }
     }
-  };
+    return false;
+  }
+
+  const handleConditionalNavigation = async () => {
+    try {
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/report/light/${reportLamp}`);
+      const data = await response.json();
+
+      const isAlreadyReported = checkReport(data);
+      console.log(isAlreadyReported)
+      /*const data = {
+        date: Date.now(),
+        id: 42,
+        producer: {
+            name:"Daniel Lights",
+            phone: "3454149835"
+        },
+        problemType: "Lampeggiante",
+        upvoteCount: 3,
+        descriptions: [
+            "Buongiorno, desidero segnalare che il lampione situato in Via Roma, di fronte al civico 42, è completamente spento da almeno tre sere. La strada rimane in una zona d'ombra pericolosa per i pedoni. Chiedo un intervento di ripristino il prima possibile. Grazie.",
+            "Buongiorno, vi scrivo per segnalare che in Via Verdi il lampione all'altezza dell'incrocio con Via Dante appare visibilmente inclinato e con la base del palo arrugginita/danneggiata. Temo possa essere un pericolo in caso di forte vento. Sarebbe opportuno un sopralluogo tecnico di sicurezza. Grazie per l'attenzione."
+        ],
+        lightId: "node/12833912385"
+    };*/
+
+      if (isAlreadyReported) {
+        setUpvotePage(true);
+        setReportedLampData(data);
+      } else {
+        navigate('/citizen/report');
+      }
+    } catch(error) {
+       console.error(error);
+      }
+  }
 
   return (
     <div className={styles.container}>
@@ -105,18 +137,32 @@ export const CitizenHome = () => {
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
           />
 
-          {/* Pass the loader down to the isolated event handler wrapper */}
-          <MapEventsHandler onLoad={loadViewportProgressively} />
+            {
+              lampsData.features.map((bulb) => (
+                <Light
+                  key={bulb.id}
+                  id={bulb.id}
+                  position={[
+                    bulb.geometry.coordinates[1],
+                    bulb.geometry.coordinates[0]
+                  ]}
+                />
 
-          {liveLights.map((bulb) => (
-            <Light
-              key={bulb.id}
-              id={bulb.id}
-              position={bulb.position}
-            />
-          ))}
-        </MapContainer>
+              ))
+            }
+        <MapEventsListener setLampSelected={setLampSelected} />
+  </MapContainer>
+
+  {lampSelected &&(
+      <div className={styles.buttonContainer}>
+        <button className={styles.alertButton} onClick={handleConditionalNavigation}>Segnala</button>
+      </div>)
+  }
+
+  <Activity mode={upvotePage ? "visible" : "hidden"}>
+                    <UpvoteComponent data={reportedLampData} setUpvotePage={setUpvotePage}></UpvoteComponent>
+                  </Activity>
       </div>
     </div>
-  );
+    );
 };

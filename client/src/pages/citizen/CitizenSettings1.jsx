@@ -1,27 +1,15 @@
-import React, { Activity, useEffect } from "react";
-import styles from "../style/settings1.module.css";
+import React, { Activity } from "react";
+import styles from "../../style/settings1.module.css";
 import { useState } from "react";
 
 function ChangePassword({setShowOverview})  {
-
-  const [newPassword, setNewPassword] = useState("");
-
-  const handleChangePassword = async () => {
-    try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`);
-        console.log("ciao")
-    } catch(error) {
-        console.error(error);
-    }
-  }
-
   return(
           <div className={styles.overview}>
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
             <h3>Inserisci una nuova password:</h3>
             <form className={styles.changeForm}>
-                <input placeholder="Nuova Password" className={styles.changeField} type="password"></input>
-                <input placeholder="Conferma Password" className={styles.changeField} type="password"></input>
+                <input placeholder="Nuova Password" className={styles.changeButton} type="password"></input>
+                <input placeholder="Conferma Password" className={styles.changeButton} type="password"></input>
                 <button className={styles.confirmationButton}>Salva</button>
             </form>
           </div>
@@ -29,30 +17,13 @@ function ChangePassword({setShowOverview})  {
 }
 
 function ChangeEmail({setShowOverview})  {
-  const [newEmail, setNewEmail] = useState("");
-  const [confirmNewEmail, setConfirmNewEmail] = useState("");
-
-  const handleChangeEmail = async () => {
-    if (newEmail == confirmNewEmail) {
-
-    
-    try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`);
-        console.log("ciao")
-    } catch(error) {
-        console.error(error);
-    }
-    }
-  }
-
   return(
           <div className={styles.overview}>
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
             <h3>Inserisci una nuova mail:</h3>
-            {(newEmail !== confirmNewEmail || !newEmail.includes("@") || !confirmNewEmail.includes("@")) && <p>Ricontrolla!</p>}
             <form className={styles.changeForm}>
-              <input placeholder="Nuova email" value={newEmail} onChange={(event) => setNewEmail(event.target.value)} className={styles.changeField} type="email"></input>
-              <input placeholder="Conferma email" value={confirmNewEmail} onChange={(event) => setConfirmNewEmail(event.target.value)} className={styles.changeField} type="email"></input>
+              <input placeholder="Nuova email" className={styles.changeButton} type="email"></input>
+              <input placeholder="Conferma email" className={styles.changeButton} type="email"></input>
               <button className={styles.confirmationButton}>Salva</button>
             </form>
           </div>
@@ -60,16 +31,6 @@ function ChangeEmail({setShowOverview})  {
 }
 
 function DeleteAccount({setShowOverview})  {
-
-  const handleDeleteAccount = async () => {
-    try {
-        const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`);
-        console.log("ciao")
-    } catch(error) {
-        console.error(error);
-    }
-  }
-
   return(
           <div className={styles.overview}>
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
@@ -79,37 +40,18 @@ function DeleteAccount({setShowOverview})  {
   )
 }
 
-export const Settings1 = () => {
+export const CitizenSettings1 = () => {
 
 
     const [showPasswordPage, setPasswordPage] = useState(false);
     const [showEmailPage, setEmailPage] = useState(false);
     const [ showAccountPage, setAccountPage] = useState(false);
 
-
-    const [email, SetEmail] = useState("");
-    const [name, SetName] = useState("");
-
-
-    useEffect(() => {
-      const fetchUserData = async () => {
-        try {
-          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`);
-          SetEmail(response.email);
-          SetName(response.profile.firstName);
-        } catch (error) {
-          console.error(error);
-        }
-      }
-    }, []);
-
-
-
     return (
             <div className={styles.container}>
-                <h1 className={styles.title}>Hello {name}</h1>
+                <h1 className={styles.title}>Hello Mario</h1>
                 <ul>
-                  <li>Registered email: {email}<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
+                  <li>Registered email: ciao@pippo.com<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
                   <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Cambia password</button></li>
                   <li><button>Log out</button></li>
                   <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Elimina Account</button></li>
@@ -126,7 +68,6 @@ export const Settings1 = () => {
                 <Activity mode={showAccountPage ? "visible" : "hidden"}>
                   <DeleteAccount setShowOverview={setAccountPage} ></DeleteAccount>
                 </Activity>
-
             </div>
     )
 }

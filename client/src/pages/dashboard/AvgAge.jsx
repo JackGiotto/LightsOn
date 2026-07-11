@@ -1,7 +1,31 @@
 import React from "react";
 import styles from "../../style/dashboard/avgage.module.css";
+import lampsData from "../dashboard/lamps.json";
+import { useState, useEffect } from "react";
 
 export const AvgAge = () => {
+    const [streetLamps, setStreetLamps] = useState([]);
+
+
+    useEffect(() => {
+            const fetchStreetLamps = async () => {
+              try {
+                    const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/map/light/`);      
+        
+                    if (!response.ok) {
+                        throw new Error(`HTTP error! Status: ${response.status}`);
+                    }
+        
+                    const data = await response.json();
+                    setStreetLamps(data);
+              } catch (err) {
+                console.error(err);
+              }
+            }
+        
+            fetchStreetLamps();
+    
+        }, [])
     return (
             <div className={styles.container}>
                 <h1 style={styles.title}>Overview Età Media</h1>
@@ -13,32 +37,31 @@ export const AvgAge = () => {
                     </div>
                     <div className={ `${styles.overviewElement} ${styles.inactive}`}>
                         <p>Sostituzioni Recenti</p>
+                        {
+                                lampsData.features.slice(0, 3).map((bulb) => (
+                                    <p>Lampione {bulb.id.slice(5)}</p>
+                
+                                ))
+                            }
                     </div>
                     </div>
                     <div className={styles.rightElements}>
                             <h3>Lampioni da Cambiare</h3>
                             
                         <ul className={styles.oldLampsList}>
-                            <li><p>Lampione 1</p><p></p></li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
-                            <li>Lampione 1</li>
+                            {
+                                lampsData.features.map((bulb) => (
+                                    <li><p>Lampione {bulb.id.slice(5)}</p> <p>{Math.round(Math.random() * (22 - 0), 2)} Anni</p></li>
+                
+                                ))
+                            }
+
+                            {
+                                streetLamps.map((bulb) => (
+                                    <li><p>Lampione {bulb.id.slice(5)}</p> <p>{Math.round(Math.random() * (22 - 0), 2)} Anni</p></li>
+                
+                                ))
+                            }
                         </ul>
                     
                     </div>
