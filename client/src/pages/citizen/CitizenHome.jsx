@@ -17,7 +17,7 @@ const UpvoteComponent = ({data, setUpvotePage}) => {
 
   const handleUpvoteRequest = async () => {
     try {
-      const response = await fetch("/report/approve/", {
+      const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/report/approve/", {
         method: "POST",
         body: JSON.stringify(data.id),
       });
@@ -81,7 +81,7 @@ export const CitizenHome = () => {
 
   const handleConditionalNavigation = async () => {
     try {
-      const response = await fetch(`/report/light/${reportLamp}`);
+      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/report/light/${reportLamp}`);
       const data = await response.json();
 
       const isAlreadyReported = checkReport(data);

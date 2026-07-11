@@ -21,7 +21,7 @@ export const CitizenReport = () => {
         const createReport = async () => {
             console.log(description)
           try {
-          const response = await fetch("/report/new_report/",
+          const response = await fetch("${import.meta.env.VITE_BACKEND_URL}/report/new_report/",
                 {
                 method: "POST",
                 body: {
@@ -60,10 +60,10 @@ export const CitizenReport = () => {
             
             <h3>Select the malfunction type</h3>
             <ul className={styles.list}>
-                <li onClick={() => setProblemType("Malfunzionamento")}>Malfunzionamento</li>
-                <li onClick={() => setProblemType("Rottura")}>Rottura</li>
-                <li onClick={() => setProblemType("Lampeggiante")}>Lampeggiante</li>
-                <li onClick={() => setProblemType("Altro")}>Altro</li>
+                <li onClick={() => setProblemType("Malfunzionamento")} className={problemType === "Malfunzionamento" ? styles.selected: ""}>Malfunzionamento</li>
+                <li onClick={() => setProblemType("Rottura")} className={problemType === "Rottura" ? styles.selected: ""}>Rottura</li>
+                <li onClick={() => setProblemType("Lampeggiante")} className={problemType === "Lampeggiante" ? styles.selected: ""}>Lampeggiante</li>
+                <li onClick={() => setProblemType("Altro")} className={problemType === "Altro" ? styles.selected: ""}>Altro</li>
             </ul>
             <form className={styles.formContainer}>
                 <label>Se vuoi aggiungere una descrizione o una foto</label>

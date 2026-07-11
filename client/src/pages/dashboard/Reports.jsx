@@ -75,6 +75,8 @@ const Report = ({report}) => {
 
 export const Reports = () => {
 
+    //  Remember to create the request for getting the actual reports!
+
 
     const reports = [{
         date: Date.now(),
