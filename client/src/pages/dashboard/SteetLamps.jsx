@@ -7,6 +7,7 @@ export const StreetLamps = () => {
     const [uptime, setUptime] = useState({sunrise: null ,sunset: null});
     const [weather, setWeather] = useState(null);
     const [consumption, setConsumption] = useState(345.0);
+    const [streetLamps, setStreetLamps] = useState([]);
 
 
     useEffect(() => {
@@ -59,6 +60,27 @@ export const StreetLamps = () => {
         return () => clearInterval(intervalId);
     }, []);
 
+    useEffect(() => {
+        const fetchStreetLamps = async () => {
+          try {
+                const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/report/light/`);      
+    
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+    
+                const data = await response.json();
+                setStreetLamps(data);
+          } catch (err) {
+            console.error(err);
+          }
+        }
+    
+        fetchStreetLamps();
+
+    }, [])
+
+
 
     return (
         <div className={styles.container}>
@@ -78,26 +100,13 @@ export const StreetLamps = () => {
                 <div className={ `${styles.overviewElement} ${styles.worksContainer}`}>
                     <h3>Stato Interventi</h3>
                     <ul className={styles.oldLampsList}>
-                        <li><p>Lampione 1</p><p></p></li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
-                        <li>Lampione 1</li>
+                        <li><p>Lampione 12833898282</p><p className={styles.workDescription}>in corso</p></li>
+                        <li><p>Lampione 12833912385</p><p className={styles.workDescription}>in corso</p></li>
+                        <li><p>Lampione 13002153672</p><p className={styles.workDescription}>in corso</p></li>
+                        <li><p>Lampione 13159720838</p><p className={styles.workDescription}>in corso</p></li>
+                        {streetLamps.map((streetLamp) => {
+                            <li>Lampione {streetLamp.lightId} in corso</li>
+                        })}
                     </ul>
                 </div>
 
