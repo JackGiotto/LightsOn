@@ -46,9 +46,8 @@ function Light({
             fillOpacity: 1,
             stroke: false
           }}
-          lam
         > <Popup>
-          Segnala il lampione {id.slice(5)}
+          Segnala il lampione {id}
 
         </Popup></Circle>
   </>;

@@ -25,6 +25,10 @@ const ReportSchema = new mongoose.Schema({
             ref: 'User'
         }],
     },
+    malfunctionType: {
+        type: String,
+        enum: ['Malfunzionamento', 'Rottura', 'Lampeggiante', 'Altro']
+    },
     status: {
             type: String,
             enum: ['pending', 'working on', 'resolved'],

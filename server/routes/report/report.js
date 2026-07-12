@@ -5,6 +5,7 @@ const Report = require('../../models/Report');
 
 router.get('/light/:lightId', async (req, res) => {
     try {
+        console.log("Fetching report for light ID:", req.params.lightId);
         const { lightId } = req.params;
         const light = await Light.findById(lightId)
             .select('activeReport')
@@ -60,14 +61,16 @@ router.post('/approve', async (req, res) => {
     }
 });
 
-router.post('new_report', async (req, res) => {
+router.post(['/new_report', '/new_report/'], async (req, res) => {
     try {
-        const { lightId, userId, description } = req.body;
+        console.log("Creating new report with data:", req.body);
+        const { lightId, userId, description, malfunctionType } = req.body;
 
         const newReport = new Report({
             lightId,
             userId,
             description,
+            malfunctionType,
             approvals: {
                 approvedCounts: 1,
                 approvedBy: [userId]
