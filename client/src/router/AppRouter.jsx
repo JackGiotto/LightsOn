@@ -13,12 +13,12 @@ import { Reports } from "../pages/dashboard/Reports.jsx";
 import { StreetLamps } from "../pages/dashboard/SteetLamps.jsx";
 import { DashboardLayout } from "../pages/dashboard/DashboardLayout.jsx";
 import { Contacts } from "../pages/Contacts.jsx";
-import { MapPage } from "../pages/base_map/base_map.jsx";
+// import { MapPage } from "../pages/base_map/base_map.jsx";
 import { CitizenHome } from "../pages/citizen/CitizenHome.jsx";
 import { CitizenReport } from "../pages/citizen/CitizenReport.jsx";
 import Login from "../pages/auth/Login.jsx";
 import SignUp from "../pages/auth/SignUp.jsx";
-import { ReportContext } from "../pages/citizen/reportContext.jsx";
+import { ReportContext } from "../pages/citizen/ReportContext.jsx";
 import { useState } from "react";
 import { CitizenSettingsLayout } from "../pages/citizen/CitizenSettingsLayout.jsx";
 import { CitizenSettings1 } from "../pages/citizen/CitizenSettings1.jsx";
@@ -33,10 +33,9 @@ function AppRouter() {
   console.log(reportLamp);
 
   return (
-    <ReportContext value={{reportLamp, setReportLamp}}>
-      
-    <BrowserRouter>
-      <Routes>
+    <ReportContext.Provider value={{ reportLamp, setReportLamp }}>
+      <BrowserRouter>
+        <Routes>
 
         <Route path='/settings' element={<Layout />}>
           <Route index element={<Navigate to="settings1" replace/>} />
@@ -56,7 +55,7 @@ function AppRouter() {
         </Route>
 
         <Route path='/contacts' element={<Contacts />}></Route>
-        <Route path='/map' element={<MapPage />}></Route>
+        {/* <Route path='/map' element={<MapPage />}></Route> */}
 
         <Route path="/login" element={<Login />}></Route>
         <Route path="/signup" element={<SignUp />}></Route>
@@ -74,9 +73,9 @@ function AppRouter() {
           <Route path='settings2' element={<Settings2 />}></Route>
         </Route>
         <Route path="/citizen/contacts" element={<CitizenContacts></CitizenContacts>}></Route>
-      </Routes>
-    </BrowserRouter>
-    </ReportContext>
+        </Routes>
+      </BrowserRouter>
+    </ReportContext.Provider>
   );
 }
 

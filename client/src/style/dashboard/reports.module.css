@@ -38,6 +38,7 @@
     margin-top: 1rem;
     min-height: 10rem;
     font-size: 18px;
+    position: relative;
 }
 
 .section {
@@ -70,6 +71,81 @@
     justify-content: space-around;
     align-items: center;
     cursor: pointer;
+}
+
+.reportElementClosed {
+    background-color: #F0F0F0;
+    border-color: #D8D8D8;
+}
+
+.statusLabel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 500;
+    font-size: 15px;
+}
+
+.statusSelect {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    width: 150px;
+    height: 44px;
+    border-radius: 15px;
+    background-color: #FFFFFF;
+    outline: none;
+    border: 2px solid #F4C50B;
+    padding: 0 32px 0 16px;
+    font-family: 'Inter', 'sans-serif';
+    font-size: 14px;
+    font-weight: 600;
+    color: #333333;
+    cursor: pointer;
+    text-align: left;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.1s ease;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23555555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    background-size: 14px;
+}
+
+.statusSelect:hover {
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.statusSelect:focus {
+    box-shadow: 0 0 0 3px rgba(244, 197, 11, 0.35);
+}
+
+.statusSelect:active {
+    transform: scale(0.97);
+}
+
+.statusSelect:disabled {
+    cursor: not-allowed;
+    opacity: 0.7;
+    background-image: none;
+}
+
+.statusPending {
+    border-color: #F4C50B;
+    color: #9c7c00;
+    background-color: #FFFBEA;
+}
+
+.statusWorking {
+    border-color: #3498DB;
+    color: #1F618D;
+    background-color: #EAF4FC;
+}
+
+.statusResolved {
+    border-color: #95A5A6;
+    color: #616A6B;
+    background-color: #F2F2F2;
 }
 
 

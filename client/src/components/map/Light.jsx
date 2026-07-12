@@ -1,14 +1,14 @@
 import React from 'react';
 import { Marker, Circle, Popup } from 'react-leaflet';
 import L from 'leaflet';
-import { ReportContext } from '../../pages/citizen/reportContext';
+import { ReportContext } from '../../pages/citizen/ReportContext.jsx';
 import { useContext } from 'react';
 
 function Light({
-  key,
   id,
   position,
-  radius=20
+  radius=10,
+  approvedCounts=0
   }) {
 
   const {setReportLamp} = useContext(ReportContext);
@@ -16,6 +16,7 @@ function Light({
     setReportLamp(id);
   }
 
+  const fillColor = approvedCounts >= 1 ? 'url(#redFade)' : 'url(#yellowFade)';
 
   return <>
       <svg style={{ width: 0, height: 0, position: 'absolute' }} >
@@ -38,24 +39,22 @@ function Light({
 
       <Circle 
       eventHandlers={{
-          click: reportHandler, // Attach your function to the 'click' event
+          click: reportHandler,
         }}
-          key={key}
-          center={position} 
-          radius={radius} 
-          pathOptions={{ 
-            fillColor: 'url(#yellowFade)', 
-            fillOpacity: 1,  /* Must be 1 so the gradient's own opacity works */
-            stroke: false    /* Optional: removes the solid border line */
+          center={position}
+          radius={radius}
+          pathOptions={{
+            fillColor: fillColor,
+            fillOpacity: 1,
+            stroke: false
           }}
-          lam
         > <Popup>
-          Segnala il lampione {id.slice(5)}
-          
+          Segnala il lampione {id}
+
         </Popup></Circle>
   </>;
 
- 
+
 }
 
 export default Light;

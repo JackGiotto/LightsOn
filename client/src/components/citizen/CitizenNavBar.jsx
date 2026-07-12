@@ -18,8 +18,8 @@ export const CitizenNavBar = () => {
                     <Logo userType={"/citizen"}/>
                 </div>
                 <ul className={styles.navbarList}>
-                    <Link to="/citizen/settings"><li className={styles.navElement}><a>Impostazioni</a></li></Link>
-                    <Link to="/citizen/contacts"><li className={styles.navElement}><a>Contatti</a></li></Link>
+                    <li className={styles.navElement}><Link to="/citizen/settings">Impostazioni</Link></li>
+                    <li className={styles.navElement}><Link to="/citizen/contacts">Contatti</Link></li>
                 </ul>
             
                 <div  className={styles.hamburger}>
@@ -34,13 +34,12 @@ export const CitizenNavBar = () => {
                             
                     <ul>
 
-                        <Link to="/citizen/settings" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Impostazioni</li></Link>
+                        <li className={styles.category}><Link to="/citizen/settings" onClick={() => {setOpen(!isOpen)}}><h3>Impostazioni</h3></Link></li>
                         
-                        <Link to="/citizen/settings/settings1" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Account</li></Link>
-                        <Link to="/citizen/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
+                        <li className={styles.subcategory}><Link to="/citizen/settings/settings1" onClick={() => {setOpen(!isOpen)}}>Account</Link></li>
+                        <li className={styles.subcategory}><Link to="/citizen/settings/settings2" onClick={() => {setOpen(!isOpen)}}>Preferenze</Link></li>
 
-                        <Link to="/contacts"><li className={styles.category}>Contatti</li></Link>
-                        <Link to=""><li className={styles.category}>Help Center</li></Link>
+                        <li className={styles.category}><Link to="/contacts"><h3>Contatti</h3></Link></li>
 
                     </ul>
                         
