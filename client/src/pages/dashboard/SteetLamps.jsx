@@ -84,8 +84,12 @@ export const StreetLamps = () => {
 
     return (
         <div className={styles.container}>
+
             <h1>Stato dei Lampioni</h1>
+
+
             <div className={styles.overviewElements}>
+
                 <div className={ `${styles.overviewElement} ${styles.active}`}>
                     <p>Lampioni attivi: 1432</p>
                 </div>
@@ -96,6 +100,8 @@ export const StreetLamps = () => {
                     <p>Consumo Attuale</p>
                     <p>{consumption} kWh</p>
                 </div>
+
+
 
                 <div className={ `${styles.overviewElement} ${styles.worksContainer}`}>
                     <h3>Stato Interventi</h3>
@@ -110,6 +116,8 @@ export const StreetLamps = () => {
                     </ul>
                 </div>
 
+
+
                 <div className={styles.rightContainer}>
                     <div className={ `${styles.overviewElement} ${styles.uptime}`}>
                         <p>Orari Accensione</p>
@@ -121,6 +129,8 @@ export const StreetLamps = () => {
                         <p>{weather}</p>
                     </div>
                 </div>
+
+
 
             </div>
 
