@@ -31,3 +31,16 @@ body {
   left: 0;
   z-index: -10;
 }
+
+
+@media (max-width: 1000px) {
+  .back1 {
+    top: -250px;
+  }
+
+  .back2 {
+    bottom: -150px;
+  }
+}
+
+

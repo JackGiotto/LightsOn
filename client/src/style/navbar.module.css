@@ -92,13 +92,14 @@
 
 
     .accordion.open {
-        height: 70vh;
+        height: auto;
         padding: 2rem;
     }
 
+
     .accordion ul {
         list-style: none;
-        margin-top: 5vh;
+        margin-top: 2vh;
         margin-left: 0;
     }
 
@@ -125,3 +126,4 @@
         color: black;
     }
 }
+
