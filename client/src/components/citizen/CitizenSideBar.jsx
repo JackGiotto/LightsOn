@@ -12,6 +12,7 @@ export const CitizenSideBar = () => {
             <ul className={styles.sidebarList}>
                 <Link to="/citizen/settings/settings1"><li><h3>Account</h3></li></Link>
                 <Link to="/citizen/settings/settings2"><li><h3>Preferenze</h3></li></Link>
+                <li><h3>Help Center</h3></li>
             </ul>
             <footer>
                 <p>Comune di Trento<br></br>LightsOn© - 2026</p>

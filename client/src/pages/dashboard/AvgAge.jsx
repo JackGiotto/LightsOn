@@ -33,12 +33,12 @@ export const AvgAge = () => {
                     <div className={styles.leftElements}>
 
                     <div className={ `${styles.overviewElement} ${styles.active}`}>
-                        <p>Età Media complessiva: 8.7yr</p>
+                        <h3>Età Media totale:</h3> <p>8.7yr</p>
                     </div>
                     <div className={ `${styles.overviewElement} ${styles.inactive}`}>
-                        <p>Sostituzioni Recenti</p>
+                        <h3>Sostituzioni Recenti</h3>
                         {
-                                lampsData.features.slice(0, 3).map((bulb) => (
+                                lampsData.features.slice(0, 2).map((bulb) => (
                                     <p>Lampione {bulb.id.slice(5)}</p>
                 
                                 ))
