@@ -99,4 +99,70 @@ router.post(['/new_report', '/new_report/'], async (req, res) => {
     }
 });
 
+// ADMIN SECTION
+
+router.get('/all', async (req, res) => {
+    try {
+        const reports = await Report.find()
+            .populate('lightId', 'specs.manufacturer')
+            .select('lightId description approvals malfunctionType status data')
+            .lean();
+
+        const formattedReports = reports.map(report => ({
+            id: report._id,
+            lightId: report.lightId?._id || report.lightId,
+            date: report.data?.createdAt,
+            problemType: report.malfunctionType,
+            status: report.status,
+            upvoteCount: report.approvals?.approvedCounts || 0,
+            description: report.description || "",
+            producer: {
+                name: report.lightId?.specs?.manufacturer || "Sconosciuto",
+                phone: "3454149835" // numero fittizio, sempre lo stesso
+            }
+        }));
+
+        res.json({ reports: formattedReports });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
+const VALID_STATUSES = ['pending', 'working on', 'resolved'];
+
+router.post('/status', async (req, res) => {
+    try {
+        const { reportId, status } = req.body;
+
+        if (!VALID_STATUSES.includes(status)) {
+            return res.status(400).json({ message: 'Invalid status value' });
+        }
+
+        const report = await Report.findById(reportId);
+        if (!report) {
+            return res.status(404).json({ message: 'Report not found' });
+        }
+
+        report.status = status;
+        await report.save();
+
+        if (status === 'resolved') {
+            const light = await Light.findById(report.lightId);
+            // Only clear the light's activeReport if it's still pointing at this
+            // report, so we don't wipe out a newer report on the same light.
+            if (light && light.activeReport?.reportId?.toString() === report._id.toString()) {
+                light.activeReport = { reportId: null, approvedCounts: 0 };
+                await light.save();
+            }
+        }
+
+        res.json({ message: 'Status updated successfully', status: report.status });
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
+
 module.exports = router;
+
+
+

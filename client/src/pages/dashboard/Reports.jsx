@@ -1,14 +1,25 @@
 import React from "react";
 import styles from"../../style/dashboard/reports.module.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
+const STATUS_LABELS = {
+    'pending': 'In attesa',
+    'working on': 'In lavorazione',
+    'resolved': 'Chiuso'
+};
 
-const Overview = ({showOverview, setShowOverview, descriptions}) =>  {
+const STATUS_CLASSES = {
+    'pending': 'statusPending',
+    'working on': 'statusWorking',
+    'resolved': 'statusResolved'
+};
+
+const Overview = ({showOverview, setShowOverview, description}) =>  {
   if(!showOverview) {
     return null
   }
 
-  if (descriptions.length == 0) {
+  if (!description) {
     return (
         <div className={styles.overview}>
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
@@ -17,28 +28,19 @@ const Overview = ({showOverview, setShowOverview, descriptions}) =>  {
     )
   }
 
-  console.log(descriptions);
   return(
           <div className={styles.overview}>
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
-            <h1>Descrizioni</h1>
-            <ul className={styles.overviewElements}>
-                {
-                    descriptions.map((description, index) => (
-                        <li className={styles.overviewElement} key={index}>
-                            <p>{description}</p>
-                        </li>
-                    ))
-                }
-              
-            </ul>
+            <h1>Descrizione</h1>
+            <p>{description}</p>
           </div>
   )
 }
 
-const Report = ({report}) => {
+const Report = ({report, onStatusChange}) => {
 
     const [showOverview, setOverview] = useState(false);
+    const isClosed = report.status === 'resolved';
 
     const handleCall = (number) => {
         if (number) {
@@ -48,8 +50,23 @@ const Report = ({report}) => {
         }
     };
 
+    const handleStatusChange = (event) => {
+        const newStatus = event.target.value;
+
+        if (newStatus === 'resolved') {
+            const confirmed = window.confirm(
+                "Sei sicuro di voler chiudere questa segnalazione? Verrà rimossa dal lampione e non potrà più essere riaperta."
+            );
+            if (!confirmed) {
+                return;
+            }
+        }
+
+        onStatusChange(report.id, newStatus);
+    };
+
     return (
-        <li className={styles.reportElement}>
+        <li className={`${styles.reportElement} ${isClosed ? styles.reportElementClosed : ''}`}>
                             <div className={styles.section}>
                                 <p>{new Date(report.date).toLocaleDateString('it-IT', {
                                     day: '2-digit',
@@ -66,7 +83,23 @@ const Report = ({report}) => {
                                 <p><img src="/up-arrow.png" width={30}height={30}></img>{report.upvoteCount} upvote</p>
                             </div>
 
-                            <Overview showOverview={showOverview} setShowOverview={setOverview} descriptions={report.descriptions}></Overview>
+                            <div className={styles.section}>
+                                <label className={styles.statusLabel}>
+                                    Stato
+                                    <select
+                                        className={`${styles.statusSelect} ${styles[STATUS_CLASSES[report.status]] || ''}`}
+                                        value={report.status}
+                                        onChange={handleStatusChange}
+                                        disabled={isClosed}
+                                    >
+                                        {Object.entries(STATUS_LABELS).map(([value, label]) => (
+                                            <option key={value} value={value}>{label}</option>
+                                        ))}
+                                    </select>
+                                </label>
+                            </div>
+
+                            <Overview showOverview={showOverview} setShowOverview={setOverview} description={report.description}></Overview>
                         </li>
     )
 }
@@ -75,76 +108,76 @@ const Report = ({report}) => {
 
 export const Reports = () => {
 
-    //  Remember to create the request for getting the actual reports!
+    const [reports, setReports] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
+    useEffect(() => {
+        const fetchReports = async () => {
+            try {
+                const apiUrl = import.meta.env.VITE_API_URL;
+                const response = await fetch(`${apiUrl}/report/all`);
 
-    const reports = [{
-        date: Date.now(),
-        id: 42,
-        producer: {
-            name:"Daniel Lights",
-            phone: "3454149835"
-        },
-        problemType: "Lampeggiante",
-        upvoteCount: 3,
-        descriptions: [
-            "Buongiorno, desidero segnalare che il lampione situato in Via Roma, di fronte al civico 42, è completamente spento da almeno tre sere. La strada rimane in una zona d'ombra pericolosa per i pedoni. Chiedo un intervento di ripristino il prima possibile. Grazie.",
-            "Buongiorno, vi scrivo per segnalare che in Via Verdi il lampione all'altezza dell'incrocio con Via Dante appare visibilmente inclinato e con la base del palo arrugginita/danneggiata. Temo possa essere un pericolo in caso di forte vento. Sarebbe opportuno un sopralluogo tecnico di sicurezza. Grazie per l'attenzione."
-        ],
-        lightId: "node/12833912385"
-    },
-    {
-        date: Date.now(),
-        id: 43,
-        producer: {
-            name:"Quei Ragazzi Inc.",
-            phone: "3454149835"
-        },
-        problemType: "Lampeggiante",
-        upvoteCount: 0,
-        descriptions: [
-            "Buongiorno, desidero segnalare che il lampione situato in Via Roma, di fronte al civico 42, è completamente spento da almeno tre sere. La strada rimane in una zona d'ombra pericolosa per i pedoni. Chiedo un intervento di ripristino il prima possibile. Grazie.",
-        ],
-        lightId: "node/12833912385"
-    },
-    {
-        date: Date.now(),
-        id: 44,
-        producer: {
-            name:"Daniel Lights",
-            phone: "3454149835"
-        },
-        problemType: "Lampeggiante",
-        upvoteCount: 2,
-        descriptions: [],
-        lightId: "node/12833912385"
-    },
-    {
-        date: Date.now(),
-        id: 45,
-        producer: {
-            name:"Daniel Lights",
-            phone: "3454149835"
-        },
-        problemType: "Lampeggiante",
-        upvoteCount: 2,
-        descriptions: [
-            "Salve, scrivo per segnalare un guasto diffuso lungo tutta Via Torino. Dall'incrocio con Via Milano fino al civico 100, circa metà dei lampioni risulta spenta. La via è molto buia e questo crea disagio a residenti e automobilisti. Spero in un intervento risolutivo a breve.",
-            "Buongiorno, vorrei far notare che l'area del parchetto in Via dei Mille risulta quasi completamente al buio. Diversi punti luce sono fuori uso e la situazione rende l'area poco sicura per chi rientra a casa la sera. Sarebbe fondamentale ripristinare l'illuminazione per garantire maggiore sicurezza al quartiere.",
-            "Salve, scrivo per segnalare un guasto diffuso lungo tutta Via Torino. Dall'incrocio con Via Milano fino al civico 100, circa metà dei lampioni risulta spenta. La via è molto buia e questo crea disagio a residenti e automobilisti. Spero in un intervento risolutivo a breve."
-        ],
-        lightId: "node/12833912385"
-    },
-    ];
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+
+                const data = await response.json();
+                setReports(data.reports || []);
+            } catch (err) {
+                console.error(err);
+                setError(err.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchReports();
+    }, []);
+
+    const handleStatusChange = async (reportId, newStatus) => {
+        try {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/report/status`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ reportId, status: newStatus }),
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+
+            setReports((prev) =>
+                prev.map((r) => (r.id === reportId ? { ...r, status: newStatus } : r))
+            );
+        } catch (err) {
+            console.error(err);
+            alert("Non è stato possibile aggiornare lo stato della segnalazione.");
+        }
+    };
 
     return (
         <div className={styles.container}>
             <h1>Segnalazioni  <img src="/upvote.png" width={50}height={50}></img></h1>
 
+            {loading && <p>Caricamento...</p>}
+            {error && <p>Errore nel caricamento delle segnalazioni: {error}</p>}
+            {!loading && !error && reports.length === 0 && <p>Nessuna segnalazione al momento.</p>}
+
             <ul className={styles.reportList}>
                 {
-                    [...reports].sort((a, b) => b.upvoteCount - a.upvoteCount).map((report) => (
-                        <Report report={report}></Report>
+                    [...reports].sort((a, b) => {
+                        const aClosed = a.status === 'resolved';
+                        const bClosed = b.status === 'resolved';
+                        if (aClosed !== bClosed) {
+                            return aClosed ? 1 : -1;
+                        }
+                        return b.upvoteCount - a.upvoteCount;
+                    }).map((report) => (
+                        <Report report={report} onStatusChange={handleStatusChange} key={report.id}></Report>
                     ))
                 }
             </ul>

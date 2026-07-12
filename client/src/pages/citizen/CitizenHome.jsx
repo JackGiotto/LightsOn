@@ -10,6 +10,12 @@ import { useNavigate } from "react-router";
 import { ReportContext } from "./ReportContext.jsx";
 import { Activity } from "react";
 
+const STATUS_LABELS = {
+  'pending': 'In attesa',
+  'working on': 'In lavorazione',
+  'resolved': 'Chiuso'
+};
+
 const UpvoteComponent = ({ data, setUpvotePage, setReportLamp }) => {
   const handleUpvoteRequest = async () => {
     try {
@@ -42,6 +48,7 @@ const UpvoteComponent = ({ data, setUpvotePage, setReportLamp }) => {
       <h1 className={styles1.title}>E' già stata eseguita una segnalazione per questo lampione</h1>
       <div className={styles1.container}>
         <p>Descrizione: {data.description}</p>
+        <p>Stato: {STATUS_LABELS[data.state] || data.state}</p>
         <p>Voti: {data.approvedCounts}</p>
       </div>
       <button onClick={handleUpvoteRequest} className={styles1.upvoteButton}>Aggiungi voto</button>
