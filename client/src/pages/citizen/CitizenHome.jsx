@@ -184,6 +184,7 @@ export const CitizenHome = () => {
               key={bulb.id}
               id={bulb.id}
               position={bulb.position}
+              approvedCounts={bulb.approvedCounts}
             />
           ))}
 

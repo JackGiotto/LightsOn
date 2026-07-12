@@ -7,7 +7,8 @@ import { useContext } from 'react';
 function Light({
   id,
   position,
-  radius=15
+  radius=10,
+  approvedCounts=0
   }) {
 
   const {setReportLamp} = useContext(ReportContext);
@@ -15,6 +16,7 @@ function Light({
     setReportLamp(id);
   }
 
+  const fillColor = approvedCounts >= 1 ? 'url(#redFade)' : 'url(#yellowFade)';
 
   return <>
       <svg style={{ width: 0, height: 0, position: 'absolute' }} >
@@ -42,7 +44,7 @@ function Light({
           center={position}
           radius={radius}
           pathOptions={{
-            fillColor: 'url(#yellowFade)',
+            fillColor: fillColor,
             fillOpacity: 1,
             stroke: false
           }}
