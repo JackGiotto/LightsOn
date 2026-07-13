@@ -1,16 +1,32 @@
-import React, {useState} from "react";
+import React, { useState, useContext, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./AuthContext.jsx";
 import { Info, CreditCard, Eye, EyeOff } from 'lucide-react';
-import { useNavigate } from "react-router-dom"
 import styles from "../../style/auth/Login.module.css";
+
+
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [showPassword, setShowPassword] = useState(false);
+    const [errorMsg, setErrorMsg] = useState('');
     const navigate = useNavigate();
+    const { user, loading, setUser } = useContext(AuthContext);
+
+    useEffect(() => {
+      if (!loading && user) {
+        if (user.role === 'admin') {
+          navigate("/dashboard");
+        } else {
+          navigate("/citizen");
+        }
+      }
+    }, [user, loading, navigate]);
 
     const handleLogin = async (e) => {
         e.preventDefault();
+        setErrorMsg('');
 
         try {
           const apiUrl = import.meta.env.VITE_API_URL;
@@ -23,19 +39,23 @@ export default function Login() {
             body: JSON.stringify({ email, password }),
           });
 
+          const data = await response.json();
+
           if (!response.ok) {
-            throw new Error('Login failed');
+            setErrorMsg(data.msg || "Login fallito");
+            return;
+          }
+
+          setUser({ role: data.role });
+
+          if (data.role === 'admin') {
+            navigate("/dashboard");
           } else {
-            const data = await response.json();
-            console.log('Login successful:', data);
-            if (data.role === 'user') {
-              // TODO: Handle user role specific logic
-            } else if (data.role === 'admin') {
-              // TODO: Handle admin role specific logic
-            }
+            navigate("/citizen");
           }
         } catch (error) {
           console.error(error);
+          setErrorMsg("Errore di connessione, riprova.");
         }
     };
 
@@ -80,11 +100,25 @@ export default function Login() {
                     </div>
                 </div>
 
+                {errorMsg && <p className={styles.errorMsg}>{errorMsg}</p>}
+
                 <button type="submit" className={`${styles.btn} ${styles.btnLogin}`}>Accedi</button>
+
+
+          <div className={styles.signupLinkContainer}>
+            <button className={styles.signupLink} onClick={() => navigate("/signup")}>Registrati</button>
+          </div>
+
+            <div className={styles.signupLinkContainer}>
+            <button className={styles.signupLink} onClick={() => navigate("/")}>Torna alla home</button>
+          </div>
+
+
         </form>
-        {/* Buttons */}
+        {/*
+        Buttons
         <div className={styles.buttonContainer}>
-          {/* SPID Button */}
+           SPID Button
           <button className={`${styles.btn} ${styles.btnSpid}`} onClick={() => alert('SPID in Arrivo!!')}>
             <div className={styles.iconCircle}>
               <Info size={16} color="#2563eb" />
@@ -92,20 +126,17 @@ export default function Login() {
             Entra con SPID
           </button>
 
-          {/* CIE Button */}
+          /* CIE Button
           <button className={`${styles.btn} ${styles.btnCie}`} onClick={() => alert('Cie in Arrivo!!')}>
             <div className={styles.iconCircle}>
               <CreditCard size={16} color="#3b82f6" />
             </div>
             Entra con CIE
           </button>
+          *
 
-          {/* Sign up button */}
         </div>
-        
-          <div className={styles.signupLinkContainer}>
-            <button className={styles.signupLink} onClick={() => navigate("/signup")}>Registrati</button>
-          </div>
+    /*}
 
         {/* Footer */}
         <div className={styles.footer}>

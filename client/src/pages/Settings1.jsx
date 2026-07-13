@@ -1,6 +1,8 @@
-import React, { Activity, useEffect } from "react";
+import React, { Activity, useContext, useEffect } from "react";
 import styles from "../style/settings1.module.css";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { AuthContext } from "./auth/AuthContext.jsx";
 
 function ChangePassword({setShowOverview})  {
 
@@ -35,7 +37,7 @@ function ChangeEmail({setShowOverview})  {
   const handleChangeEmail = async () => {
     if (newEmail == confirmNewEmail) {
 
-    
+
     try {
         const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`);
         console.log("ciao")
@@ -80,6 +82,9 @@ function DeleteAccount({setShowOverview})  {
 }
 
 export const Settings1 = () => {
+  const apiUrl = import.meta.env.VITE_API_URL ?? import.meta.env.VITE_BACKEND_URL;
+  const navigate = useNavigate();
+  const { setUser } = useContext(AuthContext);
 
 
     const [showPasswordPage, setPasswordPage] = useState(false);
@@ -94,27 +99,51 @@ export const Settings1 = () => {
     useEffect(() => {
       const fetchUserData = async () => {
         try {
-          const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/`);
-          SetEmail(response.email);
-          SetName(response.profile.firstName);
+          const response = await fetch(`${apiUrl}/settings/me`, {
+            credentials: "include"
+          });
+
+          if (!response.ok) {
+            throw new Error("Impossibile caricare i dati utente");
+          }
+
+          const data = await response.json();
+          SetEmail(data.email || "");
+          SetName(data.profile?.firstName || "");
         } catch (error) {
           console.error(error);
         }
       }
+
+      fetchUserData();
     }, []);
+
+    const handleLogout = async () => {
+      try {
+        await fetch(`${apiUrl}/settings/logout`, {
+          method: "POST",
+          credentials: "include"
+        });
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setUser(null);
+        navigate("/login", { replace: true });
+      }
+    };
 
 
 
     return (
             <div className={styles.container}>
-                <h1 className={styles.title}>Ciao Mario</h1> 
+                <h1 className={styles.title}>Ciao {name || "utente"}</h1>
                 <ul>
-                  <li>Registered email: mario.rossi@gmail.com<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
+                  <li>Registered email: {email || "--"}<button onClick={() => setEmailPage(!showEmailPage)}>Cambia email</button></li>
                   <li>Password: *******<button onClick={() => setPasswordPage(!showPasswordPage)}>Cambia password</button></li>
-                  <li><button>Log out</button></li>
+                  <li><button type="button" onClick={handleLogout}>Log out</button></li>
                   <li><button className={styles.deleteAccount} onClick={() => setAccountPage(!showAccountPage)}>Elimina Account</button></li>
                 </ul>
-                
+
                 <Activity mode={showPasswordPage ? "visible": "hidden"}>
                   <ChangePassword setShowOverview={setPasswordPage}></ChangePassword>
                 </Activity>

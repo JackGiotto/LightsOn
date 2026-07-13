@@ -9,6 +9,7 @@ import Light from "../../components/map/Light";
 import { useNavigate } from "react-router";
 import { ReportContext } from "./ReportContext.jsx";
 import { Activity } from "react";
+import { AuthContext } from "../auth/AuthContext.jsx";
 
 const STATUS_LABELS = {
   'pending': 'In attesa',
@@ -17,23 +18,51 @@ const STATUS_LABELS = {
 };
 
 const UpvoteComponent = ({ data, setUpvotePage, setReportLamp }) => {
+  const navigate = useNavigate();
+  const { user } = useContext(AuthContext); // <-- Importa l'utente dal contesto
+
   const handleUpvoteRequest = async () => {
+    if (!user) {
+      navigate("/login", { replace: true });
+      return;
+    }
+
     try {
       const apiUrl = import.meta.env.VITE_API_URL;
       const response = await fetch(`${apiUrl}/report/approve/`, {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
         body: JSON.stringify({ reportId: data.reportId }),
       });
+
+      if (response.status === 401 || response.status === 403) {
+        navigate("/login", { replace: true });
+        return;
+      }
+
+      if (response.status === 400) {
+        const errorData = await response.json();
+        if (errorData.alreadyVoted) {
+          alert("Hai già votato questo report!");
+        } else {
+          alert(errorData.message || "Errore durante il voto");
+        }
+        return;
+      }
 
       if (response.ok) {
         setUpvotePage(false);
         setReportLamp(null);
+        // Opzionale: mostra un messaggio di successo
+        alert("Voto aggiunto con successo!");
+      } else {
+        const errorData = await response.json();
+        alert(errorData.message || "Errore sconosciuto");
       }
     } catch (error) {
-      console.error(error);
+      console.error("Errore di rete:", error);
+      alert("Errore di connessione, riprova.");
     }
   };
 
@@ -51,7 +80,9 @@ const UpvoteComponent = ({ data, setUpvotePage, setReportLamp }) => {
         <p>Stato: {STATUS_LABELS[data.state] || data.state}</p>
         <p>Voti: {data.approvedCounts}</p>
       </div>
-      <button onClick={handleUpvoteRequest} className={styles1.upvoteButton}>Aggiungi voto</button>
+      <button onClick={handleUpvoteRequest} className={styles1.upvoteButton}>
+        Aggiungi voto
+      </button>
     </div>
   );
 };

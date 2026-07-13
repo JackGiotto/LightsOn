@@ -1,7 +1,10 @@
 //  Imports of the components
 
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ProtectedRoute } from "./ProtectedRoute.jsx";
+import { RootRedirect } from "./RootRedirect.jsx";
 import { Layout } from "../components/Layout.jsx";
+import { AuthProvider } from "../pages/auth/AuthContext.jsx";
 import { Settings1 } from "../pages/Settings1.jsx";
 import { Settings2 } from "../pages/Settings2.jsx";
 import { Weeks } from "../pages/dashboard/Weeks.jsx";
@@ -33,49 +36,60 @@ function AppRouter() {
   console.log(reportLamp);
 
   return (
-    <ReportContext.Provider value={{ reportLamp, setReportLamp }}>
-      <BrowserRouter>
-        <Routes>
+    <AuthProvider>
+      <ReportContext.Provider value={{ reportLamp, setReportLamp }}>
+        <BrowserRouter>
+          <Routes>
 
-        <Route path='/settings' element={<Layout />}>
-          <Route index element={<Navigate to="settings1" replace/>} />
-          <Route path='settings1' element={<Settings1 />}></Route>
-          <Route path='settings2' element={<Settings2 />}></Route>
-        </Route>
+          <Route path="/" element={<RootRedirect />} />
 
-        <Route path='/dashboard' element={<DashboardLayout />}>
-          <Route index element={<Navigate to="streetLamps" replace/>} />
-          <Route path='weeks' element={<Weeks />}></Route>
-          <Route path='seasons' element={<Seasons />}></Route>
-          <Route path='streetLamps' element={<StreetLamps />}></Route>
-          <Route path='avg-age' element={<AvgAge />}></Route>
-          <Route path='consumes' element={<Consumes />}></Route>
-          <Route path='dashboardMap' element={<DashboardMap />}></Route>
-          <Route path='reports' element={<Reports />}></Route>
-        </Route>
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path='/settings' element={<Layout />}>
+              <Route index element={<Navigate to="settings1" replace/>} />
+              <Route path='settings1' element={<Settings1 />}></Route>
+              <Route path='settings2' element={<Settings2 />}></Route>
+            </Route>
+          </Route>
 
-        <Route path='/contacts' element={<Contacts />}></Route>
-        {/* <Route path='/map' element={<MapPage />}></Route> */}
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path='/dashboard' element={<DashboardLayout />}>
+              <Route index element={<Navigate to="streetLamps" replace/>} />
+              <Route path='weeks' element={<Weeks />}></Route>
+              <Route path='seasons' element={<Seasons />}></Route>
+              <Route path='streetLamps' element={<StreetLamps />}></Route>
+              <Route path='avg-age' element={<AvgAge />}></Route>
+              <Route path='consumes' element={<Consumes />}></Route>
+              <Route path='dashboardMap' element={<DashboardMap />}></Route>
+              <Route path='reports' element={<Reports />}></Route>
+            </Route>
+          </Route>
 
-        <Route path="/login" element={<Login />}></Route>
-        <Route path="/signup" element={<SignUp />}></Route>
-        <Route path="/Login" element={<Navigate to="/login" replace />}></Route>
-        <Route path="/SignUp" element={<Navigate to="/signup" replace />}></Route>
+          {/* <Route path='/contacts' element={<Contacts />}></Route> */}
 
-        /* Citizen Routing */
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/Login" element={<Navigate to="/login" replace />}></Route>
+          <Route path="/SignUp" element={<Navigate to="/signup" replace />}></Route>
 
-        <Route path="/citizen" element={<CitizenHome />}></Route>
-        <Route path="/citizen/report" element={<CitizenReport></CitizenReport>}></Route>
-        
-        <Route path='/citizen/settings' element={<CitizenSettingsLayout />}>
-          <Route index element={<Navigate to="/citizen/settings/settings1" replace/>} />
-          <Route path='settings1' element={<CitizenSettings1 />}></Route>
-          <Route path='settings2' element={<Settings2 />}></Route>
-        </Route>
-        <Route path="/citizen/contacts" element={<CitizenContacts></CitizenContacts>}></Route>
-        </Routes>
-      </BrowserRouter>
-    </ReportContext.Provider>
+          /* Citizen Routing */
+
+          <Route path="/citizen" element={<CitizenHome />}></Route>
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/citizen/report" element={<CitizenReport></CitizenReport>}></Route>
+          </Route>
+          
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path='/citizen/settings' element={<CitizenSettingsLayout />}>
+              <Route index element={<Navigate to="/citizen/settings/settings1" replace/>} />
+              <Route path='settings1' element={<CitizenSettings1 />}></Route>
+              <Route path='settings2' element={<Settings2 />}></Route>
+            </Route>
+          </Route>
+          <Route path="/citizen/contacts" element={<CitizenContacts></CitizenContacts>}></Route>
+          </Routes>
+        </BrowserRouter>
+      </ReportContext.Provider>
+    </AuthProvider>
   );
 }
 

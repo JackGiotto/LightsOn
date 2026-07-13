@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import { Info, CreditCard, Eye, EyeOff } from 'lucide-react';
 import { useNavigate } from "react-router-dom"
 import styles from "../../style/auth/SignUp.module.css";
+import { AuthContext } from "./AuthContext.jsx";
 
 export default function SignUp() {
     const [fname, setFname] = useState('');
@@ -12,6 +13,7 @@ export default function SignUp() {
     const [showPassword, setShowPassword] = useState(false);
     const [showPasswordConf, setShowPasswordConf] = useState(false);
     const navigate = useNavigate();
+    const { setUser } = React.useContext(AuthContext);
 
     const checksPwd = {
       length:  password.length >= 8,
@@ -41,16 +43,23 @@ export default function SignUp() {
           }),
         });
 
+        const data = await response.json();
+
         if (!response.ok) {
-          throw new Error('Signup failed');
+          setErrorMsg(data.msg || "Signup fallito");
+          return;
+        }
+
+        setUser({ role: data.role });
+
+        if (data.role === 'admin') {
+          navigate("/dashboard");
         } else {
-          const data = await response.json();
-          console.log('Signup successful:', data);
-          return data;
+          navigate("/citizen");
         }
       } catch (error) {
         console.error(error);
-        return null;
+        setErrorMsg("Errore di connessione, riprova.");
       }
   };
 
@@ -131,7 +140,7 @@ export default function SignUp() {
                   <div className={styles.passwordWrapper}>
                     <input
                     type={showPasswordConf ? "text" : "password"}
-                    className={`${styles.inputField} ${checksPwd.length > 0 ? (passwordCombacia ? 'styles.borderInputValid' : 'styles.borderInputInvalid') : ''}`} 
+                    className={`${styles.inputField} ${checksPwd.length > 0 ? (passwordCombacia ? styles.borderInputValid : styles.borderInputInvalid) : ''}`} 
                     placeholder="Confirm password"
                     value={passwordConf}
                     onChange={(e) => setPasswordConf(e.target.value)}
@@ -148,30 +157,12 @@ export default function SignUp() {
                   </div>
 
                 <button className={`${styles.btn} ${styles.btnLogin}`}>Registrati</button>
+
+                <div className={styles.signupLinkContainer}>
+                  <button className={styles.signupLink} onClick={() => navigate("/login")}>Torna al login</button>
+                </div>
         </form>
-        {/* Buttons */}
-        <div className={styles.buttonContainer}>
-          {/* SPID Button */}
-          <button className={`${styles.btn} ${styles.btnSpid}`} onClick={() => alert('SPID in Arrivo!!')}>
-            <div className={styles.iconCircle}>
-              <Info size={16} color="#2563eb" />
-            </div>
-            Entra con SPID
-          </button>
 
-          {/* CIE Button */}
-          <button className={`${styles.btn} ${styles.btnCie}`} onClick={() => alert('Cie in Arrivo!!')}>
-            <div className={styles.iconCircle}>
-              <CreditCard size={16} color="#3b82f6" />
-            </div>
-            Entra con CIE
-          </button>
-
-          {/* Login Link */}
-          <div className={styles.signupLinkContainer}>
-            <button className={styles.signupLink} onClick={() => navigate("/login")}>Torna al login</button>
-          </div>
-        </div>
 
         {/* Footer */}
         <div className={styles.footer}>

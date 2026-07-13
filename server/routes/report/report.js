@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Light = require('../../models/Light');
 const Report = require('../../models/Report');
+const { requireAuth } = require('../../middleware/auth');
 
 router.get('/light/:lightId', async (req, res) => {
     try {
@@ -31,32 +32,43 @@ router.get('/light/:lightId', async (req, res) => {
     }
 });
 
-router.post('/approve', async (req, res) => {
+router.post('/approve', requireAuth, async (req, res) => {
     try {
         const { reportId } = req.body;
-        // const { userId } = req.user;
+        const userId = req.auth.userId;
+
+        if (!reportId) {
+            return res.status(400).json({ message: 'reportId obbligatorio' });
+        }
 
         const report = await Report.findById(reportId);
         if (!report) {
-            return res.status(404).json({ message: 'Report not found' });
+            return res.status(404).json({ message: 'Report non trovato' });
         }
-        // if (report.approvedBy.includes(userId)) {
-        //     return res.status(400).json({ message: 'Report already approved' });
-        // }
 
-        report.approvals.approvedCounts += 1;
-        // report.approvals.approvedBy.push(userId);
+        if (report.approvals.approvedBy.includes(userId)) {
+            return res.status(400).json({
+                message: 'Hai già votato questo report',
+                alreadyVoted: true
+            });
+        }
+
+        report.approvals.approvedBy.push(userId);
         report.data.lastApprovedAt = new Date();
         await report.save();
 
         const light = await Light.findById(report.lightId);
-        if (light) {
+        if (light && light.activeReport?.reportId?.toString() === report._id.toString()) {
             light.activeReport.approvedCounts = report.approvals.approvedCounts;
             await light.save();
         }
 
-        res.json({ message: 'Report approved successfully', approvedCounts: report.approvals.approvedCounts });
+        res.json({
+            message: 'Voto aggiunto con successo',
+            approvedCounts: report.approvals.approvedCounts
+        });
     } catch (error) {
+        console.error('Errore in /approve:', error);
         res.status(500).json({ message: error.message });
     }
 });

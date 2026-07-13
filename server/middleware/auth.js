@@ -9,7 +9,7 @@ function requireAuth(req, res, next) {
 
   try {
     const payload = jwt.verify(token, process.env.JWT_SECRET);
-    req.auth = { userId: payload.userID };
+    req.auth = { userId: payload.userID, role: payload.userRole };
     next();
   } catch (err) {
     if (err.name === "TokenExpiredError") {
@@ -19,4 +19,13 @@ function requireAuth(req, res, next) {
   }
 }
 
-module.exports = { requireAuth };
+function requireRole(...allowedRoles) {
+  return (req, res, next) => {
+    if (!req.auth || !allowedRoles.includes(req.auth.role)) {
+      return res.status(403).json({ code: "FORBIDDEN", msg: "Accesso non consentito per questo ruolo" });
+    }
+    next();
+  };
+}
+
+module.exports = { requireAuth, requireRole };

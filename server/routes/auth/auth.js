@@ -4,6 +4,7 @@ const crypto = require("crypto");
 const User = require('../../models/User');
 const { createHashed, checkPassword } = require('../../utils/cipher');
 const jwt = require("jsonwebtoken");
+const { requireAuth } = require('../../middleware/auth');
 
 router.post('/signup', async (req, res) => {
     try {
@@ -52,14 +53,13 @@ router.post('/signup', async (req, res) => {
           maxAge: 24 * 60 * 60 * 1000
         });
 
-        res.status(201).json({ msg: "Utente creato con successo" });
+        res.status(201).json({ msg: "Utente creato con successo", role: newUser.role });
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
 });
 
 router.post('/login', async (req, res) => {
-    console.log("Login request received with body:", req.body);
     try {
         const { email, password } = req.body;
 
@@ -90,6 +90,23 @@ router.post('/login', async (req, res) => {
     } catch (err) {
         res.status(500).json({ error: err.message });
     }
+});
+
+// Checks which role is the user sending the request
+router.get('/me', requireAuth, async (req, res) => {
+    try {
+        res.status(200).json({
+            userId: req.auth.userId,
+            role: req.auth.role
+        });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
+    }
+});
+
+router.post('/logout', (req, res) => {
+    res.clearCookie("lo_access_token");
+    res.status(200).json({ msg: "Logout effettuato" });
 });
 
 module.exports = router;
