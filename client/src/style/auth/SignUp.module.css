@@ -1,24 +1,27 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 
-
 .container {
-  position: fixed;
-  width: 100vw;
-  height: 100vh;
+  width: 100%;
+  min-height: 100dvh;
   background: linear-gradient(180deg, #ca8a04 0%, #a16207 40%, #1f2937 100%);
+
   display: flex;
   flex-direction: column;
-  justify-content:space-around;
   align-items: center;
-  box-sizing: border-box;
-}
 
+  padding: 2rem 1rem;
+  box-sizing: border-box;
+
+  gap: 2rem;
+  overflow-y: auto;
+}
 .header {
   text-align: center;
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 30vw;
+  width: 100%;
+  max-width: 400px;
 }
 
 .logo {
@@ -32,31 +35,30 @@
 .formContainer {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  width: 20vw;
-  height: 40vh;
-  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  gap: 1rem;
 }
-
 
 .buttonContainer {
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  width: 100%;
+  max-width: 400px;
   align-items: center;
-  height: 20vh;
-  justify-content: space-around;
+  gap: 1rem;
 }
 
 .inputContainer {
   display: flex;
   flex-direction: column;
-  width: 20vw;
+  width: 100%;
   align-items: flex-start;
 }
 
 .inputField {
-  width: 20vw;
+  width: 100%;
   padding: 0.875rem 1rem;
   border: 2px solid rgba(250, 204, 21, 0.4);
   border-radius: 0.5rem;
@@ -64,15 +66,13 @@
   background-color: rgba(255, 255, 255, 0.15);
   color: white;
   transition: all 0.2s ease;
+  box-sizing: border-box;
 }
 
 .passwordWrapper {
-  width: 24vw;
+  width: 100%;
   position: relative;
 }
-
-
-
 
 .togglePassword {
   position: absolute;
@@ -110,11 +110,8 @@
   color: #f6f6f696;
 }
 
-
-
-
 .btn {
-  width: 20vw;
+  width: 100%;
   border: none;
   border-radius: 0.5rem;
   font-size: 1rem;
@@ -125,6 +122,8 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  padding: 0.875rem 1.5rem;
+  box-sizing: border-box;
 }
 
 .btn:active {
@@ -172,9 +171,6 @@
   height: 24px;
 }
 
-
-
-
 .signupLinkContainer {
   text-align: center;
 }
@@ -195,87 +191,26 @@
 }
 
 .footer {
-  text-align: center;
+    margin-top: auto;
+    padding: 1rem 0;
 }
-
 .footer p {
   color: #9ca3af;
   font-size: 0.75rem;
   font-family: sans-serif;
 }
 
-/* Responsive styles */
-@media (max-width: 640px) {
-  .card {
-    padding: 1.5rem 1rem;
-    max-width: 100%;
-  }
-  
-  .logo {
-    font-size: 2.5rem;
-    margin-bottom: 2rem;
-  }
-  
-  .header {
-    margin-bottom: 2rem;
-  }
-  
-  .btn {
-    padding: 0.75rem 1rem;
-    font-size: 0.95rem;
-  }
-  
-  .footer {
-    margin-top: 3rem;
-  }
-}
-
-@media (min-width: 641px) and (max-width: 768px) {
-  .card {
-    max-width: 400px;
-  }
-}
-
-@media (min-width: 769px) {
-  .card {
-    padding: 3rem 2rem;
-    max-width: 450px;
-  }
-  
-  .logo {
-    font-size: 3.5rem;
-  }
-  
-  .btn {
-    padding: 1rem 2rem;
-    font-size: 1.05rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .card {
-    max-width: 480px;
-  }
-  
-  .btn:hover {
-    transform: translateY(-2px);
-  }
-  
-  .btn:active {
-    transform: translateY(0) scale(0.98);
-  }
-}
-
 .listRequi {
   list-style-type: none;
-  padding: '0 0.25rem';
-  display: 'flex';
-  flex-direction: 'column'; 
-  gap: '0.3rem';
+  padding: 0 0.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  width: 100%;
 }
 
-.requirements{
-  font-size: '0.8rem';
+.requirements {
+  font-size: 0.8rem;
 }
 
 .inputValid {
@@ -286,10 +221,32 @@
   color: rgba(248, 113, 113, 0.7);
 }
 
-.borderInputInvalid, .borderInputValid:focus {
+.borderInputValid, .borderInputValid:focus {
   border-color: rgba(74, 222, 128, 0.7);
 }
 
 .borderInputInvalid, .borderInputInvalid:focus {
   border-color: rgba(248, 113, 113, 0.7);
+}
+
+@media (max-width: 640px) {
+  .logo {
+    font-size: 2.25rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1rem;
+    font-size: 0.95rem;
+  }
+}
+
+@media (min-width: 769px) {
+  .logo {
+    font-size: 3.5rem;
+  }
+
+  .btn {
+    padding: 1rem 2rem;
+    font-size: 1.05rem;
+  }
 }
