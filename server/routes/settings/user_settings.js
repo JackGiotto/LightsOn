@@ -3,6 +3,55 @@ const router = express.Router();
 const User = require('../../models/User');
 const { requireAuth } = require('../../middleware/auth');
 
+/**
+ * @swagger
+ * /me:
+ *   get:
+ *     summary: Restituisce i dati dell'utente autenticato
+ *     tags: [User]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Dati utente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 userId:
+ *                   type: string
+ *                 email:
+ *                   type: string
+ *                   format: email
+ *                 profile:
+ *                   type: object
+ *                   properties:
+ *                     firstName:
+ *                       type: string
+ *                     lastName:
+ *                       type: string
+ *                 role:
+ *                   type: string
+ *       404:
+ *         description: Utente non trovato
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.get('/me', requireAuth, async (req, res) => {
 	try {
 		const user = await User.findById(req.auth.userId).select('email profile role');
@@ -22,6 +71,23 @@ router.get('/me', requireAuth, async (req, res) => {
 	}
 });
 
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: Logout (rimuove il cookie di accesso)
+ *     tags: [User]
+ *     responses:
+ *       200:
+ *         description: Logout effettuato con successo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ */
 router.post('/logout', (req, res) => {
 	res.clearCookie('lo_access_token', {
 		httpOnly: true,

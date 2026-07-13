@@ -4,6 +4,63 @@ const Light = require('../../models/Light');
 const Report = require('../../models/Report');
 const { requireAuth } = require('../../middleware/auth');
 
+/**
+ * @swagger
+ * /light/{lightId}:
+ *   get:
+ *     summary: Recupera la segnalazione attiva di un lampione
+ *     tags: [Reports]
+ *     parameters:
+ *       - in: path
+ *         name: lightId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: ID del lampione
+ *     responses:
+ *       200:
+ *         description: Dati della segnalazione attiva (o null se non presente)
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 activeReport:
+ *                   oneOf:
+ *                     - type: object
+ *                       properties:
+ *                         reportId:
+ *                           type: string
+ *                         approvedCounts:
+ *                           type: integer
+ *                         description:
+ *                           type: string
+ *                         state:
+ *                           type: string
+ *                     - type: 'null'
+ *       404:
+ *         description: Lampione non trovato
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 activeReport:
+ *                   type: 'null'
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 activeReport:
+ *                   type: 'null'
+ */
 router.get('/light/:lightId', async (req, res) => {
     try {
         console.log("Fetching report for light ID:", req.params.lightId);
@@ -32,7 +89,70 @@ router.get('/light/:lightId', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /approve:
+ *   post:
+ *     summary: Approva (vota) una segnalazione
+ *     tags: [Reports]
+ *     security:
+ *       - cookieAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - reportId
+ *             properties:
+ *               reportId:
+ *                 type: string
+ *                 description: ID della segnalazione da approvare
+ *     responses:
+ *       200:
+ *         description: Voto aggiunto con successo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 approvedCounts:
+ *                   type: integer
+ *       400:
+ *         description: reportId mancante o utente ha già votato
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 alreadyVoted:
+ *                   type: boolean
+ *       404:
+ *         description: Report non trovato
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 router.post('/approve', requireAuth, async (req, res) => {
+    // ... logica invariata
     try {
         const { reportId } = req.body;
         const userId = req.auth.userId;
@@ -73,6 +193,54 @@ router.post('/approve', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /new_report:
+ *   post:
+ *     summary: Crea una nuova segnalazione per un lampione
+ *     tags: [Reports]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - lightId
+ *               - userId
+ *               - description
+ *               - malfunctionType
+ *             properties:
+ *               lightId:
+ *                 type: string
+ *               userId:
+ *                 type: string
+ *               description:
+ *                 type: string
+ *               malfunctionType:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Report creato con successo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 reportId:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 router.post(['/new_report', '/new_report/'], async (req, res) => {
     try {
         console.log("Creating new report with data:", req.body);
@@ -113,7 +281,59 @@ router.post(['/new_report', '/new_report/'], async (req, res) => {
 
 // ADMIN SECTION
 
+/**
+ * @swagger
+ * /all:
+ *   get:
+ *     summary: Recupera tutte le segnalazioni (admin)
+ *     tags: [Admin]
+ *     responses:
+ *       200:
+ *         description: Lista di tutte le segnalazioni formattate
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 reports:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                       lightId:
+ *                         type: string
+ *                       date:
+ *                         type: string
+ *                         format: date-time
+ *                       problemType:
+ *                         type: string
+ *                       status:
+ *                         type: string
+ *                       upvoteCount:
+ *                         type: integer
+ *                       description:
+ *                         type: string
+ *                       producer:
+ *                         type: object
+ *                         properties:
+ *                           name:
+ *                             type: string
+ *                           phone:
+ *                             type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 router.get('/all', async (req, res) => {
+    // ... logica invariata
     try {
         const reports = await Report.find()
             .populate('lightId', 'specs.manufacturer')
@@ -130,7 +350,7 @@ router.get('/all', async (req, res) => {
             description: report.description || "",
             producer: {
                 name: report.lightId?.specs?.manufacturer || "Sconosciuto",
-                phone: "3454149835" // numero fittizio, sempre lo stesso
+                phone: "3454149835"
             }
         }));
 
@@ -140,12 +360,73 @@ router.get('/all', async (req, res) => {
     }
 });
 
-const VALID_STATUSES = ['pending', 'working on', 'resolved'];
-
+/**
+ * @swagger
+ * /status:
+ *   post:
+ *     summary: Aggiorna lo stato di una segnalazione (admin)
+ *     tags: [Admin]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - reportId
+ *               - status
+ *             properties:
+ *               reportId:
+ *                 type: string
+ *               status:
+ *                 type: string
+ *                 enum: [pending, working on, resolved]
+ *     responses:
+ *       200:
+ *         description: Stato aggiornato con successo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *                 status:
+ *                   type: string
+ *       400:
+ *         description: Valore di stato non valido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       404:
+ *         description: Report non trovato
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 router.post('/status', async (req, res) => {
+    // ... logica invariata
     try {
         const { reportId, status } = req.body;
 
+        const VALID_STATUSES = ['pending', 'working on', 'resolved'];
         if (!VALID_STATUSES.includes(status)) {
             return res.status(400).json({ message: 'Invalid status value' });
         }
@@ -160,8 +441,6 @@ router.post('/status', async (req, res) => {
 
         if (status === 'resolved') {
             const light = await Light.findById(report.lightId);
-            // Only clear the light's activeReport if it's still pointing at this
-            // report, so we don't wipe out a newer report on the same light.
             if (light && light.activeReport?.reportId?.toString() === report._id.toString()) {
                 light.activeReport = { reportId: null, approvedCounts: 0 };
                 await light.save();
@@ -175,6 +454,3 @@ router.post('/status', async (req, res) => {
 });
 
 module.exports = router;
-
-
-
