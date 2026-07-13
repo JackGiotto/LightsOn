@@ -3,8 +3,18 @@ import { Link } from "react-router";
 
 export const Logo = ({userType}) => {
     return (
-        <Link to={`${userType}/settings`}>
-            <img src="/Logo.png"></img>
-        </Link>
+        <>
+            {userType === "/citizen" ? 
+                (
+                    <Link to="/citizen">
+                        <img src="/Logo.png"></img>
+                    </Link>
+                ) : (
+                    <Link to="/dashboard">
+                        <img src="/Logo.png"></img>
+                    </Link>
+                )
+            }
+        </>
     );
 }

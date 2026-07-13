@@ -37,9 +37,9 @@ export const NavBar = () => {
                     <ul>
                         <Link to="/dashboard" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Dashboard</li></Link>
 
-                                <Link to="/dashboard/lampioni" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Stato lampioni</li></Link>
+                                <Link to="/dashboard/streetlamps" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Stato lampioni</li></Link>
                                 <Link to="/dashboard/weeks" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza settimane</li></Link>
-                                <Link to="/dashboard/stagioni" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza stagioni</li></Link>
+                                <Link to="/dashboard/seasons" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza stagioni</li></Link>
                                 <Link to="/dashboard/avg-age" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Età media</li></Link>
                                 <Link to="/dashboard/consumes" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Consumi</li></Link>
                                 <Link to="/dashboard/dashboardMap" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Analizza dalla mappa</li></Link>
@@ -51,6 +51,8 @@ export const NavBar = () => {
                                 <Link to="/settings/settings2" onClick={() => {setOpen(!isOpen)}}><li className={styles.subcategory}>Preferenze</li></Link>
 
                                 <Link to="/contacts" onClick={() => {setOpen(!isOpen)}}><li className={styles.category}>Contatti</li></Link>
+                                <Link to=""><li className={styles.category}>Crea Utente Admin</li></Link>
+                                <Link to=""><li className={styles.category}>Help Center</li></Link>
 
                     </ul>
                         

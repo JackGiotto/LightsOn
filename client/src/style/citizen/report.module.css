@@ -54,7 +54,6 @@ h3 {
     width: 30vw;
     align-items: center;
     justify-content: space-around;
-    margin-bottom: 20vh;
 }
 
 .formContainer label {
@@ -74,6 +73,24 @@ h3 {
 .formContainer input:focus {
     outline: none;
 
+}
+
+.alertButton {
+    width: 300px;
+    height: 80px;
+    z-index: 1100;
+    background-color: #F40B0B;
+    bottom: 50px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 8px 8px 8px black;
+    box-shadow:inset -8px -8px 8px rgb(0, 0, 0, 0.5);
+    font-family: Inter;
+    font-weight: bolder;
+    font-size: 30px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px black;
+    cursor: pointer;
 }
 
 @media (max-width: 1000px)  {

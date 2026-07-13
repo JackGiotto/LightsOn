@@ -8,15 +8,14 @@ import { useState } from "react";
 export const CitizenNavBar = () => {
 
     const [isOpen, setOpen] = useState(false)
-
     
 
     return (
         <>
            
             <header className={styles.container}>
-                <div className={styles.logo}>
-                    <Logo userType={"/citizen"} />
+                <div className={styles.logo}  onClick={() => {setOpen(false)}}>
+                    <Logo userType={"/citizen"}/>
                 </div>
                 <ul className={styles.navbarList}>
                     <li className={styles.navElement}><Link to="/citizen/settings">Impostazioni</Link></li>
@@ -42,7 +41,6 @@ export const CitizenNavBar = () => {
 
                         <li className={styles.category}><Link to="/contacts"><h3>Contatti</h3></Link></li>
 
-                        <li className={styles.subcategory}>Sottocategoria contatti</li>
                     </ul>
                         
                 </div>

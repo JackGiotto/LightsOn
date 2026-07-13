@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styles from "../../style/citizen/report.module.css";
-import styles1 from "../../style/citizen/citizen.module.css";
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import { ReportContext } from "./ReportContext";
@@ -73,8 +72,8 @@ export const CitizenReport = () => {
                 <label>Se vuoi aggiungere una descrizione o una foto</label>
                 <input placeholder="Descrizione..." type="text" onChange={handleDescriptionChange} value={description}></input>
             </form>
-
-            <button type="button" className={styles1.alertButton} onClick={createReport}>Segnala</button>
+            
+            <button className={styles.alertButton} onClick={createReport}>Segnala</button>
         </div>
     );
 }

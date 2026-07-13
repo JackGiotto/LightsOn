@@ -92,24 +92,27 @@
 
 
     .accordion.open {
-        height: 35rem;
+        height: auto;
         padding: 2rem;
     }
 
+
     .accordion ul {
         list-style: none;
-        margin-top: 5vh;
+        margin-top: 2vh;
         margin-left: 0;
     }
 
     .category {
         font-family: Inter;
         font-size: 24px;
-        width: auto;
-        text-align: start;
         font-weight: bold;
         margin-bottom: 1rem;
         margin-top: 1rem;
+    }
+
+    .category h3 {
+        text-align: start;
     }
 
     .subcategory {
@@ -123,3 +126,4 @@
         color: black;
     }
 }
+

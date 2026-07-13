@@ -39,6 +39,10 @@ h1 {
     color: #FFFFFF;
     font-weight: bold;
     font-size: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .leftElements {
@@ -89,7 +93,6 @@ h1 {
 
 .inactive {
     background-color: #F40B0B;
-    box-shadow: 8px 8px 8px #F40B0B;
 }
 
 @media (max-width: 1000px) {
