@@ -1,0 +1,22 @@
+import React from "react";
+import styles from "../../style/sidebar.module.css";
+import { Link } from "react-router";
+
+export const CitizenSideBar = () => {
+
+
+
+    return (
+        <div className={styles.container}>
+            <h1 className={styles.title}>Impostazioni</h1>
+            <ul className={styles.sidebarList}>
+                <Link to="/citizen/settings/settings1"><li><h3>Account</h3></li></Link>
+                <Link to="/citizen/settings/settings2"><li><h3>Preferenze</h3></li></Link>
+                <li><h3>Help Center</h3></li>
+            </ul>
+            <footer>
+                <p>Comune di Trento<br></br>LightsOn© - 2026</p>
+            </footer>
+        </div>
+    )
+}

@@ -1,0 +1,125 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    background-color: #171D1B;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+    font-family: 'Inter', 'sans-serif';
+    color: #FFF;
+}
+
+h3 {
+    text-align: center;
+}
+
+
+.arrow {
+    position: absolute;
+    top: 50px;
+    left: 50px;
+    cursor: pointer;
+}
+
+.list {
+    list-style: none;
+    padding: 0;
+}
+
+.list li {
+    min-width: 200px;
+    width: 15vw;
+    height: 30px;
+    padding: 25px;
+    border-radius: 10px;
+    background-color: #2E2E2E;
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.list li.selected {
+    background-color: black;
+}
+
+.formContainer {
+    display: flex;
+    flex-direction: column;
+    height: 10vh;
+    width: 30vw;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.formContainer label {
+    width: 50vw;
+    text-align: center;
+}
+
+.formContainer input {
+    border-radius: 15px;
+    box-shadow: 4px 4px 8px rgb(0,0,0,0.5);
+    border: none;
+    padding: 1rem;
+    width: 300px;
+    margin-top: 1rem;
+}
+
+.formContainer input:focus {
+    outline: none;
+
+}
+
+.alertButton {
+    width: 300px;
+    height: 80px;
+    z-index: 1100;
+    background-color: #F40B0B;
+    bottom: 50px;
+    border-radius: 30px;
+    border: none;
+    box-shadow: 8px 8px 8px black;
+    box-shadow:inset -8px -8px 8px rgb(0, 0, 0, 0.5);
+    font-family: Inter;
+    font-weight: bolder;
+    font-size: 30px;
+    color: #FFFFFF;
+    text-shadow: 2px 2px 4px black;
+    cursor: pointer;
+}
+
+@media (max-width: 1000px)  {
+
+    h3 {
+        width: 80vw;
+    }
+
+    .list {
+        align-items: center;
+        list-style-type: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        width: 100vw;
+    }
+
+    .list li {
+        width: 70vw;
+        align-self: center;
+    }
+
+
+    form {
+        width: 90vw;
+        height: 15vh;
+    }
+
+    form input {
+        width: 70vw;
+    }
+}

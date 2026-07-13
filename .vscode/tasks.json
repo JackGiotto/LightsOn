@@ -1,0 +1,103 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "🚀 Docker: Start Dev (All)",
+            "type": "shell",
+            "command": "cd client && npm install --legacy-peer-deps; cd ../server && npm install; cd .. && docker compose --profile dev up --build",
+            "group": "build",
+            "windows": {
+                "command": "cd client; npm install --legacy-peer-deps; cd ../server; npm install; cd ..; docker compose --profile dev up --build"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "💻 Docker: Start Client Only",
+            "type": "shell",
+            "command": "cd client && npm install --legacy-peer-deps; cd .. && docker compose --profile dev-client up --build",
+            "group": "build",
+            "windows": {
+                "command": "cd client; npm install --legacy-peer-deps; cd ..; docker compose --profile dev-client up --build"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "⚡ Docker: Start Server Only",
+            "type": "shell",
+            "command": "cd server && npm install; cd .. && docker compose --profile dev-server up --build",
+            "group": "build",
+            "windows": {
+                "command": "cd server; npm install; cd ..; docker compose --profile dev-server up --build"
+            },
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "🛑 Docker: Stop All",
+            "type": "shell",
+            "command": "docker compose --profile dev down",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "🧼 Docker: Safe Clean Frontend Cache (Keep Mongo Data)",
+            "type": "shell",
+            "command": "docker compose --profile dev down -v && sudo chown -R $(id -u):$(id -g) . && rm -rf client/node_modules server/node_modules",
+            "group": "build",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "📜 Docker: Logs Backend",
+            "type": "shell",
+            "command": "docker compose --profile dev logs -f backend-dev",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "📜 Docker: Logs MongoDB",
+            "type": "shell",
+            "command": "docker compose --profilpe dev logs -f mongodb-dev",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "📄 Docker: Backend Last 200 Lines",
+            "type": "shell",
+            "command": "docker compose --profile dev logs --tail=200 backend-dev",
+            "group": "test",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        },
+        {
+            "label": "💥 RISK: Wipe All Docker Containers & Images",
+            "type": "shell",
+            "command": "docker compose down --rmi all --volumes --remove-orphans && docker system prune -a --volumes -f",
+            "group": "none",
+            "presentation": {
+                "reveal": "always",
+                "panel": "new"
+            }
+        }
+    ]
+}

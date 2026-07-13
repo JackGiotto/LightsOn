@@ -1,0 +1,96 @@
+//  Imports of the components
+
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ProtectedRoute } from "./ProtectedRoute.jsx";
+import { RootRedirect } from "./RootRedirect.jsx";
+import { Layout } from "../components/Layout.jsx";
+import { AuthProvider } from "../pages/auth/AuthContext.jsx";
+import { Settings1 } from "../pages/Settings1.jsx";
+import { Settings2 } from "../pages/Settings2.jsx";
+import { Weeks } from "../pages/dashboard/Weeks.jsx";
+import { Consumes } from "../pages/dashboard/Consumes.jsx";
+import { AvgAge } from "../pages/dashboard/AvgAge.jsx";
+import { DashboardMap } from "../pages/dashboard/DashboardMap.jsx";
+import { Seasons } from "../pages/dashboard/Seasons.jsx";
+import { Reports } from "../pages/dashboard/Reports.jsx";
+import { StreetLamps } from "../pages/dashboard/SteetLamps.jsx";
+import { DashboardLayout } from "../pages/dashboard/DashboardLayout.jsx";
+import { Contacts } from "../pages/Contacts.jsx";
+// import { MapPage } from "../pages/base_map/base_map.jsx";
+import { CitizenHome } from "../pages/citizen/CitizenHome.jsx";
+import { CitizenReport } from "../pages/citizen/CitizenReport.jsx";
+import Login from "../pages/auth/Login.jsx";
+import SignUp from "../pages/auth/SignUp.jsx";
+import { ReportContext } from "../pages/citizen/ReportContext.jsx";
+import { useState } from "react";
+import { CitizenSettingsLayout } from "../pages/citizen/CitizenSettingsLayout.jsx";
+import { CitizenSettings1 } from "../pages/citizen/CitizenSettings1.jsx";
+import { CitizenSettings2 } from "../pages/citizen/CitizenSettings2.jsx";
+import { CitizenContacts } from "../components/citizen/CitizenContacts.jsx";
+
+
+//  Routing component
+
+function AppRouter() {
+  const [reportLamp, setReportLamp] = useState(null);
+  console.log(reportLamp);
+
+  return (
+    <AuthProvider>
+      <ReportContext.Provider value={{ reportLamp, setReportLamp }}>
+        <BrowserRouter>
+          <Routes>
+
+          <Route path="/" element={<RootRedirect />} />
+
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path='/settings' element={<Layout />}>
+              <Route index element={<Navigate to="settings1" replace/>} />
+              <Route path='settings1' element={<Settings1 />}></Route>
+              <Route path='settings2' element={<Settings2 />}></Route>
+            </Route>
+          </Route>
+
+          <Route element={<ProtectedRoute allowedRoles={['admin']} />}>
+            <Route path='/dashboard' element={<DashboardLayout />}>
+              <Route index element={<Navigate to="streetLamps" replace/>} />
+              <Route path='weeks' element={<Weeks />}></Route>
+              <Route path='seasons' element={<Seasons />}></Route>
+              <Route path='streetLamps' element={<StreetLamps />}></Route>
+              <Route path='avg-age' element={<AvgAge />}></Route>
+              <Route path='consumes' element={<Consumes />}></Route>
+              <Route path='dashboardMap' element={<DashboardMap />}></Route>
+              <Route path='reports' element={<Reports />}></Route>
+            </Route>
+          </Route>
+
+          {/* <Route path='/contacts' element={<Contacts />}></Route> */}
+
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<SignUp />}></Route>
+          <Route path="/Login" element={<Navigate to="/login" replace />}></Route>
+          <Route path="/SignUp" element={<Navigate to="/signup" replace />}></Route>
+
+          /* Citizen Routing */
+
+          <Route path="/citizen" element={<CitizenHome />}></Route>
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path="/citizen/report" element={<CitizenReport></CitizenReport>}></Route>
+          </Route>
+          
+          <Route element={<ProtectedRoute allowedRoles={['user']} />}>
+            <Route path='/citizen/settings' element={<CitizenSettingsLayout />}>
+              <Route index element={<Navigate to="/citizen/settings/settings1" replace/>} />
+              <Route path='settings1' element={<CitizenSettings1 />}></Route>
+              <Route path='settings2' element={<Settings2 />}></Route>
+            </Route>
+          </Route>
+          <Route path="/citizen/contacts" element={<CitizenContacts></CitizenContacts>}></Route>
+          </Routes>
+        </BrowserRouter>
+      </ReportContext.Provider>
+    </AuthProvider>
+  );
+}
+
+export default AppRouter;
