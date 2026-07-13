@@ -43,7 +43,17 @@ h1 {
     font-weight: bold;
     font-size: 20px;
     flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
+
+.overviewElement.uptime {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
 
 .rightContainer {
   flex-grow: 2;

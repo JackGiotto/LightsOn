@@ -30,7 +30,7 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 30vw;
+    width: 35vw;
     background-color: #FFFFFF;
     border: 1px solid #F4C50B   ;
     border-radius: 15px;
@@ -50,14 +50,24 @@
     margin: 0;
     min-height: 12rem;
     font-weight: 500;
+    width: 30%;
 }
 
 .section p {
     margin: 0;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-around;
     align-items: center;
-    width: 120px;
+    width: 100px;
+    text-align: center;
+  overflow-wrap: break-word;
+
+}
+
+.section p.lampId {
+    display: inline;
+
 }
 
 .contactButton {
@@ -233,7 +243,8 @@
 
 
     .reportElement {
-        width: 80vw;
+        width: 70vw;
+        flex-direction: column;
     }
 
 }

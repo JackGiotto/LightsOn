@@ -73,7 +73,7 @@ const Report = ({report, onStatusChange}) => {
                                     month: '2-digit',
                                     year: 'numeric'
                                 })}</p>
-                                <p>Lampione {report.id}</p>
+                                <p className={styles.lampId}>Lampione {report.id}</p>
                                 <p>Produttore<br></br>{report.producer.name}</p>
                             </div>
 

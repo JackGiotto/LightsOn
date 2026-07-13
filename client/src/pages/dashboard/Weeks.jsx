@@ -9,6 +9,8 @@ function Overview({showOverview, setShowOverview, overviewData})  {
   if(!showOverview) {
     return null
   }
+
+
   return(
           <div className={styles.overview}>
             <img className={styles.close} src="/close.png" width={15} onClick={() => setShowOverview(false)}></img>
@@ -78,8 +80,10 @@ export const Weeks = () => {
   useEffect(() => {
     const fetchPrices = async () => {
       try {
-      const response = await fetch(`${import.meta.env.VITE_BACKEND_URL}/api/energy-prices`);
+      const response = await fetch(`${import.meta.env.VITE_API_URL}/api/energy-prices`);
       
+  console.log("Costo");
+  console.log(response);
 
       if (!response.ok) {
           throw new Error(`HTTP error! Status: ${response.status}`);
