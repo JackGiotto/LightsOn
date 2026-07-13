@@ -3,6 +3,7 @@
     height: 100vh;
     position: fixed;
     top: 0;
+    left: 0;
     background-color: #171D1B;
     display: flex;
     align-items: center;
@@ -10,6 +11,13 @@
     justify-content: space-around;
     font-family: 'Inter', 'sans-serif';
     color: #FFF;
+    overflow-y: auto;
+    box-sizing: border-box;
+    padding: 2rem 0;
+}
+
+.container > * {
+    flex-shrink: 0;
 }
 
 h3 {
@@ -50,7 +58,7 @@ h3 {
 .formContainer {
     display: flex;
     flex-direction: column;
-    height: 10vh;
+    min-height: 10vh;
     width: 30vw;
     align-items: center;
     justify-content: space-around;
