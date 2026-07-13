@@ -2,6 +2,51 @@ const express = require('express');
 const router = express.Router();
 const Light = require('../../models/Light');
 
+/**
+ * @swagger
+ * /lights/age:
+ *   get:
+ *     summary: Calcola l'età di ogni lampione in base alla data di installazione
+ *     tags: [Lights]
+ *     responses:
+ *       200:
+ *         description: Lista di lampioni con età calcolata, ordinati per età decrescente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 type: object
+ *                 properties:
+ *                   id:
+ *                     type: string
+ *                     description: ID del lampione
+ *                   manufacturer:
+ *                     type: string
+ *                     description: Produttore del lampione
+ *                   installationDate:
+ *                     type: string
+ *                     format: date
+ *                     description: Data di installazione
+ *                   age:
+ *                     type: number
+ *                     nullable: true
+ *                     description: Età in anni (approssimata a un decimale) o null se data mancante
+ *                   coordinates:
+ *                     type: array
+ *                     items:
+ *                       type: number
+ *                     description: Coordinate geografiche [longitudine, latitudine]
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.get('/lights/age', async (req, res) => {
     try {
         const lights = await Light.find()
@@ -34,6 +79,58 @@ router.get('/lights/age', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /lights/stats:
+ *   get:
+ *     summary: Statistiche globali dei lampioni (attivi, inattivi, interventi in corso)
+ *     tags: [Lights]
+ *     responses:
+ *       200:
+ *         description: Oggetto con statistiche e interventi
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 total:
+ *                   type: integer
+ *                   description: Numero totale di lampioni
+ *                 active:
+ *                   type: integer
+ *                   description: Numero di lampioni attivi (senza segnalazioni attive)
+ *                 inactive:
+ *                   type: integer
+ *                   description: Numero di lampioni inattivi (con segnalazione attiva)
+ *                 interventions:
+ *                   type: array
+ *                   description: Interventi in corso o in attesa
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       lightId:
+ *                         type: string
+ *                         description: ID del lampione
+ *                       status:
+ *                         type: string
+ *                         enum: [pending, working on]
+ *                         description: Stato della segnalazione
+ *                       description:
+ *                         type: string
+ *                         description: Descrizione della segnalazione
+ *                       reportId:
+ *                         type: string
+ *                         description: ID della segnalazione
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.get('/lights/stats', async (req, res) => {
     try {
         const totalLights = await Light.countDocuments();

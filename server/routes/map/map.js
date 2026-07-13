@@ -2,6 +2,88 @@ const express = require('express');
 const router = express.Router();
 const Light = require('../../models/Light');
 
+/**
+ * @swagger
+ * /lights:
+ *   get:
+ *     summary: Recupera i lampioni in base alla viewport e al livello di zoom (step)
+ *     tags: [Lights]
+ *     parameters:
+ *       - in: query
+ *         name: minLat
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Latitudine minima del bounding box
+ *       - in: query
+ *         name: maxLat
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Latitudine massima del bounding box
+ *       - in: query
+ *         name: minLng
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Longitudine minima del bounding box
+ *       - in: query
+ *         name: maxLng
+ *         required: true
+ *         schema:
+ *           type: number
+ *         description: Longitudine massima del bounding box
+ *       - in: query
+ *         name: step
+ *         schema:
+ *           type: string
+ *           default: "1"
+ *         description: Livello di zoom (1, 2 o 3). Determina l'area effettiva e la fascia esterna da considerare.
+ *       - in: query
+ *         name: viewId
+ *         schema:
+ *           type: string
+ *         description: Identificativo della vista (utile per il frontend)
+ *     responses:
+ *       200:
+ *         description: Lista di lampioni nell'area richiesta
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 viewId:
+ *                   type: string
+ *                   description: Identificativo della vista passato come parametro
+ *                 step:
+ *                   type: integer
+ *                   description: Livello di zoom convertito in intero
+ *                 lights:
+ *                   type: array
+ *                   items:
+ *                     type: object
+ *                     properties:
+ *                       id:
+ *                         type: string
+ *                         description: ID del lampione
+ *                       position:
+ *                         type: array
+ *                         items:
+ *                           type: number
+ *                         description: Coordinate [latitudine, longitudine]
+ *                       approvedCounts:
+ *                         type: integer
+ *                         description: Numero di segnalazioni approvate per questo lampione
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 message:
+ *                   type: string
+ */
 router.get('/lights', async (req, res) => {
     try {
         const { minLat, maxLat, minLng, maxLng, step = "1", viewId } = req.query;

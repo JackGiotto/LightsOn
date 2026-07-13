@@ -6,6 +6,65 @@ const { createHashed, checkPassword } = require('../../utils/cipher');
 const jwt = require("jsonwebtoken");
 const { requireAuth } = require('../../middleware/auth');
 
+/**
+ * @swagger
+ * /signup:
+ *   post:
+ *     summary: Registrazione nuovo utente
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *               - firstName
+ *               - lastName
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *                 minLength: 8
+ *               firstName:
+ *                 type: string
+ *               lastName:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Utente creato con successo, token JWT nel cookie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                 role:
+ *                   type: string
+ *       400:
+ *         description: Campi mancanti o email già esistente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.post('/signup', async (req, res) => {
     try {
     const {
@@ -59,6 +118,58 @@ router.post('/signup', async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Login utente
+ *     tags: [Auth]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - email
+ *               - password
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 format: email
+ *               password:
+ *                 type: string
+ *     responses:
+ *       200:
+ *         description: Login riuscito, token JWT nel cookie
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *                 role:
+ *                   type: string
+ *       400:
+ *         description: Credenziali errate
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.post('/login', async (req, res) => {
     try {
         const { email, password } = req.body;
@@ -92,7 +203,45 @@ router.post('/login', async (req, res) => {
     }
 });
 
-// Checks which role is the user sending the request
+/**
+ * @swagger
+ * /me:
+ *   get:
+ *     summary: Restituisce il ruolo dell'utente autenticato
+ *     tags: [Auth]
+ *     security:
+ *       - cookieAuth: []
+ *     responses:
+ *       200:
+ *         description: Dati utente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 userId:
+ *                   type: string
+ *                 role:
+ *                   type: string
+ *       401:
+ *         description: Non autenticato
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.get('/me', requireAuth, async (req, res) => {
     try {
         res.status(200).json({
@@ -104,6 +253,32 @@ router.get('/me', requireAuth, async (req, res) => {
     }
 });
 
+/**
+ * @swagger
+ * /logout:
+ *   post:
+ *     summary: Logout (rimuove il cookie di accesso)
+ *     tags: [Auth]
+ *     responses:
+ *       200:
+ *         description: Logout effettuato con successo
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 msg:
+ *                   type: string
+ *       500:
+ *         description: Errore del server
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ */
 router.post('/logout', (req, res) => {
     res.clearCookie("lo_access_token");
     res.status(200).json({ msg: "Logout effettuato" });

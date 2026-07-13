@@ -4,12 +4,16 @@ const mongoose = require("mongoose");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
+// const swaggerUi = require('swagger-ui-express');
+// const swaggerSpec = require('./swagger');
+
 const app = express();
 const authRoutes = require("./routes/auth/auth");
 const settingsRoutes = require("./routes/settings/user_settings");
 const mapRoutes = require("./routes/map/map");
 const reportRoutes = require("./routes/report/report");
 const dashboardRoutes = require("./routes/dashboard/dashboard");
+
 
 const PORT = process.env.PORT
 const MONGODB_URI = process.env.MONGODB_URI;
@@ -19,7 +23,7 @@ mongoose.connect(MONGODB_URI)
   .catch(err => console.error("MongoDB connection error:", err));
 
 app.use(cors({
-  origin: true,       // TODO(#6): Temporary we will replace it with an allowlist of approved frontend URL(s).
+  origin: true,
   credentials: true
 }));
 app.use(cookieParser());
@@ -41,5 +45,12 @@ app.get('/api/energy-prices', getEnergyPrice);
 
 
 app.get('/api/weather', getWeather);
+
+// app.get('/api-docs.json', (req, res) => {
+//   res.setHeader('Content-Type', 'application/json');
+//   res.send(swaggerSpec);
+// });
+
+// app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
