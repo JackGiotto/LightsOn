@@ -28,7 +28,6 @@ and of the citizen map:
 
 ## Running
 
-(Mettiamo il comando per runnare l'applicazione)
 
 You can run a docker image of the project with:
 ` docker compose --profile dev up --build`
