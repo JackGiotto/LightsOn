@@ -1,4 +1,6 @@
-# LightsOn
+<div align="center">
+  <img src="./client/public/Logo.png" alt="LightsOn logo"  width="30%"/>
+</div>
 
 **LightsOn** is a MERN application created as a Software Engineering Project at the University of Trento (UniTn).
 The goal of the app is being a platform with 2 intended user personas: citizen and staff of a municipality for a smart-city.
